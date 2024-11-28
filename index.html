@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat Game</title>
+    <title>百家乐游戏</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>百家乐游戏</h1>
     <div id="game-container">
-        <p>请选择投注类型:</p>
-        <button id="player-button">投注玩家赢</button>
-        <button id="banker-button">投注庄家赢</button>
-        <button id="tie-button">投注平局</button>
+        <h1>百家乐游戏</h1>
+        <div id="score-board">当前积分：<span id="score">1000</span> | 余额：<span id="currency">1000</span></div>
+        
+        <div id="bet-section">
+            <label for="bet-amount">下注金额：</label>
+            <input type="number" id="bet-amount" value="100" min="10" max="1000">
+        </div>
+
+        <div id="buttons">
+            <button id="player-bet">投注玩家赢</button>
+            <button id="banker-bet">投注庄家赢</button>
+            <button id="tie-bet">投注平局</button>
+        </div>
+
+        <div id="card-section">
+            <div id="player-hand" class="hand">
+                <h2>玩家手牌</h2>
+                <div id="player-cards" class="cards"></div>
+            </div>
+            <div id="banker-hand" class="hand">
+                <h2>庄家手牌</h2>
+                <div id="banker-cards" class="cards"></div>
+            </div>
+        </div>
+
+        <div id="result"></div>
+        <div id="history-board"></div>
     </div>
-    <div id="result-container">
-        <p id="result"></p>
-    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,33 +1,76 @@
-document.getElementById("player-button").addEventListener("click", function() {
-    playGame("player");
-});
+let score = 1000;
+let currency = 1000;
 
-document.getElementById("banker-button").addEventListener("click", function() {
-    playGame("banker");
-});
+function dealCard() {
+    return Math.floor(Math.random() * 10) + 1; // 随机生成1-10的牌
+}
 
-document.getElementById("tie-button").addEventListener("click", function() {
-    playGame("tie");
-});
+function displayCards(cardsContainer, cards) {
+    cardsContainer.innerHTML = '';
+    cards.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.textContent = card;
+        cardsContainer.appendChild(cardElement);
+    });
+}
 
-function playGame(bet) {
-    const outcomes = ["player", "banker", "tie"];
-    const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+function calculateScore(cards) {
+    return cards.reduce((acc, card) => acc + card, 0) % 10; // 百家乐得分计算
+}
 
-    let message = "";
-    if (bet === result) {
-        message = `恭喜！您投注${translate(bet)}赢了！`;
+function updateScoreBoard() {
+    document.getElementById('score').textContent = score;
+    document.getElementById('currency').textContent = currency;
+}
+
+function playGame(betType) {
+    const betAmount = parseInt(document.getElementById('bet-amount').value);
+    if (currency < betAmount) {
+        alert('余额不足，请重新下注！');
+        return;
+    }
+
+    currency -= betAmount;
+
+    const playerCards = [dealCard(), dealCard()];
+    const bankerCards = [dealCard(), dealCard()];
+    const playerScore = calculateScore(playerCards);
+    const bankerScore = calculateScore(bankerCards);
+
+    const playerCardsContainer = document.getElementById('player-cards');
+    const bankerCardsContainer = document.getElementById('banker-cards');
+
+    displayCards(playerCardsContainer, playerCards);
+    displayCards(bankerCardsContainer, bankerCards);
+
+    let resultText = '';
+    if (playerScore > bankerScore) {
+        resultText = '玩家赢！';
+        if (betType === 'player') {
+            currency += betAmount * 2;
+            score += 10;
+        }
+    } else if (playerScore < bankerScore) {
+        resultText = '庄家赢！';
+        if (betType === 'banker') {
+            currency += betAmount * 1.95;
+            score += 10;
+        }
     } else {
-        message = `很遗憾，您投注${translate(bet)}输了。结果是${translate(result)}！`;
+        resultText = '平局！';
+        if (betType === 'tie') {
+            currency += betAmount * 8;
+            score += 20;
+        }
     }
 
-    document.getElementById("result").innerText = message;
+    document.getElementById('result').textContent = resultText;
+    updateScoreBoard();
 }
 
-function translate(outcome) {
-    switch (outcome) {
-        case "player": return "玩家赢";
-        case "banker": return "庄家赢";
-        case "tie": return "平局";
-    }
-}
+document.getElementById('player-bet').addEventListener('click', () => playGame('player'));
+document.getElementById('banker-bet').addEventListener('click', () => playGame('banker'));
+document.getElementById('tie-bet').addEventListener('click', () => playGame('tie'));
+
+updateScoreBoard();
