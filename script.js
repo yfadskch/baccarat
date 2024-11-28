@@ -1,76 +1,68 @@
-let score = 1000;
-let currency = 1000;
+// 初始虚拟货币和积分
+let virtualCurrency = 1000;
+let playerPoints = 0;
 
-function dealCard() {
-    return Math.floor(Math.random() * 10) + 1; // 随机生成1-10的牌
+// 更新 UI
+function updateGameInfo() {
+    document.getElementById('virtual-currency').textContent = virtualCurrency;
+    document.getElementById('player-points').textContent = playerPoints;
 }
 
-function displayCards(cardsContainer, cards) {
-    cardsContainer.innerHTML = '';
-    cards.forEach(card => {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'card';
-        cardElement.textContent = card;
-        cardsContainer.appendChild(cardElement);
-    });
-}
-
-function calculateScore(cards) {
-    return cards.reduce((acc, card) => acc + card, 0) % 10; // 百家乐得分计算
-}
-
-function updateScoreBoard() {
-    document.getElementById('score').textContent = score;
-    document.getElementById('currency').textContent = currency;
-}
-
+// 游戏逻辑，玩家投注并获胜时增加积分和虚拟货币
 function playGame(betType) {
-    const betAmount = parseInt(document.getElementById('bet-amount').value);
-    if (currency < betAmount) {
-        alert('余额不足，请重新下注！');
-        return;
-    }
+    const outcomes = ['player', 'banker', 'tie'];
+    const randomIndex = Math.floor(Math.random() * outcomes.length);
+    const result = outcomes[randomIndex];
 
-    currency -= betAmount;
+    const betAmount = 100; // 固定投注金额
+    let message = '';
 
-    const playerCards = [dealCard(), dealCard()];
-    const bankerCards = [dealCard(), dealCard()];
-    const playerScore = calculateScore(playerCards);
-    const bankerScore = calculateScore(bankerCards);
-
-    const playerCardsContainer = document.getElementById('player-cards');
-    const bankerCardsContainer = document.getElementById('banker-cards');
-
-    displayCards(playerCardsContainer, playerCards);
-    displayCards(bankerCardsContainer, bankerCards);
-
-    let resultText = '';
-    if (playerScore > bankerScore) {
-        resultText = '玩家赢！';
-        if (betType === 'player') {
-            currency += betAmount * 2;
-            score += 10;
-        }
-    } else if (playerScore < bankerScore) {
-        resultText = '庄家赢！';
-        if (betType === 'banker') {
-            currency += betAmount * 1.95;
-            score += 10;
-        }
+    if (result === betType) {
+        virtualCurrency += betAmount;
+        playerPoints += 10; // 每次获胜增加 10 积分
+        message = `恭喜！你赢了，增加 ${betAmount} 虚拟货币和 10 积分！`;
     } else {
-        resultText = '平局！';
-        if (betType === 'tie') {
-            currency += betAmount * 8;
-            score += 20;
-        }
+        virtualCurrency -= betAmount;
+        message = `很遗憾，你输了，减少 ${betAmount} 虚拟货币。`;
     }
 
-    document.getElementById('result').textContent = resultText;
-    updateScoreBoard();
+    document.getElementById('result-message').textContent = message;
+    updateGameInfo();
 }
 
-document.getElementById('player-bet').addEventListener('click', () => playGame('player'));
-document.getElementById('banker-bet').addEventListener('click', () => playGame('banker'));
-document.getElementById('tie-bet').addEventListener('click', () => playGame('tie'));
+// 兑换奖励逻辑
+function redeemExtraBet() {
+    if (playerPoints >= 100) {
+        playerPoints -= 100;
+        alert('兑换成功！你获得了额外投注机会！');
+    } else {
+        alert('积分不足，无法兑换额外投注机会。');
+    }
+    updateGameInfo();
+}
 
-updateScoreBoard();
+function redeemSpecialCard() {
+    if (playerPoints >= 200) {
+        playerPoints -= 200;
+        alert('兑换成功！你获得了一张特殊卡牌！');
+    } else {
+        alert('积分不足，无法兑换特殊卡牌。');
+    }
+    updateGameInfo();
+}
+
+// 显示和关闭兑换弹窗
+document.getElementById('redeem-points').addEventListener('click', () => {
+    document.getElementById('reward-modal').style.display = 'block';
+});
+
+document.getElementById('close-modal').addEventListener('click', () => {
+    document.getElementById('reward-modal').style.display = 'none';
+});
+
+// 绑定兑换按钮事件
+document.getElementById('redeem-extra-bet').addEventListener('click', redeemExtraBet);
+document.getElementById('redeem-special-card').addEventListener('click', redeemSpecialCard);
+
+// 初始化游戏信息
+updateGameInfo();

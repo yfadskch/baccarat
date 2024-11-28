@@ -7,34 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <h1>百家乐游戏</h1>
-        <div id="score-board">当前积分：<span id="score">1000</span> | 余额：<span id="currency">1000</span></div>
-        
-        <div id="bet-section">
-            <label for="bet-amount">下注金额：</label>
-            <input type="number" id="bet-amount" value="100" min="10" max="1000">
-        </div>
+    <h1>百家乐游戏</h1>
+    <div id="game-info">
+        <p>虚拟货币: <span id="virtual-currency">1000</span></p>
+        <p>积分: <span id="player-points">0</span></p>
+        <button id="redeem-points">兑换奖励</button>
+    </div>
+    
+    <div id="game-controls">
+        <h2>请选择投注类型:</h2>
+        <button onclick="playGame('player')">投注玩家赢</button>
+        <button onclick="playGame('banker')">投注庄家赢</button>
+        <button onclick="playGame('tie')">投注平局</button>
+    </div>
 
-        <div id="buttons">
-            <button id="player-bet">投注玩家赢</button>
-            <button id="banker-bet">投注庄家赢</button>
-            <button id="tie-bet">投注平局</button>
-        </div>
+    <div id="game-result">
+        <p id="result-message"></p>
+    </div>
 
-        <div id="card-section">
-            <div id="player-hand" class="hand">
-                <h2>玩家手牌</h2>
-                <div id="player-cards" class="cards"></div>
-            </div>
-            <div id="banker-hand" class="hand">
-                <h2>庄家手牌</h2>
-                <div id="banker-cards" class="cards"></div>
-            </div>
-        </div>
-
-        <div id="result"></div>
-        <div id="history-board"></div>
+    <div id="reward-modal" style="display: none;">
+        <h2>兑换奖励</h2>
+        <p>1. 额外投注机会 - 100积分</p>
+        <p>2. 特殊卡牌 - 200积分</p>
+        <button id="redeem-extra-bet">兑换额外投注</button>
+        <button id="redeem-special-card">兑换特殊卡牌</button>
+        <button id="close-modal">关闭</button>
     </div>
 
     <script src="script.js"></script>

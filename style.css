@@ -1,73 +1,64 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: linear-gradient(to bottom, #2c3e50, #34495e);
+    background-color: #2c3e50;
     color: white;
     margin: 0;
     padding: 0;
 }
 
-#game-container {
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #34495e;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+h1 {
+    margin-top: 20px;
 }
 
-button {
-    font-size: 18px;
-    padding: 10px 20px;
+#game-info {
+    margin: 20px auto;
+    text-align: center;
+}
+
+#game-controls button {
     margin: 10px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+#game-controls button:hover {
+    background-color: #2980b9;
+}
+
+#game-result {
+    margin: 20px auto;
+}
+
+#reward-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+#reward-modal button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     background-color: #2980b9;
     color: white;
-    transition: 0.3s;
+    cursor: pointer;
 }
 
-button:hover {
+#reward-modal button:hover {
     background-color: #3498db;
-}
-
-.hand {
-    margin: 20px 0;
-}
-
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.card {
-    width: 60px;
-    height: 90px;
-    background: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: black;
-    animation: dealCard 0.5s ease-out;
-}
-
-@keyframes dealCard {
-    from {
-        transform: translateY(-50px) scale(0.5);
-    }
-    to {
-        transform: translateY(0) scale(1);
-    }
-}
-
-#result {
-    margin-top: 20px;
-    font-size: 20px;
-    color: yellow;
 }
