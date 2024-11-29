@@ -11,39 +11,38 @@
         <h1>百家乐游戏</h1>
         <p>虚拟货币: <span id="virtual-currency">1000</span></p>
         <p>积分: <span id="points">0</span></p>
-        
-        <!-- 兑换奖励功能 -->
+
         <div class="reward-section">
+            <label for="reward-options">选择奖励: </label>
             <select id="reward-options">
-                <option value="100">兑换200虚拟货币 (100积分)</option>
+                <option value="200">兑换200虚拟货币 (100积分)</option>
                 <option value="500">兑换特殊卡牌 (500积分)</option>
-                <option value="1000">兑换免费投注机会 (1000积分)</option>
             </select>
             <button id="redeem-reward">兑换奖励</button>
         </div>
 
-        <!-- 下注金额选择 -->
-        <label for="bet-amount">选择下注金额: </label>
-        <select id="bet-amount">
-            <option value="100">100</option>
-            <option value="150">150</option>
-            <option value="200">200</option>
-            <option value="500">500</option>
-        </select>
+        <div class="bet-section">
+            <label for="bet-amount">选择下注金额: </label>
+            <select id="bet-amount">
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="500">500</option>
+            </select>
+        </div>
 
-        <!-- 投注类型 -->
         <h2>请选择投注类型:</h2>
-        <button class="bet-button" id="player-bet">投注玩家赢</button>
-        <button class="bet-button" id="banker-bet">投注庄家赢</button>
-        <button class="bet-button" id="tie-bet">投注平局</button>
+        <div class="bet-buttons">
+            <button id="player-win">投注玩家赢</button>
+            <button id="banker-win">投注庄家赢</button>
+            <button id="tie-game">投注平局</button>
+        </div>
 
-        <!-- 卡牌展示 -->
-        <h3>卡牌展示:</h3>
+        <h2>卡牌展示:</h2>
         <div id="card-display" class="card-display"></div>
 
-        <!-- 历史记录表格 -->
-        <h3>历史记录</h3>
-        <div id="history-record"></div>
+        <h2>历史记录</h2>
+        <div id="history-record" class="history-record"></div>
     </div>
 
     <script src="script.js"></script>
