@@ -3,52 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>百家乐游戏</title>
+    <title>Baccarat Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>百家乐游戏</h1>
-        <p>虚拟货币: <span id="currency">1000</span></p>
-        <p>积分: <span id="score">0</span></p>
+    <div class="container">
+        <h1>Baccarat Game</h1>
+        <p>Virtual Currency: <span id="virtual-currency">1000</span></p>
+        <p>Score: <span id="score">0</span></p>
 
         <div class="reward-section">
-            <label for="reward-select">选择奖励:</label>
-            <select id="reward-select">
-                <option value="200">兑换200虚拟货币(400积分)</option>
-                <option value="welcome-bonus">Welcome Bonus 60% (500积分)</option>
-                <option value="free-tanpa">Claim Free Tanpa Deposit (1000积分)</option>
+            <label for="reward-selection">Select Reward:</label>
+            <select id="reward-selection">
+                <option value="200">Exchange 200 Virtual Currency (400 Points)</option>
+                <option value="bonus">Welcome Bonus 60% (500 Points)</option>
+                <option value="free">Claim Free Without Deposit (1000 Points)</option>
             </select>
-            <button id="claim-reward">兑换奖励</button>
+            <button id="exchange-reward">Exchange Reward</button>
         </div>
 
-        <div>
-            <label for="bet-amount">选择下注金额:</label>
+        <div class="bet-section">
+            <label for="bet-amount">Select Bet Amount:</label>
             <select id="bet-amount">
                 <option value="100">100</option>
+                <option value="150">150</option>
                 <option value="200">200</option>
                 <option value="500">500</option>
             </select>
         </div>
 
-        <div class="button-section">
-            <button id="player-win">投注玩家赢</button>
-            <button id="banker-win">投注庄家赢</button>
-            <button id="tie">投注平局</button>
+        <div class="bet-buttons">
+            <button id="player-win">Bet on Player</button>
+            <button id="banker-win">Bet on Banker</button>
+            <button id="tie-win">Bet on Tie</button>
         </div>
 
-        <div id="card-display" class="card-display">
-            <p>卡牌展示:</p>
-            <p id="player-cards"></p>
-            <p id="banker-cards"></p>
+        <div class="card-display">
+            <h2>Card Display:</h2>
+            <div id="card-results"></div>
         </div>
 
-        <div id="game-table" class="table-section">
-            <p>历史记录</p>
-            <div id="history-table"></div>
+        <div class="history-record">
+            <h2>History Record</h2>
+            <table id="history-table"></table>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

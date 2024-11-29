@@ -1,67 +1,69 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #2c2f33;
-  color: #ffffff;
-  text-align: center;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-#game-container {
-  background: #f4f4f4;
-  color: #000000;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f3f3f3;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+.reward-section, .bet-section, .bet-buttons, .card-display, .history-record {
+    margin-bottom: 20px;
 }
 
 button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 button:hover {
-  background: #0056b3;
+    background-color: #0056b3;
 }
 
 #history-table {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 5px;
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-.history-cell {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3px;
-  text-align: center;
-  font-size: 12px;
+#history-table td {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.player {
-  background-color: #007bff;
-  color: white;
+.red {
+    background-color: red;
+    color: white;
 }
 
-.banker {
-  background-color: #dc3545;
-  color: white;
+.blue {
+    background-color: blue;
+    color: white;
 }
 
-.tie {
-  background-color: #28a745;
-  color: white;
+.green {
+    background-color: green;
+    color: white;
 }

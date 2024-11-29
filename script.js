@@ -1,102 +1,115 @@
-const currencyElement = document.getElementById("currency");
-const pointsElement = document.getElementById("points");
-const rewardSelect = document.getElementById("reward-select");
+const virtualCurrencyElement = document.getElementById("virtual-currency");
+const scoreElement = document.getElementById("score");
+const rewardSelection = document.getElementById("reward-selection");
 const exchangeRewardButton = document.getElementById("exchange-reward");
-const betAmount = document.getElementById("bet-amount");
+const betAmountSelection = document.getElementById("bet-amount");
 const playerWinButton = document.getElementById("player-win");
 const bankerWinButton = document.getElementById("banker-win");
-const tieButton = document.getElementById("tie");
-const playerCardsDisplay = document.getElementById("player-cards");
-const bankerCardsDisplay = document.getElementById("banker-cards");
+const tieWinButton = document.getElementById("tie-win");
+const cardResultsElement = document.getElementById("card-results");
 const historyTable = document.getElementById("history-table");
 
-let currency = 1000;
-let points = 0;
+let virtualCurrency = 1000;
+let score = 0;
+let historyData = [];
+const ROWS = 6; // Rows for the history table
+const COLS = 12; // Columns for the history table
 
-function initializeHistoryTable() {
-  historyTable.innerHTML = "";
-  for (let i = 0; i < 8; i++) {
-    const row = document.createElement("div");
-    row.classList.add("history-row");
-    for (let j = 0; j < 12; j++) {
-      const cell = document.createElement("div");
-      cell.classList.add("history-cell");
-      row.appendChild(cell);
+function initializeTable() {
+    historyTable.innerHTML = ""; // Clear existing table
+    for (let i = 0; i < ROWS; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < COLS; j++) {
+            const cell = document.createElement("td");
+            row.appendChild(cell);
+        }
+        historyTable.appendChild(row);
     }
-    historyTable.appendChild(row);
-  }
 }
 
-function addToHistory(resultClass) {
-  const rows = document.querySelectorAll(".history-row");
-  for (let row of rows) {
-    const emptyCell = row.querySelector(".history-cell:not(.filled)");
-    if (emptyCell) {
-      emptyCell.classList.add(resultClass, "filled");
-      return;
-    }
-  }
+function updateCurrencyAndScore() {
+    virtualCurrencyElement.textContent = virtualCurrency;
+    scoreElement.textContent = score;
 }
 
-function playRound(betType) {
-  const playerCards = [getRandomCard(), getRandomCard()];
-  const bankerCards = [getRandomCard(), getRandomCard()];
+function addHistoryRecord(result) {
+    if (historyData.length >= ROWS * COLS) {
+        historyData.shift(); // Remove the oldest record if table is full
+    }
+    historyData.push(result);
+    renderHistory();
+}
 
-  playerCardsDisplay.textContent = `Player Cards: ${playerCards.join(", ")}`;
-  bankerCardsDisplay.textContent = `Banker Cards: ${bankerCards.join(", ")}`;
-
-  const result = Math.random();
-  let resultClass;
-
-  if (result < 0.45) {
-    currency += betType === "player" ? parseInt(betAmount.value) : -parseInt(betAmount.value);
-    resultClass = "player";
-    addToHistory(resultClass);
-  } else if (result < 0.9) {
-    currency += betType === "banker" ? parseInt(betAmount.value) : -parseInt(betAmount.value);
-    resultClass = "banker";
-    addToHistory(resultClass);
-  } else {
-    currency += betType === "tie" ? parseInt(betAmount.value) * 8 : -parseInt(betAmount.value);
-    resultClass = "tie";
-    addToHistory(resultClass);
-  }
-
-  updateCurrencyAndPoints();
+function renderHistory() {
+    initializeTable();
+    historyData.forEach((result, index) => {
+        const row = Math.floor(index / COLS);
+        const col = index % COLS;
+        const cell = historyTable.rows[row].cells[col];
+        cell.classList.add(result);
+    });
 }
 
 function getRandomCard() {
-  const suits = ["♠", "♥", "♦", "♣"];
-  const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-  return `${values[Math.floor(Math.random() * values.length)]}${suits[Math.floor(Math.random() * suits.length)]}`;
+    const suits = ["♠", "♥", "♦", "♣"];
+    const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    const suit = suits[Math.floor(Math.random() * suits.length)];
+    const rank = ranks[Math.floor(Math.random() * ranks.length)];
+    return `${rank}${suit}`;
 }
 
-function updateCurrencyAndPoints() {
-  currencyElement.textContent = currency;
-  pointsElement.textContent = points;
+function handleBet(betType) {
+    const betAmount = parseInt(betAmountSelection.value);
+    if (virtualCurrency < betAmount) {
+        alert("Not enough virtual currency!");
+        return;
+    }
+
+    virtualCurrency -= betAmount;
+
+    const playerCards = [getRandomCard(), getRandomCard()];
+    const bankerCards = [getRandomCard(), getRandomCard()];
+    const winner = Math.random() < 0.5 ? "player" : "banker";
+
+    let resultMessage;
+    if (betType === winner) {
+        resultMessage = `Congratulations! You won, gaining ${betAmount} virtual currency and 10 points!`;
+        virtualCurrency += betAmount * 2;
+        score += 10;
+        addHistoryRecord(winner === "player" ? "blue" : "red");
+    } else {
+        resultMessage = `Sorry, you lost. You lost ${betAmount} virtual currency.`;
+        addHistoryRecord("green");
+    }
+
+    cardResultsElement.innerHTML = `
+        <p>Player Cards: ${playerCards.join(", ")}</p>
+        <p>Banker Cards: ${bankerCards.join(", ")}</p>
+        <p>${resultMessage}</p>
+    `;
+
+    updateCurrencyAndScore();
 }
 
-function exchangeReward() {
-  const selectedReward = rewardSelect.value;
-  if (selectedReward === "200-currency" && points >= 400) {
-    points -= 400;
-    currency += 200;
-  } else if (selectedReward === "welcome-bonus" && points >= 500) {
-    points -= 500;
-    currency += Math.floor(currency * 0.6);
-  } else if (selectedReward === "free-claim" && points >= 1000) {
-    points -= 1000;
-    currency += 100;
-  } else {
-    alert("Not enough points for this reward!");
-  }
-  updateCurrencyAndPoints();
-}
+exchangeRewardButton.addEventListener("click", () => {
+    const selectedReward = rewardSelection.value;
+    if (selectedReward === "200" && score >= 400) {
+        virtualCurrency += 200;
+        score -= 400;
+        alert("You have exchanged 200 virtual currency for 400 points!");
+    } else if (selectedReward === "bonus" && score >= 500) {
+        alert("You have claimed the 60% Welcome Bonus!");
+    } else if (selectedReward === "free" && score >= 1000) {
+        alert("You have claimed the Free Without Deposit reward!");
+    } else {
+        alert("Not enough points for the selected reward!");
+    }
+    updateCurrencyAndScore();
+});
 
-exchangeRewardButton.addEventListener("click", exchangeReward);
-playerWinButton.addEventListener("click", () => playRound("player"));
-bankerWinButton.addEventListener("click", () => playRound("banker"));
-tieButton.addEventListener("click", () => playRound("tie"));
+playerWinButton.addEventListener("click", () => handleBet("player"));
+bankerWinButton.addEventListener("click", () => handleBet("banker"));
+tieWinButton.addEventListener("click", () => handleBet("tie"));
 
-initializeHistoryTable();
-updateCurrencyAndPoints();
+initializeTable();
+updateCurrencyAndScore();
