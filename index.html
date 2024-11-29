@@ -8,32 +8,14 @@
 </head>
 <body>
     <h1>百家乐游戏</h1>
-    <div id="game-info">
-        <p>虚拟货币: <span id="virtual-currency">1000</span></p>
-        <p>积分: <span id="player-points">0</span></p>
-        <button id="redeem-points">兑换奖励</button>
-    </div>
-    
-    <div id="game-controls">
-        <h2>请选择投注类型:</h2>
-        <button onclick="playGame('player')">投注玩家赢</button>
-        <button onclick="playGame('banker')">投注庄家赢</button>
-        <button onclick="playGame('tie')">投注平局</button>
-    </div>
-
-    <div id="game-result">
-        <p id="result-message"></p>
-    </div>
-
-    <div id="reward-modal" style="display: none;">
-        <h2>兑换奖励</h2>
-        <p>1. 额外投注机会 - 100积分</p>
-        <p>2. 特殊卡牌 - 200积分</p>
-        <button id="redeem-extra-bet">兑换额外投注</button>
-        <button id="redeem-special-card">兑换特殊卡牌</button>
-        <button id="close-modal">关闭</button>
-    </div>
-
+    <p>虚拟货币: <span id="virtual-currency">1000</span></p>
+    <p>积分: <span id="player-points">0</span></p>
+    <button id="redeem-points">兑换奖励</button>
+    <p>请选择投注类型:</p>
+    <button id="player-button">投注玩家赢</button>
+    <button id="banker-button">投注庄家赢</button>
+    <button id="tie-button">投注平局</button>
+    <p id="result-message"></p>
     <script src="script.js"></script>
 </body>
 </html>
