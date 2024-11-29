@@ -1,125 +1,95 @@
-const ROWS = 8;
-const COLS = 12;
-
-let virtualMoney = 1000;
+let virtualCurrency = 1000;
 let points = 0;
-let historyData = [];
-let currentBet = 100;
+const ROWS = 4;
+const COLS = 12;
+let history = [];
 
-document.getElementById("bet-amount").addEventListener("change", (e) => {
-  currentBet = parseInt(e.target.value);
-});
+document.getElementById("virtual-currency").textContent = virtualCurrency;
+document.getElementById("points").textContent = points;
 
-document.getElementById("player-win").addEventListener("click", () => placeBet("player"));
-document.getElementById("banker-win").addEventListener("click", () => placeBet("banker"));
-document.getElementById("tie").addEventListener("click", () => placeBet("tie"));
+// 初始化历史记录表格
+function initializeTable() {
+    const historyRecord = document.getElementById("history-record");
+    historyRecord.innerHTML = "";
+    for (let i = 0; i < ROWS; i++) {
+        for (let j = 0; j < COLS; j++) {
+            const cell = document.createElement("div");
+            historyRecord.appendChild(cell);
+        }
+    }
+}
+initializeTable();
 
+// 更新表格
+function updateHistory(result) {
+    history.push(result);
+    if (history.length > ROWS * COLS) {
+        history.shift(); // 移除最早的记录
+    }
+    const cells = document.querySelectorAll("#history-record div");
+    cells.forEach((cell, index) => {
+        cell.className = ""; // 清除旧样式
+        if (index < history.length) {
+            cell.classList.add(history[index]);
+        }
+    });
+}
+
+// 投注逻辑
 function placeBet(type) {
-  if (virtualMoney < currentBet) {
-    alert("虚拟货币不足，请兑换奖励或重新开始游戏！");
-    return;
-  }
+    const betAmount = parseInt(document.getElementById("bet-amount").value);
+    if (virtualCurrency < betAmount) {
+        alert("虚拟货币不足！");
+        return;
+    }
 
-  const result = simulateGame();
-  const winType = result.winner;
-  const playerCards = result.playerCards.join(", ");
-  const bankerCards = result.bankerCards.join(", ");
+    virtualCurrency -= betAmount;
+    document.getElementById("virtual-currency").textContent = virtualCurrency;
 
-  document.getElementById("card-display").innerHTML = `
-    玩家卡牌: ${playerCards}<br>
-    庄家卡牌: ${bankerCards}
-  `;
+    // 模拟结果
+    const outcomes = ["player", "banker", "tie"];
+    const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+    let message = "";
 
-  if (winType === type) {
-    virtualMoney += currentBet;
-    points += currentBet / 10;
-    alert(`恭喜！你赢了，增加 ${currentBet} 虚拟货币和 ${currentBet / 10} 积分！`);
-  } else {
-    virtualMoney -= currentBet;
-    alert(`很遗憾，你输了，减少 ${currentBet} 虚拟货币。`);
-  }
-
-  document.getElementById("virtual-money").textContent = virtualMoney;
-  document.getElementById("points").textContent = points;
-
-  addToHistory(winType);
-  if (historyData.length === ROWS * COLS) clearHistory();
-}
-
-function simulateGame() {
-  const playerCards = generateRandomCards();
-  const bankerCards = generateRandomCards();
-  const playerScore = calculateScore(playerCards);
-  const bankerScore = calculateScore(bankerCards);
-
-  let winner = "tie";
-  if (playerScore > bankerScore) {
-    winner = "player";
-  } else if (playerScore < bankerScore) {
-    winner = "banker";
-  }
-
-  return { winner, playerCards, bankerCards };
-}
-
-function generateRandomCards() {
-  const suits = ["♥", "♦", "♣", "♠"];
-  const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-  const card1 = `${values[Math.floor(Math.random() * values.length)]}${suits[Math.floor(Math.random() * suits.length)]}`;
-  const card2 = `${values[Math.floor(Math.random() * values.length)]}${suits[Math.floor(Math.random() * suits.length)]}`;
-  return [card1, card2];
-}
-
-function calculateScore(cards) {
-  let score = 0;
-  cards.forEach((card) => {
-    const value = card.slice(0, -1);
-    if (["J", "Q", "K"].includes(value)) {
-      score += 10;
-    } else if (value === "A") {
-      score += 1;
+    if (type === result) {
+        points += betAmount / 10;
+        virtualCurrency += betAmount * 2;
+        message = `恭喜！你赢了，增加 ${betAmount} 虚拟货币和 ${betAmount / 10} 积分！`;
     } else {
-      score += parseInt(value);
+        message = `很遗憾，你输了，减少 ${betAmount} 虚拟货币。`;
     }
-  });
-  return score % 10;
+
+    document.getElementById("points").textContent = points;
+    document.getElementById("card-display").textContent = message;
+
+    // 更新表格
+    if (result === "player") updateHistory("blue");
+    else if (result === "banker") updateHistory("red");
+    else updateHistory("green");
 }
 
-function addToHistory(winType) {
-  if (winType === "player") {
-    historyData.push("blue");
-  } else if (winType === "banker") {
-    historyData.push("red");
-  } else {
-    historyData.push("green");
-  }
-  renderHistoryTable();
-}
+// 添加投注按钮事件
+document.getElementById("player-bet").addEventListener("click", () => placeBet("player"));
+document.getElementById("banker-bet").addEventListener("click", () => placeBet("banker"));
+document.getElementById("tie-bet").addEventListener("click", () => placeBet("tie"));
 
-function renderHistoryTable() {
-  const table = document.getElementById("history-table");
-  table.innerHTML = "";
-  let index = 0;
-
-  for (let i = 0; i < ROWS; i++) {
-    const row = document.createElement("tr");
-    for (let j = 0; j < COLS; j++) {
-      const cell = document.createElement("td");
-      if (index < historyData.length) {
-        cell.className = historyData[index];
-      } else {
-        cell.className = "empty";
-      }
-      row.appendChild(cell);
-      index++;
+// 兑换奖励逻辑
+document.getElementById("redeem-reward").addEventListener("click", () => {
+    const selectedReward = parseInt(document.getElementById("reward-options").value);
+    if (points < selectedReward) {
+        alert("积分不足！");
+        return;
     }
-    table.appendChild(row);
-  }
-}
+    points -= selectedReward;
+    document.getElementById("points").textContent = points;
 
-function clearHistory() {
-  historyData = [];
-  renderHistoryTable();
-}
-
-renderHistoryTable();
+    if (selectedReward === 100) {
+        virtualCurrency += 200;
+        alert("成功兑换200虚拟货币！");
+    } else if (selectedReward === 500) {
+        alert("成功兑换特殊卡牌！");
+    } else if (selectedReward === 1000) {
+        alert("成功兑换免费投注机会！");
+    }
+    document.getElementById("virtual-currency").textContent = virtualCurrency;
+});
