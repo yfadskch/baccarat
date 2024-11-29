@@ -4,8 +4,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 更新虚拟货币和积分的显示
     function updateGameInfo() {
-        document.getElementById('virtual-currency').textContent = virtualCurrency;
-        document.getElementById('player-points').textContent = playerPoints;
+        document.getElementById('virtual-currency').textContent = Math.max(virtualCurrency, 0); // 确保虚拟货币不为负数
+        document.getElementById('player-points').textContent = Math.max(playerPoints, 0); // 确保积分不为负数
+    }
+
+    // 生成随机卡牌
+    function drawCard() {
+        const suits = ['♥', '♦', '♣', '♠'];
+        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        const suit = suits[Math.floor(Math.random() * suits.length)];
+        const value = values[Math.floor(Math.random() * values.length)];
+        return `${value}${suit}`;
+    }
+
+    // 更新卡牌显示
+    function updateCards(playerCards, bankerCards) {
+        document.getElementById('player-cards').textContent = `玩家卡牌: ${playerCards.join(', ')}`;
+        document.getElementById('banker-cards').textContent = `庄家卡牌: ${bankerCards.join(', ')}`;
     }
 
     // 游戏逻辑函数
@@ -15,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const betAmount = 100; // 每次投注金额
         let message = '';
+
+        // 抽取卡牌
+        const playerCards = [drawCard(), drawCard()];
+        const bankerCards = [drawCard(), drawCard()];
+        updateCards(playerCards, bankerCards);
 
         if (result === betType) {
             virtualCurrency += betAmount; // 赢了加钱
