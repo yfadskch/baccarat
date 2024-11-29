@@ -1,72 +1,80 @@
 body {
     font-family: Arial, sans-serif;
-    background: #1c1c1c;
-    color: white;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExam9wM2N1NTN0M2phbGN0cDg0aHh3MHQwMnNtdDM1eHI2NDRxNHp1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    text-align: center;
+    padding: 20px;
 }
 
-.container {
-    background: #f9f9f9;
-    color: black;
+.game-container {
+    background: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    text-align: center;
 }
 
-.reward-section, .bet-section {
-    margin: 20px 0;
-}
-
-.bet-buttons button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    background: #007BFF;
+.button-section button {
+    background-color: #007bff;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
-.bet-buttons button:hover {
-    background: #0056b3;
+.button-section button:hover {
+    background-color: #0056b3;
 }
 
-.card-display {
-    background: #e7f3ff;
-    padding: 15px;
+.reward-section,
+.card-display,
+.table-section {
+    margin-top: 20px;
+}
+
+#card-display {
+    background: #f0f9ff;
+    padding: 10px;
     border-radius: 5px;
-    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.history-record {
+#history-table {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(8, 20px);
-    gap: 2px;
+    grid-gap: 5px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.history-record div {
-    width: 100%;
-    height: 100%;
-    border-radius: 2px;
+#history-table div {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 12px;
 }
 
-.history-record .blue {
-    background: #007BFF;
+#history-table .player {
+    background-color: #007bff;
+    color: white;
 }
 
-.history-record .red {
-    background: #FF4B4B;
+#history-table .banker {
+    background-color: #dc3545;
+    color: white;
 }
 
-.history-record .green {
-    background: #28A745;
+#history-table .tie {
+    background-color: #28a745;
+    color: white;
 }

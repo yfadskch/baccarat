@@ -7,42 +7,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="game-container">
         <h1>百家乐游戏</h1>
-        <p>虚拟货币: <span id="virtual-currency">1000</span></p>
-        <p>积分: <span id="points">0</span></p>
+        <p>虚拟货币: <span id="currency">1000</span></p>
+        <p>积分: <span id="score">0</span></p>
 
         <div class="reward-section">
-            <label for="reward-options">选择奖励: </label>
-            <select id="reward-options">
-                <option value="200">兑换200虚拟货币 (100积分)</option>
-                <option value="500">兑换特殊卡牌 (500积分)</option>
+            <label for="reward-select">选择奖励:</label>
+            <select id="reward-select">
+                <option value="200">兑换200虚拟货币(400积分)</option>
+                <option value="welcome-bonus">Welcome Bonus 60% (500积分)</option>
+                <option value="free-tanpa">Claim Free Tanpa Deposit (1000积分)</option>
             </select>
-            <button id="redeem-reward">兑换奖励</button>
+            <button id="claim-reward">兑换奖励</button>
         </div>
 
-        <div class="bet-section">
-            <label for="bet-amount">选择下注金额: </label>
+        <div>
+            <label for="bet-amount">选择下注金额:</label>
             <select id="bet-amount">
                 <option value="100">100</option>
                 <option value="200">200</option>
-                <option value="300">300</option>
                 <option value="500">500</option>
             </select>
         </div>
 
-        <h2>请选择投注类型:</h2>
-        <div class="bet-buttons">
+        <div class="button-section">
             <button id="player-win">投注玩家赢</button>
             <button id="banker-win">投注庄家赢</button>
-            <button id="tie-game">投注平局</button>
+            <button id="tie">投注平局</button>
         </div>
 
-        <h2>卡牌展示:</h2>
-        <div id="card-display" class="card-display"></div>
+        <div id="card-display" class="card-display">
+            <p>卡牌展示:</p>
+            <p id="player-cards"></p>
+            <p id="banker-cards"></p>
+        </div>
 
-        <h2>历史记录</h2>
-        <div id="history-record" class="history-record"></div>
+        <div id="game-table" class="table-section">
+            <p>历史记录</p>
+            <div id="history-table"></div>
+        </div>
     </div>
 
     <script src="script.js"></script>

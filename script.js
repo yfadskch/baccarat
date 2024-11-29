@@ -1,98 +1,86 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const virtualCurrencyElement = document.getElementById("virtual-currency");
-    const pointsElement = document.getElementById("points");
-    const cardDisplayElement = document.getElementById("card-display");
-    const historyRecordElement = document.getElementById("history-record");
+const currencyDisplay = document.getElementById("currency");
+const scoreDisplay = document.getElementById("score");
+const playerCardsDisplay = document.getElementById("player-cards");
+const bankerCardsDisplay = document.getElementById("banker-cards");
+const historyTable = document.getElementById("history-table");
 
-    let virtualCurrency = 1000;
-    let points = 0;
-    const history = [];
+let currency = 1000;
+let score = 0;
 
-    function updateUI() {
-        virtualCurrencyElement.textContent = virtualCurrency;
-        pointsElement.textContent = points;
-        renderHistory();
-    }
-
-    function renderHistory() {
-        historyRecordElement.innerHTML = "";
-        history.forEach((item, index) => {
+// Initialize history table
+function initializeHistoryTable() {
+    historyTable.innerHTML = "";
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 12; j++) {
             const cell = document.createElement("div");
-            cell.classList.add(item);
-            historyRecordElement.appendChild(cell);
-        });
-    }
-
-    function addHistory(result) {
-        history.push(result);
-        if (history.length > 96) {
-            history.shift(); // Limit the history to fit the table
+            historyTable.appendChild(cell);
         }
     }
+}
+initializeHistoryTable();
 
-    document.getElementById("redeem-reward").addEventListener("click", function () {
-        const rewardOption = document.getElementById("reward-options").value;
-        if (rewardOption === "200" && points >= 100) {
-            virtualCurrency += 200;
-            points -= 100;
-        } else if (rewardOption === "500" && points >= 500) {
-            alert("兑换成功！获得特殊卡牌！");
-            points -= 500;
-        } else {
-            alert("积分不足！");
-        }
-        updateUI();
-    });
+function updateCurrencyAndScore() {
+    currencyDisplay.textContent = currency;
+    scoreDisplay.textContent = score;
+}
 
-    function playGame(betType) {
-        if (virtualCurrency <= 0) {
-            alert("游戏结束，虚拟货币不足！");
-            return;
-        }
+// Simulate card dealing
+function getRandomCard() {
+    const suits = ["♠", "♥", "♦", "♣"];
+    const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
+    const suit = suits[Math.floor(Math.random() * suits.length)];
+    const value = values[Math.floor(Math.random() * values.length)];
+    return `${value}${suit}`;
+}
 
-        const betAmount = parseInt(document.getElementById("bet-amount").value);
-        if (virtualCurrency < betAmount) {
-            alert("虚拟货币不足，无法下注！");
-            return;
-        }
+function playRound(betType) {
+    const playerCards = [getRandomCard(), getRandomCard()];
+    const bankerCards = [getRandomCard(), getRandomCard()];
 
-        virtualCurrency -= betAmount;
+    playerCardsDisplay.textContent = `玩家卡牌: ${playerCards.join(", ")}`;
+    bankerCardsDisplay.textContent = `庄家卡牌: ${bankerCards.join(", ")}`;
 
-        const outcomes = ["player", "banker", "tie"];
-        const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+    const result = Math.random(); // Simulate result
+    let cell;
 
-        let playerCards = `玩家卡牌: ${Math.ceil(Math.random() * 9)}♠, ${Math.ceil(Math.random() * 9)}♥`;
-        let bankerCards = `庄家卡牌: ${Math.ceil(Math.random() * 9)}♣, ${Math.ceil(Math.random() * 9)}♦`;
-
-        cardDisplayElement.innerHTML = `<p>${playerCards}</p><p>${bankerCards}</p>`;
-
-        if (
-            (betType === "player" && result === "player") ||
-            (betType === "banker" && result === "banker") ||
-            (betType === "tie" && result === "tie")
-        ) {
-            virtualCurrency += betAmount * 2;
-            points += betAmount / 10;
-            alert("恭喜，你赢了！");
-        } else {
-            alert("很遗憾，你输了！");
-        }
-
-        addHistory(result === "player" ? "blue" : result === "banker" ? "red" : "green");
-        updateUI();
+    if (result < 0.45) {
+        currency += betType === "player" ? parseInt(betAmount.value) : -parseInt(betAmount.value);
+        cell = document.createElement("div");
+        cell.classList.add("player");
+    } else if (result < 0.9) {
+        currency += betType === "banker" ? parseInt(betAmount.value) : -parseInt(betAmount.value);
+        cell = document.createElement("div");
+        cell.classList.add("banker");
+    } else {
+        currency += betType === "tie" ? parseInt(betAmount.value) * 8 : -parseInt(betAmount.value);
+        cell = document.createElement("div");
+        cell.classList.add("tie");
     }
 
-    document.getElementById("player-win").addEventListener("click", function () {
-        playGame("player");
-    });
+    // Append to history table
+    historyTable.appendChild(cell);
 
-    document.getElementById("banker-win").addEventListener("click", function () {
-        playGame("banker");
-    });
+    updateCurrencyAndScore();
+}
 
-    document.getElementById("tie-game").addEventListener("click", function () {
-        playGame("tie");
-    });
+// Event listeners
+document.getElementById("player-win").addEventListener("click", () => playRound("player"));
+document.getElementById("banker-win").addEventListener("click", () => playRound("banker"));
+document.getElementById("tie").addEventListener("click", () => playRound("tie"));
 
-    updateUI();
+document.getElementById("claim-reward").addEventListener("click", () => {
+    const rewardValue = document.getElementById("reward-select").value;
+    if (rewardValue === "200" && score >= 400) {
+        currency += 200;
+        score -= 400;
+    } else if (rewardValue === "welcome-bonus" && score >= 500) {
+        currency += currency * 0.6;
+        score -= 500;
+    } else if (rewardValue === "free-tanpa" && score >= 1000) {
+        currency += 1000;
+        score -= 1000;
+    } else {
+        alert("积分不足，无法兑换奖励！");
+    }
+    updateCurrencyAndScore();
 });
