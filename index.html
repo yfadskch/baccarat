@@ -7,25 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="game-container">
         <h1>百家乐游戏</h1>
-        <div class="status">
-            <p>虚拟货币: <span id="virtual-coins">1000</span></p>
-            <p>积分: <span id="score">0</span></p>
+        <p>虚拟货币: <span id="currency">1000</span></p>
+        <p>积分: <span id="points">0</span></p>
+        <button id="redeem">兑换奖励</button>
+
+        <h2>请选择投注类型:</h2>
+        <div class="buttons">
+            <button id="playerBet">投注玩家赢</button>
+            <button id="bankerBet">投注庄家赢</button>
+            <button id="tieBet">投注平局</button>
         </div>
-        <button id="redeem-rewards" class="btn">兑换奖励</button>
-        <h3>请选择投注类型:</h3>
-        <div class="bet-buttons">
-            <button id="player-bet" class="btn">投注玩家赢</button>
-            <button id="banker-bet" class="btn">投注庄家赢</button>
-            <button id="tie-bet" class="btn">投注平局</button>
+
+        <div id="game-result" class="result-box">
+            <h3>卡牌展示:</h3>
+            <p>玩家卡牌: <span id="playerCards">-</span></p>
+            <p>庄家卡牌: <span id="bankerCards">-</span></p>
+            <p id="resultMessage">请开始游戏！</p>
         </div>
-        <div id="last-result" class="last-result">上局结果: 暂无</div>
-        <div class="cards-display">
-            <p id="player-cards"></p>
-            <p id="banker-cards"></p>
+
+        <div id="last-game" class="history-box">
+            <h3>上一局记录:</h3>
+            <p>投注类型: <span id="lastBetType">-</span></p>
+            <p>玩家卡牌: <span id="lastPlayerCards">-</span></p>
+            <p>庄家卡牌: <span id="lastBankerCards">-</span></p>
+            <p>结果: <span id="lastResult">-</span></p>
         </div>
-        <div id="result-message" class="result-message"></div>
     </div>
     <script src="script.js"></script>
 </body>

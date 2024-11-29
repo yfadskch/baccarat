@@ -1,138 +1,96 @@
-// 初始状态
-let virtualCoins = 1000;
-let score = 0;
-let lastResult = ""; // 上局结果
+let currency = 1000;
+let points = 0;
 
-// 更新界面
-function updateStatus() {
-    document.getElementById("virtual-coins").innerText = virtualCoins;
-    document.getElementById("score").innerText = score;
+// DOM Elements
+const currencyDisplay = document.getElementById('currency');
+const pointsDisplay = document.getElementById('points');
+const playerCardsDisplay = document.getElementById('playerCards');
+const bankerCardsDisplay = document.getElementById('bankerCards');
+const resultMessage = document.getElementById('resultMessage');
 
-    // 更新上局结果显示
-    const lastResultElement = document.getElementById("last-result");
-    if (lastResult) {
-        lastResultElement.innerText = `上局结果: ${lastResult}`;
-    } else {
-        lastResultElement.innerText = "上局结果: 暂无";
-    }
+const lastBetTypeDisplay = document.getElementById('lastBetType');
+const lastPlayerCardsDisplay = document.getElementById('lastPlayerCards');
+const lastBankerCardsDisplay = document.getElementById('lastBankerCards');
+const lastResultDisplay = document.getElementById('lastResult');
 
-    // 检查虚拟货币是否为0
-    if (virtualCoins <= 0) {
-        virtualCoins = 0; // 防止负数
-        alert("游戏结束！您的虚拟货币已耗尽，请通过兑换积分重新获得虚拟货币！");
-        disableBetButtons();
-    }
-}
-
-// 禁用所有投注按钮
-function disableBetButtons() {
-    document.getElementById("player-bet").disabled = true;
-    document.getElementById("banker-bet").disabled = true;
-    document.getElementById("tie-bet").disabled = true;
-}
-
-// 启用所有投注按钮
-function enableBetButtons() {
-    document.getElementById("player-bet").disabled = false;
-    document.getElementById("banker-bet").disabled = false;
-    document.getElementById("tie-bet").disabled = false;
-}
-
-// 生成随机卡牌
+// Utility functions
 function getRandomCard() {
-    const suits = ["♠", "♥", "♣", "♦"];
-    const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-    const randomSuit = suits[Math.floor(Math.random() * suits.length)];
-    const randomValue = values[Math.floor(Math.random() * values.length)];
-    return `${randomValue}${randomSuit}`;
+    const suits = ['♠', '♥', '♦', '♣'];
+    const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    return ranks[Math.floor(Math.random() * ranks.length)] + suits[Math.floor(Math.random() * suits.length)];
 }
 
-// 计算卡牌分数
 function calculatePoints(cards) {
-    let total = 0;
+    let points = 0;
     cards.forEach(card => {
-        const value = card.slice(0, -1); // 去掉花色
-        if (["J", "Q", "K"].includes(value)) {
-            total += 10;
-        } else if (value === "A") {
-            total += 1;
-        } else {
-            total += parseInt(value);
-        }
+        let value = card.slice(0, -1); // Get the number or face of the card
+        if (['J', 'Q', 'K'].includes(value)) value = 0; // Face cards are 0
+        else if (value === 'A') value = 1; // Ace is 1
+        points += parseInt(value) || 0; // Add card value
     });
-    return total % 10; // 百家乐规则，只保留个位数
+    return points % 10; // Only last digit counts
 }
 
-// 玩游戏逻辑
+function updateCurrencyAndPoints(amount) {
+    currency += amount;
+    points += amount > 0 ? amount / 10 : 0;
+    currencyDisplay.textContent = currency;
+    pointsDisplay.textContent = points;
+}
+
+// Game logic
 function playGame(betType) {
-    if (virtualCoins <= 0) {
-        alert("游戏结束！您没有足够的虚拟货币进行投注！");
+    if (currency <= 0) {
+        resultMessage.textContent = "虚拟货币不足，游戏结束！";
         return;
     }
 
+    // Save last game results
+    lastBetTypeDisplay.textContent = betType;
+    lastPlayerCardsDisplay.textContent = playerCardsDisplay.textContent;
+    lastBankerCardsDisplay.textContent = bankerCardsDisplay.textContent;
+    lastResultDisplay.textContent = resultMessage.textContent;
+
+    // Generate cards
     const playerCards = [getRandomCard(), getRandomCard()];
     const bankerCards = [getRandomCard(), getRandomCard()];
+
+    // Calculate points
     const playerPoints = calculatePoints(playerCards);
     const bankerPoints = calculatePoints(bankerCards);
 
-    // 显示卡牌
-    document.getElementById("player-cards").innerText = `玩家卡牌: ${playerCards.join(", ")}`;
-    document.getElementById("banker-cards").innerText = `庄家卡牌: ${bankerCards.join(", ")}`;
+    // Display cards
+    playerCardsDisplay.textContent = playerCards.join(', ');
+    bankerCardsDisplay.textContent = bankerCards.join(', ');
 
-    // 判断结果
-    let resultMessage = "";
-    if (
-        (betType === "player" && playerPoints > bankerPoints) ||
-        (betType === "banker" && bankerPoints > playerPoints) ||
-        (betType === "tie" && playerPoints === bankerPoints)
-    ) {
-        resultMessage = `恭喜！你赢了，增加 100 虚拟货币和 10 积分！`;
-        virtualCoins += 100;
-        score += 10;
+    // Determine the winner
+    let result;
+    if (playerPoints > bankerPoints) result = '玩家赢';
+    else if (playerPoints < bankerPoints) result = '庄家赢';
+    else result = '平局';
 
-        // 更新上局结果
-        if (betType === "player") {
-            lastResult = "玩家赢";
-        } else if (betType === "banker") {
-            lastResult = "庄家赢";
-        } else {
-            lastResult = "平局";
-        }
+    // Update result message and currency
+    if ((betType === '玩家赢' && result === '玩家赢') ||
+        (betType === '庄家赢' && result === '庄家赢') ||
+        (betType === '平局' && result === '平局')) {
+        resultMessage.textContent = `恭喜！你赢了，增加 100 虚拟货币和 10 积分！`;
+        updateCurrencyAndPoints(100);
     } else {
-        resultMessage = `很遗憾，你输了，减少 100 虚拟货币。`;
-        virtualCoins -= 100;
-
-        // 更新上局结果
-        if (playerPoints > bankerPoints) {
-            lastResult = "玩家赢";
-        } else if (bankerPoints > playerPoints) {
-            lastResult = "庄家赢";
-        } else {
-            lastResult = "平局";
-        }
+        resultMessage.textContent = `很遗憾，你输了，减少 100 虚拟货币。`;
+        updateCurrencyAndPoints(-100);
     }
-
-    document.getElementById("result-message").innerText = resultMessage;
-    updateStatus();
 }
 
-// 兑换奖励
-document.getElementById("redeem-rewards").addEventListener("click", () => {
-    if (score >= 50) {
-        score -= 50;
-        virtualCoins += 500;
-        alert("兑换成功！你获得了 500 虚拟货币！");
-        enableBetButtons();
-        updateStatus();
+// Event listeners
+document.getElementById('playerBet').addEventListener('click', () => playGame('玩家赢'));
+document.getElementById('bankerBet').addEventListener('click', () => playGame('庄家赢'));
+document.getElementById('tieBet').addEventListener('click', () => playGame('平局'));
+document.getElementById('redeem').addEventListener('click', () => {
+    if (points >= 100) {
+        points -= 100;
+        pointsDisplay.textContent = points;
+        alert('兑换成功！您获得了额外奖励！');
     } else {
-        alert("积分不足，无法兑换！");
+        alert('积分不足，无法兑换！');
     }
 });
-
-// 按钮事件
-document.getElementById("player-bet").addEventListener("click", () => playGame("player"));
-document.getElementById("banker-bet").addEventListener("click", () => playGame("banker"));
-document.getElementById("tie-bet").addEventListener("click", () => playGame("tie"));
-
-// 初始化状态
-updateStatus();
