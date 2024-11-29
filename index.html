@@ -7,22 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>百家乐游戏</h1>
-    <p>虚拟货币: <span id="virtual-currency">1000</span></p>
-    <p>积分: <span id="player-points">0</span></p>
-    <button id="redeem-points">兑换奖励</button>
-    <p>请选择投注类型:</p>
-    <div id="buttons">
-        <button id="player-button">投注玩家赢</button>
-        <button id="banker-button">投注庄家赢</button>
-        <button id="tie-button">投注平局</button>
+    <div class="container">
+        <h1>百家乐游戏</h1>
+        <div id="status">
+            <p>虚拟货币: <span id="virtual-coins">1000</span></p>
+            <p>积分: <span id="score">0</span></p>
+        </div>
+        <button id="redeem-rewards">兑换奖励</button>
+        <h2>请选择投注类型:</h2>
+        <div id="bet-options">
+            <button id="player-bet">投注玩家赢</button>
+            <button id="banker-bet">投注庄家赢</button>
+            <button id="tie-bet">投注平局</button>
+        </div>
+        <div id="card-display">
+            <h3>卡牌展示:</h3>
+            <p id="player-cards">玩家卡牌:</p>
+            <p id="banker-cards">庄家卡牌:</p>
+        </div>
+        <p id="result-message"></p>
     </div>
-    <div id="cards">
-        <h2>卡牌展示:</h2>
-        <div id="player-cards">玩家卡牌: </div>
-        <div id="banker-cards">庄家卡牌: </div>
-    </div>
-    <p id="result-message"></p>
     <script src="script.js"></script>
 </body>
 </html>
