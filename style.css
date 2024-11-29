@@ -1,88 +1,90 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f6f9;
+  background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTZpd2I3aDl1MW9nZnpxemY5aXdiZXBkd2Y1d3ZkMGdxdGVtMWQ1YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
+  background-size: cover;
   margin: 0;
   padding: 0;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+.game-container {
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
+  margin: 50px auto;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
+  text-align: center;
   color: #333;
 }
 
-.info {
-  margin-bottom: 20px;
-  font-size: 18px;
-  font-weight: bold;
+.info p {
+  font-size: 1.2em;
+  text-align: center;
 }
 
-.bet-section {
-  margin-bottom: 20px;
-}
-
-.bet-button, .exchange-button {
-  padding: 10px 20px;
+button {
   margin: 5px;
-  font-size: 16px;
+  padding: 10px 20px;
+  font-size: 1em;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
 }
 
-.bet-button:hover, .exchange-button:hover {
+button:hover {
   background-color: #ddd;
 }
 
+.bet-section {
+  text-align: center;
+  margin: 10px 0;
+}
+
 #card-display {
-  margin: 20px 0;
-  padding: 15px;
-  background-color: #eaf7ff;
+  background-color: #e6f7ff;
+  padding: 10px;
   border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 10px 0;
 }
 
 #history-table-container {
-  margin: 20px auto;
-  width: 33%; /* 缩小为页面宽度的1/3 */
+  overflow-x: auto;
+  margin-top: 20px;
 }
 
-#history-table {
+table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #fff;
 }
 
-#history-table td, #history-table th {
-  border: 1px solid #ddd;
-  padding: 10px;
+table td {
+  width: 8.33%;
+  height: 30px;
   text-align: center;
-  font-size: 14px;
-}
-
-#history-table .blue {
-  background-color: #4a90e2;
-  color: #fff;
+  vertical-align: middle;
   font-weight: bold;
+  color: white;
+  border: 1px solid #ccc;
 }
 
-#history-table .red {
+table td.blue {
+  background-color: #3498db;
+}
+
+table td.red {
   background-color: #e74c3c;
-  color: #fff;
-  font-weight: bold;
 }
 
-#history-table .green {
-  background-color: #27ae60;
-  color: #fff;
-  font-weight: bold;
+table td.green {
+  background-color: #2ecc71;
+}
+
+table td.empty {
+  background-color: #f8f8f8;
 }
