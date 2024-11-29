@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>百家乐游戏记录</title>
+    <title>百家乐游戏</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
         <h1>百家乐游戏</h1>
+        <div class="game-stats">
+            <p>虚拟货币: <span id="virtual-coins">300</span></p>
+            <p>积分: <span id="score">650</span></p>
+            <button id="exchange-button" onclick="exchangeRewards()">兑换奖励</button>
+        </div>
+        <div class="controls">
+            <h3>请选择投注类型:</h3>
+            <button onclick="playGame('player')">投注玩家赢</button>
+            <button onclick="playGame('banker')">投注庄家赢</button>
+            <button onclick="playGame('tie')">投注平局</button>
+        </div>
         <div class="game-records">
             <table id="game-table">
                 <!-- 表格动态生成 -->
             </table>
         </div>
-        <div class="controls">
-            <button onclick="playGame('player')">投注玩家赢</button>
-            <button onclick="playGame('banker')">投注庄家赢</button>
-            <button onclick="playGame('tie')">投注平局</button>
+        <div id="last-round">
+            <!-- 展示上一局的卡牌及结果 -->
         </div>
     </div>
     <script src="script.js"></script>

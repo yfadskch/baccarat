@@ -2,6 +2,8 @@
 const ROWS = 8;
 const COLS = 12;
 let gameResults = []; // 存储结果
+let virtualCoins = 300; // 虚拟货币
+let score = 650; // 积分
 
 // 初始化表格
 function initializeTable() {
@@ -19,7 +21,6 @@ function initializeTable() {
 
 // 更新表格
 function updateTable(result) {
-    // 记录结果
     gameResults.push(result);
 
     let colIndex = 0; // 列索引
@@ -32,7 +33,6 @@ function updateTable(result) {
         const cell = document.getElementById(`cell-${rowIndex}-${colIndex}`);
         if (!cell) continue; // 防止越界
 
-        // 设置单元格样式
         if (gameResults[i] === "player") {
             cell.className = "player-cell";
             cell.textContent = "蓝";
@@ -48,12 +48,70 @@ function updateTable(result) {
 
 // 模拟游戏逻辑
 function playGame(bet) {
-    const outcomes = ["player", "banker", "tie"]; // 游戏结果
-    const result = outcomes[Math.floor(Math.random() * outcomes.length)]; // 随机生成结果
+    if (virtualCoins <= 0) {
+        alert("游戏结束！请兑换奖励或充值虚拟货币。");
+        return;
+    }
 
-    updateTable(result); // 更新表格
-    alert(`您投注了: ${bet === "player" ? "玩家" : bet === "banker" ? "庄家" : "平局"}，结果是: ${result === "player" ? "玩家赢" : result === "banker" ? "庄家赢" : "平局"}`);
+    const outcomes = ["player", "banker", "tie"];
+    const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+    const playerCards = drawCards();
+    const bankerCards = drawCards();
+
+    updateTable(result);
+
+    if (result === bet) {
+        virtualCoins += 100;
+        score += 10;
+        alert(`恭喜！你赢了，增加 100 虚拟货币和 10 积分！`);
+    } else {
+        virtualCoins -= 100;
+        alert(`很遗憾，你输了，减少 100 虚拟货币。`);
+    }
+
+    updateStats();
+    updateLastRound(playerCards, bankerCards, result);
 }
 
-// 初始化游戏
+// 更新游戏状态
+function updateStats() {
+    document.getElementById("virtual-coins").textContent = virtualCoins;
+    document.getElementById("score").textContent = score;
+}
+
+// 显示上一局卡牌和结果
+function updateLastRound(playerCards, bankerCards, result) {
+    const lastRoundDiv = document.getElementById("last-round");
+    lastRoundDiv.innerHTML = `
+        <h3>上一局记录:</h3>
+        <p>玩家卡牌: ${playerCards.join(", ")}</p>
+        <p>庄家卡牌: ${bankerCards.join(", ")}</p>
+        <p>结果: ${result === "player" ? "玩家赢" : result === "banker" ? "庄家赢" : "平局"}</p>
+    `;
+}
+
+// 抽取卡牌
+function drawCards() {
+    const suits = ["♠", "♥", "♦", "♣"];
+    const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    return [
+        `${ranks[Math.floor(Math.random() * ranks.length)]}${suits[Math.floor(Math.random() * suits.length)]}`,
+        `${ranks[Math.floor(Math.random() * ranks.length)]}${suits[Math.floor(Math.random() * suits.length)]}`,
+    ];
+}
+
+// 兑换奖励
+function exchangeRewards() {
+    if (score >= 100) {
+        score -= 100;
+        virtualCoins += 300;
+        alert("成功兑换奖励！增加 300 虚拟货币，扣除 100 积分。");
+        updateStats();
+    } else {
+        alert("积分不足，无法兑换奖励。");
+    }
+}
+
+// 初始化
 initializeTable();
+updateStats();
