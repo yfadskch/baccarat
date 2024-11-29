@@ -1,57 +1,88 @@
-/* 更新后的表格样式 */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+.info {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.bet-section {
+  margin-bottom: 20px;
+}
+
+.bet-button, .exchange-button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.bet-button:hover, .exchange-button:hover {
+  background-color: #ddd;
+}
+
+#card-display {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #eaf7ff;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 #history-table-container {
   margin: 20px auto;
-  width: 25%; /* 缩小为页面的1/4宽度 */
+  width: 33%; /* 缩小为页面宽度的1/3 */
 }
 
 #history-table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f8f9fa; /* 更柔和的表格背景 */
+  background-color: #fff;
 }
 
 #history-table td, #history-table th {
-  border: 1px solid #dee2e6; /* 边框颜色更柔和 */
+  border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
   font-size: 14px;
 }
 
 #history-table .blue {
-  background-color: #4a90e2; /* 明亮的蓝色 */
+  background-color: #4a90e2;
   color: #fff;
   font-weight: bold;
 }
 
 #history-table .red {
-  background-color: #e74c3c; /* 明亮的红色 */
+  background-color: #e74c3c;
   color: #fff;
   font-weight: bold;
 }
 
 #history-table .green {
-  background-color: #27ae60; /* 明亮的绿色 */
+  background-color: #27ae60;
   color: #fff;
-  font-weight: bold;
-}
-
-/* 表格的整体外观 */
-#history-table-container {
-  padding: 10px;
-  background-color: #f1f1f1; /* 表格周围背景 */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-#card-display {
-  background-color: #dff6ff;
-  color: #034078;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
   font-weight: bold;
 }

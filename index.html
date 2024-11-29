@@ -9,35 +9,33 @@
 <body>
   <div class="container">
     <h1>百家乐游戏</h1>
-    <p id="virtual-currency">虚拟货币: 1000</p>
-    <p id="points">积分: 0</p>
-    <button id="exchange-rewards">兑换奖励</button>
-    
-    <div>
-      <label for="bet-amount">选择下注金额：</label>
+    <div class="info">
+      <p>虚拟货币: <span id="virtual-money">1000</span></p>
+      <p>积分: <span id="score">0</span></p>
+    </div>
+    <div class="bet-section">
+      <button class="exchange-button">兑换奖励</button>
       <select id="bet-amount">
         <option value="100">100</option>
         <option value="150">150</option>
         <option value="200">200</option>
         <option value="500">500</option>
       </select>
+      <label for="bet-amount">选择下注金额</label>
     </div>
-
-    <h2>请选择投注类型:</h2>
-    <div class="buttons">
-      <button id="playerWin">投注玩家赢</button>
-      <button id="bankerWin">投注庄家赢</button>
-      <button id="tie">投注平局</button>
+    <div class="game-section">
+      <h3>请选择投注类型:</h3>
+      <button class="bet-button" onclick="playGame('player')">投注玩家赢</button>
+      <button class="bet-button" onclick="playGame('banker')">投注庄家赢</button>
+      <button class="bet-button" onclick="playGame('tie')">投注平局</button>
     </div>
-
-    <h3>卡牌展示:</h3>
-    <div id="card-display"></div>
-
-    <h3>历史记录</h3>
+    <div id="card-display">
+      <h3>卡牌展示:</h3>
+      <p id="cards"></p>
+    </div>
     <div id="history-table-container">
-      <table id="history-table">
-        <!-- 表格内容会动态生成 -->
-      </table>
+      <h3>历史记录</h3>
+      <table id="history-table"></table>
     </div>
   </div>
   <script src="script.js"></script>

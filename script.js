@@ -1,93 +1,76 @@
-let virtualCurrency = 1000;
-let points = 0;
-const ROWS = 8; // 表格行数
-const COLS = 12; // 表格列数
-let history = []; // 用于存储历史记录
+const ROWS = 8;
+const COLS = 12;
 
-document.getElementById("playerWin").addEventListener("click", () => playGame("playerWin"));
-document.getElementById("bankerWin").addEventListener("click", () => playGame("bankerWin"));
-document.getElementById("tie").addEventListener("click", () => playGame("tie"));
+let virtualMoney = 1000;
+let score = 0;
+let historyTable = [];
+let currentCol = 0;
 
-function getBetAmount() {
-  return parseInt(document.getElementById("bet-amount").value);
-}
+document.getElementById("virtual-money").innerText = virtualMoney;
+document.getElementById("score").innerText = score;
 
-function playGame(resultType) {
-  const betAmount = getBetAmount();
-  if (virtualCurrency < betAmount) {
-    alert("虚拟货币不足，无法下注！");
+function playGame(betType) {
+  if (virtualMoney <= 0) {
+    alert("游戏结束！请兑换奖励或重新开始！");
     return;
   }
 
-  virtualCurrency -= betAmount;
-  const playerCards = drawCards();
-  const bankerCards = drawCards();
-  const winner = determineWinner(playerCards, bankerCards);
+  const betAmount = parseInt(document.getElementById("bet-amount").value);
+  const result = ["player", "banker", "tie"][Math.floor(Math.random() * 3)];
+  let resultMessage = "";
 
-  if (resultType === winner) {
-    virtualCurrency += betAmount * 2;
-    points += betAmount / 10;
-    history.push(winner === "playerWin" ? "蓝" : "红");
-    alert(`恭喜！你赢了，增加 ${betAmount * 2} 虚拟货币！`);
-  } else if (resultType === "tie" && winner === "tie") {
-    virtualCurrency += betAmount;
-    points += betAmount / 5;
-    history.push("绿");
-    alert(`平局，返还 ${betAmount} 虚拟货币！`);
+  if (betType === result) {
+    resultMessage = `恭喜！你赢了，增加 ${betAmount} 虚拟货币和 ${betAmount / 10} 积分！`;
+    virtualMoney += betAmount;
+    score += betAmount / 10;
   } else {
-    history.push(winner === "playerWin" ? "蓝" : "红");
-    alert(`很遗憾，你输了，减少 ${betAmount} 虚拟货币。`);
+    resultMessage = `很遗憾，你输了，减少 ${betAmount} 虚拟货币。结果是${result === "player" ? "玩家赢" : result === "banker" ? "庄家赢" : "平局"}！`;
+    virtualMoney -= betAmount;
   }
 
-  updateUI();
-  updateTable();
+  document.getElementById("virtual-money").innerText = virtualMoney;
+  document.getElementById("score").innerText = score;
+  document.getElementById("cards").innerText = resultMessage;
+
+  updateHistory(result);
 }
 
-function drawCards() {
-  const suits = ["♠", "♥", "♦", "♣"];
-  const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-  return [
-    `${ranks[Math.floor(Math.random() * ranks.length)]}${suits[Math.floor(Math.random() * suits.length)]}`,
-    `${ranks[Math.floor(Math.random() * ranks.length)]}${suits[Math.floor(Math.random() * suits.length)]}`
-  ];
+function updateHistory(result) {
+  if (historyTable.length >= ROWS) {
+    historyTable.shift();
+  }
+
+  if (!historyTable[currentCol]) {
+    historyTable[currentCol] = [];
+  }
+
+  if (historyTable[currentCol].length >= COLS) {
+    currentCol++;
+    if (currentCol >= ROWS) currentCol = 0;
+    historyTable[currentCol] = [];
+  }
+
+  historyTable[currentCol].push(result);
+
+  renderHistory();
 }
 
-function determineWinner(playerCards, bankerCards) {
-  const playerScore = calculateScore(playerCards);
-  const bankerScore = calculateScore(bankerCards);
-  if (playerScore > bankerScore) return "playerWin";
-  if (bankerScore > playerScore) return "bankerWin";
-  return "tie";
-}
-
-function calculateScore(cards) {
-  return cards.reduce((sum, card) => {
-    const value = card.slice(0, -1);
-    return sum + (isNaN(value) ? (value === "A" ? 1 : 10) : parseInt(value));
-  }, 0) % 10;
-}
-
-function updateUI() {
-  document.getElementById("virtual-currency").textContent = `虚拟货币: ${virtualCurrency}`;
-  document.getElementById("points").textContent = `积分: ${points}`;
-}
-
-function updateTable() {
+function renderHistory() {
   const table = document.getElementById("history-table");
-  table.innerHTML = ""; // 清空表格内容
-  let rowIndex = 0;
+  table.innerHTML = "";
 
-  history.forEach((item, index) => {
-    if (index % ROWS === 0) {
-      const row = table.insertRow(rowIndex++);
+  for (let row = 0; row < ROWS; row++) {
+    const tr = document.createElement("tr");
+    for (let col = 0; col < COLS; col++) {
+      const td = document.createElement("td");
+      if (historyTable[row] && historyTable[row][col]) {
+        const result = historyTable[row][col];
+        if (result === "player") td.className = "blue";
+        if (result === "banker") td.className = "red";
+        if (result === "tie") td.className = "green";
+      }
+      tr.appendChild(td);
     }
-    const cell = table.rows[rowIndex - 1].insertCell(index % ROWS);
-    cell.textContent = item;
-    cell.className = item === "蓝" ? "blue" : item === "红" ? "red" : "green";
-  });
-
-  // 如果表格满了，清空历史记录
-  if (history.length >= ROWS * COLS) {
-    history = [];
+    table.appendChild(tr);
   }
 }
