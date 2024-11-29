@@ -1,11 +1,20 @@
 // 初始状态
 let virtualCoins = 1000;
 let score = 0;
+let lastResult = ""; // 上局结果
 
 // 更新界面
 function updateStatus() {
     document.getElementById("virtual-coins").innerText = virtualCoins;
     document.getElementById("score").innerText = score;
+
+    // 更新上局结果显示
+    const lastResultElement = document.getElementById("last-result");
+    if (lastResult) {
+        lastResultElement.innerText = `上局结果: ${lastResult}`;
+    } else {
+        lastResultElement.innerText = "上局结果: 暂无";
+    }
 
     // 检查虚拟货币是否为0
     if (virtualCoins <= 0) {
@@ -80,9 +89,27 @@ function playGame(betType) {
         resultMessage = `恭喜！你赢了，增加 100 虚拟货币和 10 积分！`;
         virtualCoins += 100;
         score += 10;
+
+        // 更新上局结果
+        if (betType === "player") {
+            lastResult = "玩家赢";
+        } else if (betType === "banker") {
+            lastResult = "庄家赢";
+        } else {
+            lastResult = "平局";
+        }
     } else {
         resultMessage = `很遗憾，你输了，减少 100 虚拟货币。`;
         virtualCoins -= 100;
+
+        // 更新上局结果
+        if (playerPoints > bankerPoints) {
+            lastResult = "玩家赢";
+        } else if (bankerPoints > playerPoints) {
+            lastResult = "庄家赢";
+        } else {
+            lastResult = "平局";
+        }
     }
 
     document.getElementById("result-message").innerText = resultMessage;
