@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>百家乐游戏</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>百家乐游戏</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>百家乐游戏</h1>
-        <p>虚拟货币: <span id="virtual-currency">300</span></p>
-        <p>积分: <span id="points">650</span></p>
-        <button id="redeem-btn" class="btn">兑换奖励</button>
-        <div class="betting-options">
-            <p>请选择投注类型:</p>
-            <button class="bet-btn" id="player-win">投注玩家赢</button>
-            <button class="bet-btn" id="banker-win">投注庄家赢</button>
-            <button class="bet-btn" id="tie">投注平局</button>
-        </div>
-        <div id="card-display">
-            <h2>卡牌展示:</h2>
-            <p id="player-cards">玩家卡牌: </p>
-            <p id="banker-cards">庄家卡牌: </p>
-        </div>
-        <div id="history-table-container">
-            <h2>历史记录</h2>
-            <table id="history-table"></table>
-        </div>
+  <div class="container">
+    <h1>百家乐游戏</h1>
+    <p id="virtual-currency">虚拟货币: 1000</p>
+    <p id="points">积分: 0</p>
+    <button id="exchange-rewards">兑换奖励</button>
+    
+    <div>
+      <label for="bet-amount">选择下注金额：</label>
+      <select id="bet-amount">
+        <option value="100">100</option>
+        <option value="150">150</option>
+        <option value="200">200</option>
+        <option value="500">500</option>
+      </select>
     </div>
-    <script src="script.js"></script>
+
+    <h2>请选择投注类型:</h2>
+    <div class="buttons">
+      <button id="playerWin">投注玩家赢</button>
+      <button id="bankerWin">投注庄家赢</button>
+      <button id="tie">投注平局</button>
+    </div>
+
+    <h3>卡牌展示:</h3>
+    <div id="card-display"></div>
+
+    <h3>历史记录</h3>
+    <div id="history-table-container">
+      <table id="history-table">
+        <!-- 表格内容会动态生成 -->
+      </table>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
