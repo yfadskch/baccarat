@@ -3,36 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>百家乐游戏</title>
+    <title>百家乐游戏记录</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
         <h1>百家乐游戏</h1>
-        <p>虚拟货币: <span id="currency">1000</span></p>
-        <p>积分: <span id="points">0</span></p>
-        <button id="redeem">兑换奖励</button>
-
-        <h2>请选择投注类型:</h2>
-        <div class="buttons">
-            <button id="playerBet">投注玩家赢</button>
-            <button id="bankerBet">投注庄家赢</button>
-            <button id="tieBet">投注平局</button>
+        <div class="game-records">
+            <table id="game-table">
+                <!-- 表格动态生成 -->
+            </table>
         </div>
-
-        <div id="game-result" class="result-box">
-            <h3>卡牌展示:</h3>
-            <p>玩家卡牌: <span id="playerCards">-</span></p>
-            <p>庄家卡牌: <span id="bankerCards">-</span></p>
-            <p id="resultMessage">请开始游戏！</p>
-        </div>
-
-        <div id="last-game" class="history-box">
-            <h3>上一局记录:</h3>
-            <p>投注类型: <span id="lastBetType">-</span></p>
-            <p>玩家卡牌: <span id="lastPlayerCards">-</span></p>
-            <p>庄家卡牌: <span id="lastBankerCards">-</span></p>
-            <p>结果: <span id="lastResult">-</span></p>
+        <div class="controls">
+            <button onclick="playGame('player')">投注玩家赢</button>
+            <button onclick="playGame('banker')">投注庄家赢</button>
+            <button onclick="playGame('tie')">投注平局</button>
         </div>
     </div>
     <script src="script.js"></script>
