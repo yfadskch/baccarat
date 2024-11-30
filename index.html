@@ -9,45 +9,23 @@
 <body>
     <div class="container">
         <h1>Baccarat Game</h1>
-        <p>Virtual Currency: <span id="virtual-currency">1000</span></p>
-        <p>Score: <span id="score">0</span></p>
+        <p class="instructions">Place your bet on either "Banker" or "Player" and see who wins!</p>
 
-        <div class="reward-section">
-            <label for="reward-selection">Select Reward:</label>
-            <select id="reward-selection">
-                <option value="200">Exchange 200 Virtual Currency (400 Points)</option>
-                <option value="bonus">Welcome Bonus 60% (500 Points)</option>
-                <option value="free">Claim Free Without Deposit (1000 Points)</option>
-            </select>
-            <button id="exchange-reward">Exchange Reward</button>
+        <div class="balance">
+            <p>Current Balance: <span id="balance">$100</span></p>
         </div>
 
         <div class="bet-section">
-            <label for="bet-amount">Select Bet Amount:</label>
-            <select id="bet-amount">
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-                <option value="500">500</option>
-            </select>
+            <input type="number" id="bet-amount" placeholder="Enter your bet" min="1">
+            <button onclick="placeBet('banker')">Bet on Banker</button>
+            <button onclick="placeBet('player')">Bet on Player</button>
         </div>
 
-        <div class="bet-buttons">
-            <button id="player-win">Bet on Player</button>
-            <button id="banker-win">Bet on Banker</button>
-            <button id="tie-win">Bet on Tie</button>
-        </div>
-
-        <div class="card-display">
-            <h2>Card Display:</h2>
-            <div id="card-results"></div>
-        </div>
-
-        <div class="history-record">
-            <h2>History Record</h2>
-            <table id="history-table"></table>
+        <div class="result">
+            <p id="result-message">Make your first bet!</p>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
