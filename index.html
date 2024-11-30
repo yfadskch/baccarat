@@ -3,34 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat Game Results</title>
+    <title>Baccarat Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Baccarat Game Results</h1>
-    <table id="resultsTable">
-        <tr>
-            <th>Round</th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>8</th>
-            <th>9</th>
-            <th>10</th>
-            <th>11</th>
-            <th>12</th>
-        </tr>
-        <!-- Rows will be added here by the script -->
-    </table>
-    <button onclick="addResult('W')">Win</button>
-    <button onclick="addResult('L')">Lose</button>
-    <button onclick="addResult('D')">Draw</button>
-    <button onclick="resetTable()">Reset Table</button>
-
+    <div class="game-container">
+        <h1>Baccarat Game</h1>
+        <p>Place your bet on either "Banker" or "Player" and see who wins!</p>
+        <div>
+            <label for="betAmount">Bet Amount:</label>
+            <input type="number" id="betAmount" value="10">
+            <button onclick="placeBet('banker')">Bet on Banker</button>
+            <button onclick="placeBet('player')">Bet on Player</button>
+        </div>
+        <div id="gameResult"></div>
+        <table id="resultsTable">
+            <tr>
+                <th>Round</th>
+                <th>Result</th>
+                <th>Winning Side</th>
+            </tr>
+        </table>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

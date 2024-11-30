@@ -1,25 +1,27 @@
 let round = 1;
 
-function addResult(result) {
+function placeBet(side) {
+    let betAmount = document.getElementById('betAmount').value;
+    let gameResult = Math.random() < 0.5 ? 'banker' : 'player';
+    let resultText = side === gameResult ? 'You win!' : 'You lose!';
+    document.getElementById('gameResult').innerText = `Result: ${resultText}, Winning Side: ${gameResult}`;
+
     let table = document.getElementById('resultsTable');
-    if (round > 8) { // Resets the table if more than 8 rounds
-        resetTable();
-        round = 1;
-    }
-    let row = table.insertRow(round);
-    row.insertCell(0).innerText = 'Round ' + round;
-    for (let i = 1; i <= 12; i++) {
-        let cell = row.insertCell(i);
-        cell.classList.add(result === 'W' ? 'win' : result === 'L' ? 'lose' : 'draw');
-        cell.innerText = result;
-    }
+    let row = table.insertRow(-1);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    cell1.innerText = `Round ${round}`;
+    cell2.innerText = resultText;
+    cell3.innerText = gameResult;
+
     round++;
 }
 
 function resetTable() {
     let table = document.getElementById('resultsTable');
-    for (let i = table.rows.length - 1; i > 0; i--) {
-        table.deleteRow(i);
+    while (table.rows.length > 1) {
+        table.deleteRow(1);
     }
     round = 1;
 }
