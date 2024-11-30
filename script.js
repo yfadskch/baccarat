@@ -1,37 +1,39 @@
 let balance = 100;
 
-function placeBet(side) {
+function placeBet(choice) {
     const betAmount = parseInt(document.getElementById('betAmount').value);
     if (balance < betAmount) {
-        alert('Insufficient balance!');
+        alert("Insufficient balance!");
         return;
     }
+
     balance -= betAmount;
-    document.getElementById('balance').textContent = balance;
+    document.getElementById('balance').innerText = balance;
 
-    const playerCards = drawCards();
-    const bankerCards = drawCards();
-    const winner = determineWinner(playerCards, bankerCards);
+    const playerScore = drawCard();
+    const bankerScore = drawCard();
+    const winner = playerScore > bankerScore ? 'player' : 'banker';
 
-    document.getElementById('gameResult').textContent = `Player: ${playerCards.join(', ')} Banker: ${bankerCards.join(', ')} - ${side === winner ? 'You win!' : 'You lose!'}`;
-    balance += (side === winner) ? betAmount * 2 : 0;
-    document.getElementById('balance').textContent = balance;
+    updateResults(playerScore, bankerScore, winner, choice, betAmount);
+}
+
+function drawCard() {
+    // Simplified card draw mechanism for example purposes
+    return Math.floor(Math.random() * 9) + 1;  // Cards from 1 to 9
+}
+
+function updateResults(playerScore, bankerScore, winner, choice, betAmount) {
+    let message = winner === choice ? "You win!" : "You lose!";
+    if (winner === choice) balance += betAmount * 2;
+
+    document.getElementById('resultsDisplay').innerHTML = `You bet on ${choice}. ${message} Player: ${playerScore}, Banker: ${bankerScore}.`;
 
     const table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
     const row = table.insertRow();
-    row.insertCell(0).textContent = table.rows.length + 1;
-    row.insertCell(1).textContent = playerCards.join(', ');
-    row.insertCell(2).textContent = bankerCards.join(', ');
-    row.insertCell(3).textContent = winner;
+    row.insertCell(0).innerText = table.rows.length + 1;
+    row.insertCell(1).innerText = playerScore;
+    row.insertCell(2).innerText = bankerScore;
+    row.insertCell(3).innerText = winner;
 }
 
-function drawCards() {
-    // Simulate drawing cards for Baccarat
-    return [Math.floor(Math.random() * 10) + 1, Math.floor(Math.random() * 10) + 1];
-}
-
-function determineWinner(playerCards, bankerCards) {
-    const playerScore = playerCards.reduce((a, b) => a + b) % 10;
-    const bankerScore = bankerCards.reduce((a, b) => a + b) % 10;
-    return playerScore > bankerScore ? 'player' : 'banker';
-}
+document.getElementById('balance').innerText = balance;

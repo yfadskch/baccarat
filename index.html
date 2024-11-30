@@ -9,13 +9,13 @@
 <body>
     <div class="game-container">
         <h1>Baccarat Game</h1>
-        <p>Current Balance: $<span id="balance">100</span></p>
-        <div>
-            <input type="number" id="betAmount" value="10" min="1">
+        <div class="balance">Current Balance: $<span id="balance">100</span></div>
+        <div class="betting">
+            <input type="number" id="betAmount" value="10" min="1" max="100">
             <button onclick="placeBet('banker')">Bet on Banker</button>
             <button onclick="placeBet('player')">Bet on Player</button>
         </div>
-        <div id="gameResult"></div>
+        <div id="resultsDisplay"></div>
         <table id="resultsTable">
             <thead>
                 <tr>

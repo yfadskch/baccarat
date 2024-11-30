@@ -12,11 +12,15 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     width: 300px;
+    text-align: center;
+}
+
+.betting {
+    margin-bottom: 20px;
 }
 
 table {
     width: 100%;
-    margin-top: 20px;
     border-collapse: collapse;
 }
 
@@ -34,4 +38,5 @@ th {
 button {
     margin: 5px;
     padding: 10px;
+    cursor: pointer;
 }
