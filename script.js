@@ -10,30 +10,36 @@ function placeBet(choice) {
     balance -= betAmount;
     document.getElementById('balance').innerText = balance;
 
-    const playerScore = drawCard();
-    const bankerScore = drawCard();
-    const winner = playerScore > bankerScore ? 'player' : 'banker';
+    const playerCard = drawCard();
+    const bankerCard = drawCard();
+    const winner = playerCard > bankerCard ? 'player' : 'banker';
 
-    updateResults(playerScore, bankerScore, winner, choice, betAmount);
+    showCard('playerCard', playerCard);
+    showCard('bankerCard', bankerCard);
+
+    setTimeout(() => {
+        let message = winner === choice ? "You win!" : "You lose!";
+        if (winner === choice) balance += betAmount * 2;
+        document.getElementById('resultsDisplay').innerHTML = `You bet on ${choice}. ${message} Player: ${playerCard}, Banker: ${bankerCard}.`;
+
+        const table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+        const row = table.insertRow();
+        row.insertCell(0).innerText = table.rows.length + 1;
+        row.insertCell(1).innerText = playerCard;
+        row.insertCell(2).innerText = bankerCard;
+        row.insertCell(3).innerText = winner;
+    }, 700);
 }
 
 function drawCard() {
-    // Simplified card draw mechanism for example purposes
-    return Math.floor(Math.random() * 9) + 1;  // Cards from 1 to 9
+    return Math.floor(Math.random() * 13) + 1;  // Cards from 1 to 13 (Ace to King)
 }
 
-function updateResults(playerScore, bankerScore, winner, choice, betAmount) {
-    let message = winner === choice ? "You win!" : "You lose!";
-    if (winner === choice) balance += betAmount * 2;
-
-    document.getElementById('resultsDisplay').innerHTML = `You bet on ${choice}. ${message} Player: ${playerScore}, Banker: ${bankerScore}.`;
-
-    const table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
-    const row = table.insertRow();
-    row.insertCell(0).innerText = table.rows.length + 1;
-    row.insertCell(1).innerText = playerScore;
-    row.insertCell(2).innerText = bankerScore;
-    row.insertCell(3).innerText = winner;
+function showCard(elementId, cardNumber) {
+    const card = document.getElementById(elementId);
+    card.style.transform = 'rotateY(0deg)'; // Flip to show the front
+    setTimeout(() => {
+        card.style.backgroundImage = `url('${cardNumber}.jpg')`; // Assuming you have 1.jpg to 13.jpg for cards
+        card.style.transform = 'rotateY(180deg)'; // Flip back to show the back again
+    }, 600);
 }
-
-document.getElementById('balance').innerText = balance;
