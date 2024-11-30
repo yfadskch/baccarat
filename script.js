@@ -1,27 +1,37 @@
-let round = 1;
+let balance = 100;
 
 function placeBet(side) {
-    let betAmount = document.getElementById('betAmount').value;
-    let gameResult = Math.random() < 0.5 ? 'banker' : 'player';
-    let resultText = side === gameResult ? 'You win!' : 'You lose!';
-    document.getElementById('gameResult').innerText = `Result: ${resultText}, Winning Side: ${gameResult}`;
+    const betAmount = parseInt(document.getElementById('betAmount').value);
+    if (balance < betAmount) {
+        alert('Insufficient balance!');
+        return;
+    }
+    balance -= betAmount;
+    document.getElementById('balance').textContent = balance;
 
-    let table = document.getElementById('resultsTable');
-    let row = table.insertRow(-1);
-    let cell1 = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
-    cell1.innerText = `Round ${round}`;
-    cell2.innerText = resultText;
-    cell3.innerText = gameResult;
+    const playerCards = drawCards();
+    const bankerCards = drawCards();
+    const winner = determineWinner(playerCards, bankerCards);
 
-    round++;
+    document.getElementById('gameResult').textContent = `Player: ${playerCards.join(', ')} Banker: ${bankerCards.join(', ')} - ${side === winner ? 'You win!' : 'You lose!'}`;
+    balance += (side === winner) ? betAmount * 2 : 0;
+    document.getElementById('balance').textContent = balance;
+
+    const table = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+    const row = table.insertRow();
+    row.insertCell(0).textContent = table.rows.length + 1;
+    row.insertCell(1).textContent = playerCards.join(', ');
+    row.insertCell(2).textContent = bankerCards.join(', ');
+    row.insertCell(3).textContent = winner;
 }
 
-function resetTable() {
-    let table = document.getElementById('resultsTable');
-    while (table.rows.length > 1) {
-        table.deleteRow(1);
-    }
-    round = 1;
+function drawCards() {
+    // Simulate drawing cards for Baccarat
+    return [Math.floor(Math.random() * 10) + 1, Math.floor(Math.random() * 10) + 1];
+}
+
+function determineWinner(playerCards, bankerCards) {
+    const playerScore = playerCards.reduce((a, b) => a + b) % 10;
+    const bankerScore = bankerCards.reduce((a, b) => a + b) % 10;
+    return playerScore > bankerScore ? 'player' : 'banker';
 }

@@ -9,20 +9,25 @@
 <body>
     <div class="game-container">
         <h1>Baccarat Game</h1>
-        <p>Place your bet on either "Banker" or "Player" and see who wins!</p>
+        <p>Current Balance: $<span id="balance">100</span></p>
         <div>
-            <label for="betAmount">Bet Amount:</label>
-            <input type="number" id="betAmount" value="10">
+            <input type="number" id="betAmount" value="10" min="1">
             <button onclick="placeBet('banker')">Bet on Banker</button>
             <button onclick="placeBet('player')">Bet on Player</button>
         </div>
         <div id="gameResult"></div>
         <table id="resultsTable">
-            <tr>
-                <th>Round</th>
-                <th>Result</th>
-                <th>Winning Side</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Round</th>
+                    <th>Player Cards</th>
+                    <th>Banker Cards</th>
+                    <th>Winning Side</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Results will be appended here -->
+            </tbody>
         </table>
     </div>
     <script src="script.js"></script>
