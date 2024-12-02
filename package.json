@@ -2,14 +2,12 @@
   "name": "baccarat_game",
   "version": "1.0.0",
   "description": "A Baccarat game simulation using HTML, CSS, and JavaScript.",
-  "main": "script.js",
+  "main": "server/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "mongoose": "^8.8.3"
   }
 }

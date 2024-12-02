@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const gameResultSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    result: { type: String, enum: ['player', 'banker', 'tie'], required: true },
-    createdAt: { type: Date, default: Date.now },
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    score: { type: Number, default: 0 },
 });
 
-module.exports = mongoose.model('GameResult', gameResultSchema);
+module.exports = mongoose.model("User", userSchema);
