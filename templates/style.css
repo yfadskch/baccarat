@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+h1 {
+    color: #4CAF50;
+}
+.error {
+    color: red;
+}
+.history {
+    margin-top: 20px;
+}
+.history li {
+    margin-bottom: 10px;
+}
+form {
+    margin-bottom: 20px;
+}
+.chips button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.chips button:hover {
+    background-color: #45a049;
+}
+.cards-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+}
+.card {
+    width: 80px;
+    height: 120px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transform: scale(0);
+    transition: transform 0.5s ease-in-out;
+}
+.card.revealed {
+    transform: scale(1);
+}
