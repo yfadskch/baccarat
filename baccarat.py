@@ -1,14 +1,13 @@
 import random
 
-# 游戏规则
+# 显示游戏规则
 def show_rules():
     print("""
     === 游戏规则 ===
-    1. 每位玩家和庄家都会抽两张牌。
-    2. 牌的点数为 1 到 9，点数总和只保留个位数。
-    3. 玩家可以下注，并选择是否继续游戏。
-    4. 庄家和玩家的分数比较高者获胜。
-    5. 如果点数相同，游戏结果为平局。
+    1. 玩家和庄家各抽两张牌。
+    2. 点数总和保留个位数（例如：8 + 7 = 15，点数为 5）。
+    3. 玩家可以下注，如果玩家胜利，获得等额下注金额；否则失去下注金额。
+    4. 点数相同时为平局，不输不赢。
     =================
     """)
 
@@ -34,13 +33,23 @@ def determine_winner(player_score, banker_score):
 
 # 主游戏逻辑
 def baccarat_game():
-    # 设置玩家初始筹码
-    player_balance = int(input("请输入您的初始筹码（默认为1000）：") or 1000)
+    # 设置初始筹码
+    player_balance = 1000
     game_history = []  # 保存每局结果
+
+    print("\n欢迎来到百家乐游戏！")
+    show_rules()
 
     while player_balance > 0:
         print(f"\n当前筹码：{player_balance}")
-        bet = int(input("请输入您的下注金额："))
+        try:
+            bet = int(input("请输入您的下注金额（输入 0 退出游戏）："))
+        except ValueError:
+            print("请输入有效数字！")
+            continue
+
+        if bet == 0:
+            break
         if bet > player_balance:
             print("您的筹码不足，请重新下注！")
             continue
@@ -53,21 +62,23 @@ def baccarat_game():
         player_score = calculate_score(player_cards)
         banker_score = calculate_score(banker_cards)
 
-        # 看牌功能
-        show_cards = input("是否查看牌？(y/n): ").lower()
-        if show_cards == 'y':
-            print(f"玩家的牌: {player_cards}，点数: {player_score}")
-            print(f"庄家的牌: {banker_cards}，点数: {banker_score}")
+        # 显示牌面和分数
+        print(f"\n玩家的牌: {player_cards}，点数: {player_score}")
+        print(f"庄家的牌: {banker_cards}，点数: {banker_score}")
 
         # 判断赢家
         winner = determine_winner(player_score, banker_score)
-        print(f"\n本局结果: {winner}")
+        print(f"本局结果: {winner}")
 
         # 更新筹码
         if winner == "Player Wins!":
             player_balance += bet
+            print(f"恭喜！您赢得了 {bet} 筹码！")
         elif winner == "Banker Wins!":
             player_balance -= bet
+            print(f"很遗憾，您输了 {bet} 筹码。")
+        else:
+            print("本局为平局，筹码未变动。")
 
         # 保存结果
         game_history.append({
@@ -89,8 +100,5 @@ def baccarat_game():
     for idx, record in enumerate(game_history):
         print(f"第 {idx + 1} 局 - 玩家: {record['player_score']} 庄家: {record['banker_score']} 结果: {record['winner']} 下注: {record['bet']}")
 
-# 运行游戏
 if __name__ == "__main__":
-    print("欢迎来到百家乐游戏！")
-    show_rules()
     baccarat_game()
