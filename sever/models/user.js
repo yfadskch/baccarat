@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  phone: { type: String, required: true, unique: true },
-  points: { type: Number, default: 100 },
-  welcomeBonusGiven: { type: Boolean, default: false },
+const gameResultSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    result: { type: String, enum: ['player', 'banker', 'tie'], required: true },
+    createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('GameResult', gameResultSchema);

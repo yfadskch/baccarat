@@ -7,23 +7,52 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Baccarat Game</h1>
-        <button id="play-button">Play</button>
-        <h2>Game Results</h2>
-        <table id="results-table">
+    <h1>Welcome to Baccarat Game</h1>
+
+    <!-- 注册 / 登录 -->
+    <div>
+        <h2>Register / Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="registerButton">Register</button>
+        <button id="loginButton">Login</button>
+    </div>
+
+    <!-- 游戏 -->
+    <div>
+        <h2>Baccarat Game</h2>
+        <button id="playButton">Play</button>
+        <p id="gameResult">Click "Play" to start the game</p>
+        <p>Score: <span id="score">100</span></p>
+    </div>
+
+    <!-- 奖励 -->
+    <div>
+        <h2>My Rewards</h2>
+        <p>Score: <span id="rewardScore">100</span></p>
+        <table>
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Result</th>
-                    <th>Time</th>
+                    <th>Reward</th>
+                    <th>Points Required</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- 游戏结果将动态加载到这里 -->
+                <tr>
+                    <td>$10 Gift Card</td>
+                    <td>100</td>
+                    <td><button class="redeemButton" data-reward="giftCard">Redeem</button></td>
+                </tr>
+                <tr>
+                    <td>Free Spin</td>
+                    <td>50</td>
+                    <td><button class="redeemButton" data-reward="freeSpin">Redeem</button></td>
+                </tr>
             </tbody>
         </table>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
