@@ -2,19 +2,42 @@
 <html>
 <head>
     <title>百家乐游戏</title>
+    <script>
+        function drawCard() {
+            return Math.floor(Math.random() * 9) + 1;
+        }
+
+        function calculateScore(cards) {
+            return cards.reduce((a, b) => a + b) % 10;
+        }
+
+        function playGame() {
+            let playerCards = [drawCard(), drawCard()];
+            let bankerCards = [drawCard(), drawCard()];
+
+            let playerScore = calculateScore(playerCards);
+            let bankerScore = calculateScore(bankerCards);
+
+            let result;
+            if (playerScore > bankerScore) {
+                result = "玩家胜利！";
+            } else if (playerScore < bankerScore) {
+                result = "庄家胜利！";
+            } else {
+                result = "平局！";
+            }
+
+            document.getElementById("gameResult").innerHTML = `
+                玩家牌: ${playerCards}, 点数: ${playerScore}<br>
+                庄家牌: ${bankerCards}, 点数: ${bankerScore}<br>
+                结果: ${result}
+            `;
+        }
+    </script>
 </head>
 <body>
-    <h1>欢迎来到百家乐游戏！</h1>
-    <p>这是一个有趣的小游戏，你可以通过运行我们的 Python 程序与游戏互动！</p>
-    <h2>游戏规则：</h2>
-    <ul>
-        <li>玩家和庄家各抽两张牌。</li>
-        <li>点数总和保留个位数，最大点数为赢家。</li>
-        <li>点数相同时，游戏结果为平局。</li>
-        <li>玩家可以下注并调整筹码。</li>
-    </ul>
-    <p>点击以下链接下载代码：</p>
-    <a href="https://github.com/你的仓库链接/baccarat_game.py" download>下载 Python 游戏代码</a>
-    <p>在本地运行代码以体验完整的百家乐游戏！</p>
+    <h1>百家乐游戏</h1>
+    <button onclick="playGame()">开始游戏</button>
+    <div id="gameResult"></div>
 </body>
 </html>
