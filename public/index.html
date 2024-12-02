@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat Game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baccarat Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Baccarat Game</h1>
-    <button id="play">Play</button>
-    <p id="result"></p>
-
-    <script src="script.js"></script>
+  <h1>Welcome to Baccarat Game</h1>
+  <div id="game">
+    <div id="player-hand" class="hand">
+      <h2>Player's Hand</h2>
+      <div class="cards" id="player-cards"></div>
+    </div>
+    <div id="banker-hand" class="hand">
+      <h2>Banker's Hand</h2>
+      <div class="cards" id="banker-cards"></div>
+    </div>
+    <button id="deal-button">Deal Cards</button>
+    <div id="result"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
