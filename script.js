@@ -1,38 +1,76 @@
-document.getElementById('play-button').addEventListener('click', async () => {
-    const results = ['player', 'banker', 'tie'];
-    const randomResult = results[Math.floor(Math.random() * results.length)];
-
-    // 模拟用户 ID
-    const userId = '1234567890abcdef12345678';
-
-    // 保存游戏结果到服务器
-    await fetch('/api/game/results', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, result: randomResult })
+// 确保所有内容在 DOM 加载完成后执行
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Register 和 Login 按钮事件绑定
+    document.getElementById('registerButton').addEventListener('click', () => {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (username && password) {
+            alert(`User ${username} registered successfully!`);
+        } else {
+            alert('Please fill in all fields!');
+        }
     });
 
-    // 重新加载游戏结果
-    loadResults();
+    document.getElementById('loginButton').addEventListener('click', () => {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (username && password) {
+            alert(`Welcome back, ${username}!`);
+        } else {
+            alert('Please fill in all fields!');
+        }
+    });
+
+    // 2. Play Game 按钮绑定
+    document.getElementById('playButton').addEventListener('click', playGame);
+
+    // 3. Redeem Reward 按钮绑定
+    const redeemButtons = document.querySelectorAll('.redeemButton');
+    redeemButtons.forEach(button => {
+        button.addEventListener('click', redeemReward);
+    });
 });
 
-async function loadResults() {
-    const response = await fetch('/api/game/results');
-    const results = await response.json();
+// 游戏逻辑：实现 Play Game 功能
+function playGame() {
+    const playerScore = Math.floor(Math.random() * 10) + 1; // 随机生成玩家分数
+    const bankerScore = Math.floor(Math.random() * 10) + 1; // 随机生成庄家分数
+    const statusElement = document.getElementById('gameStatus');
+    const scoreElement = document.getElementById('score');
 
-    const tableBody = document.querySelector('#results-table tbody');
-    tableBody.innerHTML = '';
+    let currentScore = parseInt(scoreElement.textContent.split(': ')[1]); // 获取当前分数
 
-    results.forEach((result, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td class="${result.result}">${result.result}</td>
-            <td>${new Date(result.createdAt).toLocaleString()}</td>
-        `;
-        tableBody.appendChild(row);
-    });
+    // 判断游戏结果
+    if (playerScore > bankerScore) {
+        statusElement.textContent = `Player: ${playerScore}, Banker: ${bankerScore}. You win!`;
+        currentScore += 10; // 玩家胜利加10分
+    } else if (playerScore < bankerScore) {
+        statusElement.textContent = `Player: ${playerScore}, Banker: ${bankerScore}. You lose!`;
+        currentScore -= 5; // 玩家失败扣5分
+    } else {
+        statusElement.textContent = `Player: ${playerScore}, Banker: ${bankerScore}. It's a tie!`;
+        currentScore += 1; // 平局加1分
+    }
+
+    scoreElement.textContent = `Score: ${currentScore}`; // 更新分数
 }
 
-// 初始加载
-loadResults();
+// 兑换逻辑：实现 Redeem Reward 功能
+function redeemReward(event) {
+    const button = event.target; // 获取触发点击事件的按钮
+    const requiredPoints = parseInt(button.dataset.points); // 获取兑换所需积分
+    const rewardName = button.dataset.reward; // 获取奖励名称
+
+    const scoreElement = document.getElementById('score');
+    let currentScore = parseInt(scoreElement.textContent.split(': ')[1]); // 当前分数
+
+    // 判断是否有足够积分兑换
+    if (currentScore >= requiredPoints) {
+        currentScore -= requiredPoints; // 扣除积分
+        alert(`You have redeemed ${rewardName}!`); // 显示成功信息
+    } else {
+        alert(`Not enough points to redeem ${rewardName}!`); // 显示失败信息
+    }
+
+    scoreElement.textContent = `Score: ${currentScore}`; // 更新分数
+}
