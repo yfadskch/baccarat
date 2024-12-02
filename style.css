@@ -2,47 +2,40 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    text-align: center;
-    background-color: #f4f4f9;
+    background-color: #f4f4f4;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
+.container {
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-    margin: 20px 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-main {
-    margin: 20px;
+table, th, td {
+    border: 1px solid #ccc;
 }
 
-.hidden {
-    display: none;
-}
-
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    background-color: #333;
-    color: #fff;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #555;
-}
-
-.form-group {
-    margin: 20px 0;
-}
-
-input {
+th, td {
     padding: 10px;
-    margin: 5px;
-    width: 200px;
+    text-align: center;
+}
+
+.player {
+    color: blue;
+}
+
+.banker {
+    color: red;
+}
+
+.tie {
+    color: green;
 }

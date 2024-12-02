@@ -1,65 +1,38 @@
-let score = 100;
+document.getElementById('play-button').addEventListener('click', async () => {
+    const results = ['player', 'banker', 'tie'];
+    const randomResult = results[Math.floor(Math.random() * results.length)];
 
-function registerUser() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    // 模拟用户 ID
+    const userId = '1234567890abcdef12345678';
 
-    if (username && password) {
-        localStorage.setItem("user", JSON.stringify({ username, password }));
-        alert("Registration successful!");
-    } else {
-        alert("Please fill in all fields!");
-    }
+    // 保存游戏结果到服务器
+    await fetch('/api/game/results', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, result: randomResult })
+    });
+
+    // 重新加载游戏结果
+    loadResults();
+});
+
+async function loadResults() {
+    const response = await fetch('/api/game/results');
+    const results = await response.json();
+
+    const tableBody = document.querySelector('#results-table tbody');
+    tableBody.innerHTML = '';
+
+    results.forEach((result, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td class="${result.result}">${result.result}</td>
+            <td>${new Date(result.createdAt).toLocaleString()}</td>
+        `;
+        tableBody.appendChild(row);
+    });
 }
 
-function loginUser() {
-    const username = document.getElementById("loginUsername").value;
-    const password = document.getElementById("loginPassword").value;
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-
-    if (storedUser && storedUser.username === username && storedUser.password === password) {
-        alert("Login successful!");
-        document.getElementById("auth").classList.add("hidden");
-        document.getElementById("game").classList.remove("hidden");
-        document.getElementById("rewards").classList.remove("hidden");
-    } else {
-        alert("Invalid credentials!");
-    }
-}
-
-function playGame() {
-    const player = Math.floor(Math.random() * 9) + 1;
-    const banker = Math.floor(Math.random() * 9) + 1;
-    let result;
-
-    if (player > banker) {
-        result = "You win!";
-        score += 10;
-    } else if (player < banker) {
-        result = "You lose!";
-        score -= 10;
-    } else {
-        result = "It's a tie!";
-    }
-
-    document.getElementById("result").innerText = `Player: ${player}, Banker: ${banker}. ${result}`;
-    document.getElementById("score").innerText = `Score: ${score}`;
-    document.getElementById("current-score").innerText = `Score: ${score}`;
-    localStorage.setItem("score", score);
-}
-
-function redeemReward(pointsRequired) {
-    let currentScore = score;
-
-    if (currentScore >= pointsRequired) {
-        currentScore -= pointsRequired;
-        score = currentScore;
-        alert("Reward redeemed!");
-    } else {
-        alert("Not enough points!");
-    }
-
-    document.getElementById("current-score").innerText = `Score: ${currentScore}`;
-    document.getElementById("score").innerText = `Score: ${currentScore}`;
-    localStorage.setItem("score", currentScore);
-}
+// 初始加载
+loadResults();
