@@ -39,7 +39,7 @@ function startGame() {
     }
 
     updateBalance(result);
-    updatePoints(currentBet);
+    updatePoints();
     addRecord(result);
 }
 
@@ -71,8 +71,8 @@ function updateBalance(result) {
     document.getElementById('balance').textContent = balance;
 }
 
-function updatePoints(bet) {
-    points += bet / 2;
+function updatePoints() {
+    points += currentBet / 2;
     document.getElementById('points').textContent = points;
 }
 
@@ -90,9 +90,22 @@ function addRecord(result) {
 }
 
 function redeemRewards() {
-    if (balance <= 0) {
-        alert("Insufficient balance to redeem rewards!");
-        return;
+    if (points >= 2000) {
+        alert("Congratulations! You have successfully redeemed. Save And Send Us.");
+        points -= 2000;
+    } else {
+        alert("Not enough points to redeem rewards!");
     }
-    alert("Congratulations! Reward redeemed successfully.");
+    document.getElementById('points').textContent = points;
+}
+
+function freeCredit() {
+    window.location.href = "https://klking88.com";
+}
+
+function showPopup(message) {
+    const popup = document.getElementById('success-popup');
+    popup.textContent = message;
+    popup.style.display = "block";
+    setTimeout(() => popup.style.display = "none", 3000);
 }

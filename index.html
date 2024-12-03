@@ -37,12 +37,13 @@
                 <button onclick="selectTarget('Tie')">Tie</button>
             </div>
             <button id="start-game" onclick="startGame()">Start Game</button>
-            <button id="free-credit" onclick="window.location.href='https://klking88.com'">Free Credit Tanpa Deposit</button>
-            <button id="redeem-rewards" onclick="redeemRewards()">Redeem Rewards</button>
+            <button class="special-button" onclick="redeemRewards()">Redeem Rewards</button>
+            <button class="special-button" onclick="freeCredit()">Free Credit Tanpa Deposit</button>
         </div>
         <h3>Game Records</h3>
         <div class="record-grid" id="record-grid"></div>
     </div>
+    <div id="success-popup" class="popup">Congratulations! You have successfully redeemed. Save And Send Us.</div>
     <script src="script.js"></script>
 </body>
 </html>
