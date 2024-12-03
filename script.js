@@ -1,63 +1,50 @@
 let balance = 1000;
-let currentBet = null;
+let currentBet = 0;
 let currentTarget = null;
-let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
-    document.getElementById('current-bet').textContent = `Current Bet Amount: ${amount}`;
+    document.getElementById("current-bet").textContent = amount;
 }
 
 function selectTarget(target) {
     currentTarget = target;
-    document.getElementById('current-target').textContent = `Current Target: ${target}`;
-}
-
-function startGame() {
-    if (!currentBet || !currentTarget) {
-        alert("Please select both a bet amount and a target!");
-        return;
-    }
-
-    const playerCards = [getRandomCard(), getRandomCard()];
-    const bankerCards = [getRandomCard(), getRandomCard()];
-
-    updateCards('player-cards', playerCards);
-    updateCards('banker-cards', bankerCards);
-
-    const playerScore = calculateScore(playerCards);
-    const bankerScore = calculateScore(bankerCards);
-
-    let result = "";
-    if (playerScore > bankerScore) {
-        result = "Player";
-    } else if (bankerScore > playerScore) {
-        result = "Banker";
-    } else {
-        result = "Tie";
-    }
-
-    updateBalance(result);
-    addRecord(result);
+    document.getElementById("current-target").textContent = target;
 }
 
 function getRandomCard() {
-    return Math.floor(Math.random() * 9) + 1;
+    return Math.floor(Math.random() * 10) + 1;
 }
 
 function calculateScore(cards) {
-    return cards.reduce((sum, card) => sum + card, 0) % 10;
+    return cards.reduce((sum, card) => (sum + card) % 10, 0);
 }
 
-function updateCards(elementId, cards) {
-    const cardContainer = document.getElementById(elementId);
-    cardContainer.innerHTML = "";
-    cards.forEach(card => {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'card';
-        cardElement.textContent = card;
-        cardContainer.appendChild(cardElement);
-    });
+function startGame() {
+    if (currentBet === 0 || currentTarget === null) {
+        alert("Please select both bet amount and target!");
+        return;
+    }
+
+    let playerCards = [getRandomCard(), getRandomCard()];
+    let bankerCards = [getRandomCard(), getRandomCard()];
+    let playerScore = calculateScore(playerCards);
+    let bankerScore = calculateScore(bankerCards);
+
+    document.getElementById("player-cards").innerHTML = playerCards
+        .map(card => `<div>${card}</div>`)
+        .join("");
+    document.getElementById("banker-cards").innerHTML = bankerCards
+        .map(card => `<div>${card}</div>`)
+        .join("");
+
+    let result = "";
+    if (playerScore > bankerScore) result = "Player";
+    else if (bankerScore > playerScore) result = "Banker";
+    else result = "Tie";
+
+    updateBalance(result);
+    addRecord(result);
 }
 
 function updateBalance(result) {
@@ -66,17 +53,13 @@ function updateBalance(result) {
     } else {
         balance -= currentBet;
     }
-    document.getElementById('balance').textContent = `Current Balance: ${balance}`;
+    document.getElementById("current-balance").textContent = balance;
 }
 
 function addRecord(result) {
-    const recordGridElement = document.getElementById('record-grid');
-    const recordElement = document.createElement('div');
-    recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
-    recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
-    recordGridElement.appendChild(recordElement);
-
-    if (recordGridElement.children.length > 16) {
-        recordGridElement.removeChild(recordGridElement.children[0]);
-    }
+    const records = document.getElementById("game-records");
+    const record = document.createElement("div");
+    record.textContent = result[0];
+    record.className = result.toLowerCase();
+    records.appendChild(record);
 }
