@@ -22,22 +22,23 @@ h1 {
 
 .card-section {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
 .cards {
     display: flex;
-    gap: 10px;
     justify-content: center;
-    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .cards .card {
     font-size: 20px;
     font-weight: bold;
-    width: 60px;
-    height: 90px;
+    width: 40px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,35 +46,6 @@ h1 {
     border-radius: 5px;
     background-color: #f4f4f4;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transform-style: preserve-3d;
-    transition: transform 0.6s;
-}
-
-.cards .card.flip {
-    transform: rotateY(180deg);
-}
-
-.card .front, .card .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.card .back {
-    background: red;
-    color: white;
-}
-
-.card .front {
-    background: white;
-    color: black;
-    transform: rotateY(180deg);
 }
 
 .info-section {
@@ -87,12 +59,12 @@ h1 {
 
 .bet-buttons button, .target-buttons button {
     padding: 10px 20px;
-    margin: 5px 10px;
-    font-size: 14px;
+    margin: 5px;
+    font-size: 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 80px;
+    width: 30%;
 }
 
 .bet-buttons button {
@@ -108,7 +80,7 @@ h1 {
 #start-game {
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #dc3545;
+    background-color: #28a745;
     color: white;
     font-size: 16px;
     border: none;
@@ -119,7 +91,7 @@ h1 {
 
 .record-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: 30px;
     gap: 5px;
     margin: 20px auto;
@@ -127,8 +99,8 @@ h1 {
 }
 
 .record-grid .record {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
