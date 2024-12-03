@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>百家乐游戏</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百家乐游戏</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="game-container">
-    <h1>百家乐游戏</h1>
-
-    <div class="cards-display">
-      <div>
-        <h2>玩家卡牌</h2>
-        <div id="player-cards" class="cards"></div>
-      </div>
-      <div>
-        <h2>庄家卡牌</h2>
-        <div id="banker-cards" class="cards"></div>
-      </div>
+    <div class="container">
+        <h1>百家乐游戏</h1>
+        <div class="card-section">
+            <div class="player-cards">
+                <h3>玩家卡牌</h3>
+                <div id="player-cards" class="cards">
+                    <img src="static/card-back.jpg" class="card" alt="Player Card 1">
+                    <img src="static/card-back.jpg" class="card" alt="Player Card 2">
+                </div>
+            </div>
+            <div class="banker-cards">
+                <h3>庄家卡牌</h3>
+                <div id="banker-cards" class="cards">
+                    <img src="static/card-back.jpg" class="card" alt="Banker Card 1">
+                    <img src="static/card-back.jpg" class="card" alt="Banker Card 2">
+                </div>
+            </div>
+        </div>
+        <p id="balance">当前余额：<span id="current-balance">1000</span></p>
+        <div class="betting-section">
+            <p>请选择下注金额：</p>
+            <button class="bet-button" onclick="selectBet(100)">100</button>
+            <button class="bet-button" onclick="selectBet(200)">200</button>
+            <button class="bet-button" onclick="selectBet(500)">500</button>
+        </div>
+        <div class="target-section">
+            <p>选择投注对象：</p>
+            <button class="target-button" onclick="selectTarget('player')">玩家</button>
+            <button class="target-button" onclick="selectTarget('banker')">庄家</button>
+            <button class="target-button" onclick="selectTarget('tie')">和局</button>
+        </div>
+        <button class="start-button" onclick="startGame()">开始游戏</button>
+        <div class="results">
+            <h3>卡牌展示</h3>
+            <p id="card-display"></p>
+            <h3>游戏结果</h3>
+            <p id="game-result"></p>
+            <h3>游戏记录</h3>
+            <ul id="game-history"></ul>
+        </div>
     </div>
-
-    <div class="balance">
-      <p>当前余额：<span id="balance">1000</span></p>
-    </div>
-
-    <div class="bet-section">
-      <p>请选择下注金额：</p>
-      <button onclick="selectBet(100)">100</button>
-      <button onclick="selectBet(200)">200</button>
-      <button onclick="selectBet(500)">500</button>
-    </div>
-
-    <div class="target-section">
-      <p>选择投注对象：</p>
-      <button onclick="selectTarget('player')">玩家</button>
-      <button onclick="selectTarget('banker')">庄家</button>
-      <button onclick="selectTarget('tie')">和局</button>
-    </div>
-
-    <button id="start-game-btn" onclick="startGame()">开始游戏</button>
-
-    <div class="results">
-      <h3>卡牌展示</h3>
-      <p id="card-display"></p>
-      <h3>游戏结果</h3>
-      <p id="game-result"></p>
-      <h3>游戏记录</h3>
-      <ul id="game-records"></ul>
-    </div>
-  </div>
-  <script src="./script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
