@@ -37,9 +37,19 @@
             </div>
             <button id="start-game" onclick="startGame()">Start Game</button>
         </div>
-        <a href="https://klking88.com" class="free-credit-link" target="_blank">Free Credit Tanpa Deposit</a>
+        <button id="free-credit" onclick="redirectToFreeCredit()">Free Credit Tanpa Deposit</button>
+        <button id="redeem-rewards" onclick="showRedeemOptions()">Redeem Rewards</button>
         <h3>Game Records</h3>
         <div class="record-grid" id="record-grid"></div>
+    </div>
+    <div id="redeem-modal" class="modal">
+        <div class="modal-content">
+            <h3>Redeem Rewards</h3>
+            <button onclick="redeemReward(200, 500)">200 Points = +500 Balance</button>
+            <button onclick="redeemReward(1000, '60% Welcome Bonus')">1000 Points = Welcome Bonus 60%</button>
+            <button onclick="redeemReward(2000, 'Free 8.88')">2000 Points = Free 8.88</button>
+            <button onclick="closeModal()">Close</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

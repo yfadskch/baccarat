@@ -74,10 +74,39 @@ function addRecord(result) {
     const recordElement = document.createElement('div');
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
     recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
-    recordGrid.push(recordElement);
-    if (recordGrid.length > 16) {
-        recordGrid.shift();
+    recordGridElement.appendChild(recordElement);
+    if (recordGridElement.children.length > 16) {
+        recordGridElement.removeChild(recordGridElement.firstChild);
     }
-    recordGridElement.innerHTML = "";
-    recordGrid.forEach(record => recordGridElement.appendChild(record));
+}
+
+function redirectToFreeCredit() {
+    window.location.href = "https://klking88.com";
+}
+
+function showRedeemOptions() {
+    if (balance <= 0) {
+        alert("Insufficient Balance! Cannot redeem rewards.");
+        return;
+    }
+    document.getElementById('redeem-modal').style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById('redeem-modal').style.display = "none";
+}
+
+function redeemReward(points, reward) {
+    if (balance < points) {
+        alert("Not enough balance to redeem this reward.");
+    } else {
+        if (typeof reward === "number") {
+            balance += reward;
+        } else {
+            alert(`You have earned: ${reward}`);
+        }
+        document.getElementById('balance').textContent = balance;
+        alert("Congratulations! Reward successfully redeemed!");
+        closeModal();
+    }
 }
