@@ -1,20 +1,21 @@
 let balance = 1000;
 let currentBet = null;
 let currentTarget = null;
+let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
-    document.getElementById('current-bet').textContent = currentBet;
+    document.getElementById('current-bet').textContent = amount;
 }
 
 function selectTarget(target) {
     currentTarget = target;
-    document.getElementById('current-target').textContent = currentTarget;
+    document.getElementById('current-target').textContent = target;
 }
 
 function startGame() {
     if (!currentBet || !currentTarget) {
-        alert('Please select a bet amount and a target.');
+        alert("Please select both a bet amount and a target!");
         return;
     }
 
@@ -27,23 +28,36 @@ function startGame() {
     const playerScore = calculateScore(playerCards);
     const bankerScore = calculateScore(bankerCards);
 
-    const result = determineWinner(playerScore, bankerScore);
+    let result = "";
+    if (playerScore > bankerScore) {
+        result = "Player";
+    } else if (bankerScore > playerScore) {
+        result = "Banker";
+    } else {
+        result = "Tie";
+    }
+
     updateBalance(result);
     addRecord(result);
 }
 
 function getRandomCard() {
-    return Math.floor(Math.random() * 10) + 1;
+    return Math.floor(Math.random() * 9) + 1;
 }
 
 function calculateScore(cards) {
     return cards.reduce((sum, card) => sum + card, 0) % 10;
 }
 
-function determineWinner(playerScore, bankerScore) {
-    if (playerScore > bankerScore) return 'Player';
-    if (playerScore < bankerScore) return 'Banker';
-    return 'Tie';
+function updateCards(elementId, cards) {
+    const cardContainer = document.getElementById(elementId);
+    cardContainer.innerHTML = "";
+    cards.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.textContent = card;
+        cardContainer.appendChild(cardElement);
+    });
 }
 
 function updateBalance(result) {
@@ -55,25 +69,15 @@ function updateBalance(result) {
     document.getElementById('balance').textContent = balance;
 }
 
-function updateCards(elementId, cards) {
-    const container = document.getElementById(elementId);
-    container.innerHTML = '';
-    cards.forEach(card => {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'card';
-        cardElement.style.backgroundImage = 'url("static/card-back.jpg")';
-        container.appendChild(cardElement);
-    });
-}
-
 function addRecord(result) {
-    const recordContainer = document.getElementById('game-records');
-    const record = document.createElement('div');
-    record.className = `record ${result.toLowerCase()}`;
-    record.textContent = result[0].toUpperCase();
-    recordContainer.appendChild(record);
-
-    if (recordContainer.children.length > 16) {
-        recordContainer.removeChild(recordContainer.firstChild);
+    const recordGridElement = document.getElementById('record-grid');
+    const recordElement = document.createElement('div');
+    recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
+    recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
+    recordGrid.push(recordElement);
+    if (recordGrid.length > 24) {
+        recordGrid.shift();
     }
+    recordGridElement.innerHTML = "";
+    recordGrid.forEach(record => recordGridElement.appendChild(record));
 }

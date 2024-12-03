@@ -7,24 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
+    <div class="container">
         <h1>Baccarat Game</h1>
-        <div class="cards-container">
+        <div class="card-section">
             <div>
                 <h2>Player Cards</h2>
-                <div id="player-cards" class="cards"></div>
+                <div class="cards" id="player-cards"></div>
             </div>
             <div>
                 <h2>Banker Cards</h2>
-                <div id="banker-cards" class="cards"></div>
+                <div class="cards" id="banker-cards"></div>
             </div>
         </div>
-        <div class="info">
-            <p>Current Balance: <span id="balance">1000</span></p>
-            <p>Current Bet Amount: <span id="current-bet">Not Selected</span></p>
-            <p>Current Target: <span id="current-target">Not Selected</span></p>
-        </div>
-        <div class="bet-section">
+        <div class="info-section">
+            <p class="info">Current Balance: <span id="balance">1000</span></p>
+            <p class="info">Current Bet Amount: <span id="current-bet">Not Selected</span></p>
+            <p class="info">Current Target: <span id="current-target">Not Selected</span></p>
             <h3>Select Bet Amount:</h3>
             <div class="bet-buttons">
                 <button onclick="selectBet(100)">100</button>
@@ -37,10 +35,10 @@
                 <button onclick="selectTarget('Banker')">Banker</button>
                 <button onclick="selectTarget('Tie')">Tie</button>
             </div>
-            <button class="start-button" onclick="startGame()">Start Game</button>
+            <button id="start-game" onclick="startGame()">Start Game</button>
         </div>
         <h3>Game Records</h3>
-        <div id="game-records" class="records"></div>
+        <div class="record-grid" id="record-grid"></div>
     </div>
     <script src="script.js"></script>
 </body>
