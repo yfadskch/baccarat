@@ -1,6 +1,7 @@
 let balance = 1000;
 let currentBet = null;
 let currentTarget = null;
+let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
@@ -72,11 +73,11 @@ function addRecord(result) {
     const recordGridElement = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
-    recordElement.textContent = result[0];
-    recordGridElement.appendChild(recordElement);
-
-    // Limit to 16 records
-    if (recordGridElement.children.length > 16) {
-        recordGridElement.removeChild(recordGridElement.firstChild);
+    recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
+    recordGrid.push(recordElement);
+    if (recordGrid.length > 16) {
+        recordGrid.shift();
     }
+    recordGridElement.innerHTML = "";
+    recordGrid.forEach(record => recordGridElement.appendChild(record));
 }
