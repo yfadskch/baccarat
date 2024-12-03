@@ -4,56 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>百家乐游戏</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div class="container">
+  <div class="game-container">
     <h1>百家乐游戏</h1>
 
-    <!-- 卡牌展示 -->
-    <div class="card-display">
-      <div class="player-cards">
+    <div class="cards-display">
+      <div>
         <h2>玩家卡牌</h2>
         <div id="player-cards" class="cards"></div>
       </div>
-      <div class="banker-cards">
+      <div>
         <h2>庄家卡牌</h2>
         <div id="banker-cards" class="cards"></div>
       </div>
     </div>
 
-    <!-- 当前余额 -->
-    <p>当前余额：<span id="balance">1000</span></p>
+    <div class="balance">
+      <p>当前余额：<span id="balance">1000</span></p>
+    </div>
 
-    <!-- 投注金额 -->
-    <div>
+    <div class="bet-section">
       <p>请选择下注金额：</p>
-      <button class="bet-button" data-bet="100">100</button>
-      <button class="bet-button" data-bet="200">200</button>
-      <button class="bet-button" data-bet="500">500</button>
+      <button onclick="selectBet(100)">100</button>
+      <button onclick="selectBet(200)">200</button>
+      <button onclick="selectBet(500)">500</button>
     </div>
 
-    <!-- 投注对象 -->
-    <div>
+    <div class="target-section">
       <p>选择投注对象：</p>
-      <button id="bet-player" class="bet-target">玩家</button>
-      <button id="bet-banker" class="bet-target">庄家</button>
-      <button id="bet-tie" class="bet-target">和局</button>
+      <button onclick="selectTarget('player')">玩家</button>
+      <button onclick="selectTarget('banker')">庄家</button>
+      <button onclick="selectTarget('tie')">和局</button>
     </div>
 
-    <!-- 开始游戏按钮 -->
-    <button id="start-game" class="start-game-button">开始游戏</button>
+    <button id="start-game-btn" onclick="startGame()">开始游戏</button>
 
-    <!-- 游戏结果展示 -->
-    <div id="game-results">
+    <div class="results">
       <h3>卡牌展示</h3>
-      <p id="cards-display"></p>
+      <p id="card-display"></p>
       <h3>游戏结果</h3>
-      <p id="result-display"></p>
+      <p id="game-result"></p>
       <h3>游戏记录</h3>
-      <ul id="game-history"></ul>
+      <ul id="game-records"></ul>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>

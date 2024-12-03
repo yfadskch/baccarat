@@ -1,92 +1,92 @@
-const balanceElement = document.getElementById("balance");
-const playerCardsElement = document.getElementById("player-cards");
-const bankerCardsElement = document.getElementById("banker-cards");
-const resultDisplay = document.getElementById("result-display");
-const gameHistory = document.getElementById("game-history");
-
 let balance = 1000;
-let selectedBet = 100;
-let betTarget = "玩家";
+let betAmount = 0;
+let target = "";
 
-// 卡牌正反面
-const cardBack = "./static/card-back.jpg";
-const cardFronts = ["./static/card-front.jpg", "./static/card-front.jpg"];
-
-// 更新余额
-function updateBalance(amount) {
-  balance += amount;
-  balanceElement.textContent = balance;
+function selectBet(amount) {
+  betAmount = amount;
+  document.querySelectorAll('.bet-section button').forEach(btn => btn.classList.remove('selected'));
+  event.target.classList.add('selected');
 }
 
-// 生成卡牌
-function generateCardElement(cardSrc) {
+function selectTarget(selectedTarget) {
+  target = selectedTarget;
+  document.querySelectorAll('.target-section button').forEach(btn => btn.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function generateCardElement(cardSrc, cardValue) {
+  const cardContainer = document.createElement("div");
+  cardContainer.classList.add("card-container");
+
   const img = document.createElement("img");
   img.src = cardSrc;
-  return img;
+  img.classList.add("card");
+
+  const valueText = document.createElement("div");
+  valueText.classList.add("card-value");
+  valueText.innerText = `点数: ${cardValue}`;
+
+  cardContainer.appendChild(img);
+  cardContainer.appendChild(valueText);
+  return cardContainer;
 }
 
-// 显示卡牌
 function displayCards(playerCards, bankerCards) {
+  const playerCardsElement = document.getElementById("player-cards");
+  const bankerCardsElement = document.getElementById("banker-cards");
+
   playerCardsElement.innerHTML = "";
   bankerCardsElement.innerHTML = "";
 
   playerCards.forEach(card => {
-    const cardElement = generateCardElement(card);
+    const cardElement = generateCardElement(card.src, card.value);
     playerCardsElement.appendChild(cardElement);
   });
 
   bankerCards.forEach(card => {
-    const cardElement = generateCardElement(card);
+    const cardElement = generateCardElement(card.src, card.value);
     bankerCardsElement.appendChild(cardElement);
   });
 }
 
-// 游戏逻辑
 function startGame() {
-  const playerCards = [cardFronts[0], cardFronts[1]];
-  const bankerCards = [cardFronts[0], cardFronts[1]];
+  if (!betAmount || !target) {
+    alert("请选择下注金额和投注对象！");
+    return;
+  }
+
+  const playerCards = [
+    { src: "./static/card-front.jpg", value: Math.floor(Math.random() * 10) + 1 },
+    { src: "./static/card-front.jpg", value: Math.floor(Math.random() * 10) + 1 },
+  ];
+  const bankerCards = [
+    { src: "./static/card-front.jpg", value: Math.floor(Math.random() * 10) + 1 },
+    { src: "./static/card-front.jpg", value: Math.floor(Math.random() * 10) + 1 },
+  ];
 
   displayCards(playerCards, bankerCards);
 
-  // 随机生成分数
-  const playerScore = Math.floor(Math.random() * 10);
-  const bankerScore = Math.floor(Math.random() * 10);
+  const playerScore = (playerCards[0].value + playerCards[1].value) % 10;
+  const bankerScore = (bankerCards[0].value + bankerCards[1].value) % 10;
 
-  // 计算结果
   let result;
-  if (playerScore > bankerScore) {
-    result = "玩家胜利!";
-    if (betTarget === "玩家") updateBalance(selectedBet);
-    else updateBalance(-selectedBet);
-  } else if (playerScore < bankerScore) {
-    result = "庄家胜利!";
-    if (betTarget === "庄家") updateBalance(selectedBet);
-    else updateBalance(-selectedBet);
+  if (playerScore > bankerScore) result = "player";
+  else if (bankerScore > playerScore) result = "banker";
+  else result = "tie";
+
+  const resultMessage = target === result ? "您赢了！" : "您输了！";
+  document.getElementById("game-result").innerText = resultMessage;
+
+  if (target === result) {
+    balance += betAmount;
   } else {
-    result = "平局!";
-    if (betTarget === "和局") updateBalance(selectedBet * 8);
-    else updateBalance(-selectedBet);
+    balance -= betAmount;
   }
 
-  resultDisplay.textContent = result;
+  document.getElementById("balance").innerText = balance;
 
-  // 更新历史记录
-  const historyItem = document.createElement("li");
-  historyItem.textContent = `玩家卡牌: ${playerScore}, 庄家卡牌: ${bankerScore}, 结果: ${result}`;
-  gameHistory.appendChild(historyItem);
+  const record = `玩家卡牌: ${playerCards[0].value}, ${playerCards[1].value} (点数: ${playerScore}) | 庄家卡牌: ${bankerCards[0].value}, ${bankerCards[1].value} (点数: ${bankerScore}) | 结果: ${result === "player" ? "玩家胜利" : result === "banker" ? "庄家胜利" : "和局"}`;
+  const recordElement = document.createElement("li");
+  recordElement.innerText = record;
+  document.getElementById("game-records").appendChild(recordElement);
 }
-
-// 按钮事件
-document.querySelectorAll(".bet-button").forEach(button => {
-  button.addEventListener("click", () => {
-    selectedBet = parseInt(button.getAttribute("data-bet"));
-  });
-});
-
-document.querySelectorAll(".bet-target").forEach(button => {
-  button.addEventListener("click", () => {
-    betTarget = button.textContent;
-  });
-});
-
-document.getElementById("start-game").addEventListener("click", startGame);
