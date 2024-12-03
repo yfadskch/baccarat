@@ -16,57 +16,44 @@ function selectTarget(target) {
 
 function startGame() {
     if (balance <= 0) {
-        alert('Balance is too low! Please redeem rewards.');
+        alert("Insufficient balance! Redeem rewards to continue.");
         return;
     }
 
-    if (!currentBet || !currentTarget) {
-        alert('Please select both a bet amount and a target!');
-        return;
-    }
+    const playerScore = Math.floor(Math.random() * 9) + 1;
+    const bankerScore = Math.floor(Math.random() * 9) + 1;
 
-    const playerScore = Math.floor(Math.random() * 10);
-    const bankerScore = Math.floor(Math.random() * 10);
-    const result = playerScore > bankerScore ? 'Player' : playerScore < bankerScore ? 'Banker' : 'Tie';
-
-    if (currentTarget === result) {
-        balance += currentBet;
-    } else {
-        balance -= currentBet;
-    }
-
+    balance -= currentBet;
     points += currentBet / 2;
+
     document.getElementById('balance').textContent = balance;
     document.getElementById('points').textContent = points;
-    addRecord(result);
+
+    const result = playerScore > bankerScore ? "Player" : (bankerScore > playerScore ? "Banker" : "Tie");
+    alert("Result: " + result);
 }
 
-function addRecord(result) {
-    const recordGrid = document.getElementById('record-grid');
-    const record = document.createElement('div');
-    record.className = 'record ' + result.toLowerCase();
-    record.textContent = result[0];
-    recordGrid.appendChild(record);
-    if (recordGrid.children.length > 16) {
-        recordGrid.removeChild(recordGrid.children[0]);
-    }
+function redeemRewards() {
+    const rewardOptions = document.getElementById('reward-options');
+    rewardOptions.style.display = rewardOptions.style.display === 'none' ? 'block' : 'none';
 }
 
-function showRedeemOptions() {
-    const points = parseInt(document.getElementById('points').textContent, 10);
-    if (points < 200) {
-        alert('Not enough points to redeem rewards!');
+function redeemPoints(requiredPoints) {
+    if (points < requiredPoints) {
+        alert("Not enough points to redeem rewards!");
         return;
     }
-    let rewardMessage = '';
-    if (points >= 3000) {
-        rewardMessage = 'Congratulations! You have redeemed Free 8.88.';
-    } else if (points >= 1000) {
-        rewardMessage = 'Congratulations! You have redeemed Welcome Bonus 60%.';
-    } else if (points >= 200) {
-        rewardMessage = 'Congratulations! You have redeemed +200 Balance.';
+
+    if (requiredPoints === 200) {
         balance += 200;
-        document.getElementById('balance').textContent = balance;
+        alert("Congratulations! You redeemed 200 Points for +200 Balance.");
+    } else if (requiredPoints === 1000) {
+        alert("Congratulations! You redeemed 1000 Points for Welcome Bonus 60%.");
+    } else if (requiredPoints === 3000) {
+        alert("Congratulations! You redeemed 3000 Points for Free 8.88.");
     }
-    alert(rewardMessage);
+
+    points -= requiredPoints;
+    document.getElementById('balance').textContent = balance;
+    document.getElementById('points').textContent = points;
 }
