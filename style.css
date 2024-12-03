@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #333;
-    color: white;
+    background: url('static/background.gif') no-repeat center center fixed;
+    background-size: cover;
     margin: 0;
     padding: 0;
 }
@@ -10,14 +10,15 @@ body {
 .container {
     max-width: 90%;
     margin: 20px auto;
-    background: #444;
+    background: rgba(0, 0, 0, 0.8);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 h1 {
     color: #2c7d2b;
+    font-size: 24px;
 }
 
 .card-section {
@@ -28,30 +29,38 @@ h1 {
 
 .cards {
     display: flex;
+    justify-content: center;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .cards .card {
+    font-size: 20px;
+    font-weight: bold;
     width: 40px;
     height: 60px;
-    background-color: white;
-    color: black;
-    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.bet-buttons button, .target-buttons button {
-    width: 80px;
-    padding: 10px;
+.info-section {
+    margin: 20px 0;
+}
+
+.bet-buttons button, .target-buttons button, #start-game, #redeem-rewards {
+    padding: 10px 20px;
     margin: 5px;
+    font-size: 14px;
     border: none;
     border-radius: 4px;
-    font-size: 14px;
     cursor: pointer;
+    width: 30%;
 }
 
 .bet-buttons button {
@@ -64,44 +73,31 @@ h1 {
     color: white;
 }
 
-.reward-section {
-    margin: 20px 0;
-}
-
-.reward-button {
-    width: 90%;
-    max-width: 300px;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #ffcc00;
-    color: black;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 #start-game {
     background-color: #dc3545;
-    color: white;
 }
 
-.popup {
+#redeem-rewards {
+    background-color: #ffc107;
+    color: black;
+}
+
+.modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
 }
 
-.popup-content {
+.modal-content {
     background: white;
+    color: black;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    color: black;
 }

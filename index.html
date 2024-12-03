@@ -37,20 +37,19 @@
                 <button onclick="selectTarget('Tie')">Tie</button>
             </div>
             <button id="start-game" onclick="startGame()">Start Game</button>
+            <button id="redeem-rewards" onclick="openRewardsMenu()">Redeem Rewards</button>
         </div>
-        <div class="reward-section">
-            <button class="reward-button" onclick="redeemReward(200)">200 Points: +200 Balance</button>
-            <button class="reward-button" onclick="redeemReward(1000)">1000 Points: Welcome Bonus 60%</button>
-            <button class="reward-button" onclick="redeemReward(3000)">3000 Points: Free 8.88</button>
+        <div id="rewards-modal" class="modal">
+            <div class="modal-content">
+                <h2>Redeem Rewards</h2>
+                <button onclick="redeemPoints(200)">200 Points: +200 Balance</button>
+                <button onclick="redeemPoints(1000)">1000 Points: Welcome Bonus 60%</button>
+                <button onclick="redeemPoints(3000)">3000 Points: Free 8.88</button>
+                <button onclick="closeRewardsMenu()">Close</button>
+            </div>
         </div>
         <h3>Game Records</h3>
         <div class="record-grid" id="record-grid"></div>
-    </div>
-    <div id="message-popup" class="popup">
-        <div class="popup-content">
-            <p id="popup-message"></p>
-            <button onclick="closePopup()">Close</button>
-        </div>
     </div>
     <script src="script.js"></script>
 </body>
