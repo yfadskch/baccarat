@@ -15,7 +15,7 @@ function selectTarget(target) {
 
 function startGame() {
     if (!currentBet || !currentTarget) {
-        alert("请先选择下注金额和投注对象！");
+        alert("Please select both a bet amount and a target!");
         return;
     }
 
@@ -30,11 +30,11 @@ function startGame() {
 
     let result = "";
     if (playerScore > bankerScore) {
-        result = "玩家";
+        result = "Player";
     } else if (bankerScore > playerScore) {
-        result = "庄家";
+        result = "Banker";
     } else {
-        result = "和局";
+        result = "Tie";
     }
 
     updateBalance(result);
@@ -72,8 +72,8 @@ function updateBalance(result) {
 function addRecord(result) {
     const recordGridElement = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
-    recordElement.className = 'record ' + (result === "玩家" ? "player" : result === "庄家" ? "banker" : "tie");
-    recordElement.textContent = result === "玩家" ? "闲" : result === "庄家" ? "庄" : "和";
+    recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
+    recordElement.textContent = result;
     recordGrid.push(recordElement);
     if (recordGrid.length > 80) {
         recordGrid.shift();

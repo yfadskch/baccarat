@@ -3,41 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>百家乐游戏</title>
+    <title>Baccarat Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>百家乐游戏</h1>
+        <h1>Baccarat Game</h1>
         <div class="card-section">
             <div>
-                <h2>玩家卡牌</h2>
+                <h2>Player Cards</h2>
                 <div class="cards" id="player-cards"></div>
             </div>
             <div>
-                <h2>庄家卡牌</h2>
+                <h2>Banker Cards</h2>
                 <div class="cards" id="banker-cards"></div>
             </div>
         </div>
         <div class="info-section">
-            <p class="info">当前余额：<span id="balance">1000</span></p>
-            <p class="info">当前下注金额：<span id="current-bet">未选择</span></p>
-            <p class="info">当前投注对象：<span id="current-target">未选择</span></p>
-            <h3>请选择下注金额:</h3>
+            <p class="info">Current Balance: <span id="balance">1000</span></p>
+            <p class="info">Current Bet Amount: <span id="current-bet">Not Selected</span></p>
+            <p class="info">Current Target: <span id="current-target">Not Selected</span></p>
+            <h3>Select Bet Amount:</h3>
             <div class="bet-buttons">
                 <button onclick="selectBet(100)">100</button>
                 <button onclick="selectBet(200)">200</button>
                 <button onclick="selectBet(500)">500</button>
             </div>
-            <h3>请选择投注对象:</h3>
+            <h3>Select Target:</h3>
             <div class="target-buttons">
-                <button onclick="selectTarget('玩家')">玩家</button>
-                <button onclick="selectTarget('庄家')">庄家</button>
-                <button onclick="selectTarget('和局')">和局</button>
+                <button onclick="selectTarget('Player')">Player</button>
+                <button onclick="selectTarget('Banker')">Banker</button>
+                <button onclick="selectTarget('Tie')">Tie</button>
             </div>
-            <button id="start-game" onclick="startGame()">开始游戏</button>
+            <button id="start-game" onclick="startGame()">Start Game</button>
         </div>
-        <h3>游戏记录</h3>
+        <h3>Game Records</h3>
         <div class="record-grid" id="record-grid"></div>
     </div>
     <script src="script.js"></script>
