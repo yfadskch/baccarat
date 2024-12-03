@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,16 +38,10 @@
                 <button onclick="selectTarget('Tie')">Tie</button>
             </div>
             <button id="start-game" onclick="startGame()">Start Game</button>
-            <button id="redeem-rewards" onclick="openRewardsMenu()">Redeem Rewards</button>
-        </div>
-        <div id="rewards-modal" class="modal">
-            <div class="modal-content">
-                <h2>Redeem Rewards</h2>
-                <button onclick="redeemPoints(200)">200 Points: +200 Balance</button>
-                <button onclick="redeemPoints(1000)">1000 Points: Welcome Bonus 60%</button>
-                <button onclick="redeemPoints(3000)">3000 Points: Free 8.88</button>
-                <button onclick="closeRewardsMenu()">Close</button>
-            </div>
+            <button id="redeem-rewards" onclick="showRedeemOptions()">Redeem Rewards</button>
+            <p class="link">
+                <a href="https://klking88.com" target="_blank">Free Credit Tanpa Deposit</a>
+            </p>
         </div>
         <h3>Game Records</h3>
         <div class="record-grid" id="record-grid"></div>
