@@ -1,92 +1,99 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    max-width: 600px;
-    margin: 50px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    color: #2e7d32;
+  text-align: center;
+  color: #2b8a3e;
 }
 
 h2 {
-    margin: 10px 0;
+  margin: 10px 0;
+  font-size: 18px;
+  color: #444;
+}
+
+.card-display {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+}
+
+.cards img {
+  width: 70px;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2b8a3e;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-button.chip {
-    background-color: #64b5f6;
-    color: white;
+button:hover {
+  background-color: #239530;
 }
 
-button.chip:hover {
-    background-color: #42a5f5;
+.bet-button {
+  background-color: #2b89ff;
 }
 
-button.target {
-    background-color: #81c784;
-    color: white;
+.bet-button:hover {
+  background-color: #1f70cc;
 }
 
-button.target.active {
-    background-color: #388e3c;
+.bet-target {
+  background-color: #2b8a3e;
 }
 
-button.target:hover {
-    background-color: #66bb6a;
+.bet-target:hover {
+  background-color: #239530;
 }
 
-#start-game {
-    background-color: #4caf50;
-    color: white;
+.start-game-button {
+  background-color: #28a745;
 }
 
-#start-game:hover {
-    background-color: #388e3c;
+.start-game-button:hover {
+  background-color: #218838;
 }
 
-#game-result, #game-history {
-    margin-top: 20px;
-    text-align: left;
+#game-results {
+  margin-top: 20px;
 }
 
-#cards-display {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
+#game-history {
+  list-style-type: none;
+  padding: 0;
 }
 
-.card {
-    width: 60px;
-    height: 90px;
-    background-size: cover;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.card-back {
-    background-image: url('static/card-back.jpg');
-}
-
-.card-front {
-    background-image: url('static/card-front.jpg');
+#game-history li {
+  margin: 5px 0;
+  color: #555;
 }
