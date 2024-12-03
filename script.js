@@ -90,22 +90,57 @@ function addRecord(result) {
 }
 
 function redeemRewards() {
-    if (points >= 2000) {
-        alert("Congratulations! You have successfully redeemed. Save And Send Us.");
-        points -= 2000;
-    } else {
+    if (points < 200) {
         alert("Not enough points to redeem rewards!");
+        return;
     }
-    document.getElementById('points').textContent = points;
+
+    const rewardOptions = `
+        <div>
+            <h3>Select Your Reward</h3>
+            <button onclick="redeemOption(200, '+500 Current Balance')">200 Points: +500 Balance</button>
+            <button onclick="redeemOption(1000, 'Welcome Bonus 60%')">1000 Points: Welcome Bonus 60%</button>
+            <button onclick="redeemOption(2000, 'Free 8.88')">2000 Points: Free 8.88</button>
+        </div>
+    `;
+
+    const popup = document.getElementById('success-popup');
+    popup.innerHTML = rewardOptions;
+    popup.style.display = 'block';
+
+    setTimeout(() => {
+        popup.style.display = 'none';
+    }, 10000);
+}
+
+function redeemOption(requiredPoints, rewardDescription) {
+    if (points >= requiredPoints) {
+        points -= requiredPoints;
+        document.getElementById('points').textContent = points;
+
+        if (rewardDescription === '+500 Current Balance') {
+            balance += 500;
+            document.getElementById('balance').textContent = balance;
+        }
+
+        showPopup(`Congratulations! You redeemed ${rewardDescription}`);
+    } else {
+        showPopup("Not enough points to redeem this reward!");
+    }
+
+    document.getElementById('success-popup').style.display = 'none';
 }
 
 function freeCredit() {
-    window.location.href = "https://klking88.com";
+    window.open("https://klking88.com", "_blank");
 }
 
 function showPopup(message) {
     const popup = document.getElementById('success-popup');
     popup.textContent = message;
-    popup.style.display = "block";
-    setTimeout(() => popup.style.display = "none", 3000);
+    popup.classList.add('show');
+
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000);
 }

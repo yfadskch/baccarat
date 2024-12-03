@@ -1,30 +1,29 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-image: url('static/background.png');
-    background-size: cover;
-    background-position: center;
+    background-color: #2d2d2d;
+    color: white;
     margin: 0;
     padding: 0;
-    color: white;
 }
 
 .container {
     max-width: 90%;
     margin: 20px auto;
-    background: rgba(0, 0, 0, 0.8);
+    background: #333;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    color: #2c7d2b;
+    color: #28a745;
     font-size: 24px;
 }
 
 .card-section {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
 }
@@ -46,8 +45,10 @@ h1 {
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f4f4f4;
+    background-color: white;
     color: black;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .info-section {
@@ -59,14 +60,14 @@ h1 {
     margin: 5px 0;
 }
 
-.bet-buttons button, .target-buttons button {
+.bet-buttons button, .target-buttons button, .special-button {
     padding: 10px 20px;
     margin: 5px;
     font-size: 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 80px;
+    width: 30%;
 }
 
 .bet-buttons button {
@@ -92,15 +93,13 @@ h1 {
 }
 
 .special-button {
-    margin: 10px;
-    padding: 10px 20px;
     background-color: #ffc107;
     color: black;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 60%;
+    margin-top: 10px;
+}
+
+.special-button:hover {
+    background-color: #ffca28;
 }
 
 .record-grid {
@@ -136,15 +135,19 @@ h1 {
 }
 
 .popup {
-    display: none;
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
+    background-color: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
     font-size: 16px;
+    display: none;
+    z-index: 1000;
+}
+
+.popup.show {
+    display: block;
 }
