@@ -5,12 +5,12 @@ let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
-    document.getElementById('current-bet').textContent = amount;
+    document.getElementById('current-bet').textContent = `Current Bet Amount: ${amount}`;
 }
 
 function selectTarget(target) {
     currentTarget = target;
-    document.getElementById('current-target').textContent = target;
+    document.getElementById('current-target').textContent = `Current Target: ${target}`;
 }
 
 function startGame() {
@@ -66,7 +66,7 @@ function updateBalance(result) {
     } else {
         balance -= currentBet;
     }
-    document.getElementById('balance').textContent = balance;
+    document.getElementById('balance').textContent = `Current Balance: ${balance}`;
 }
 
 function addRecord(result) {
@@ -74,10 +74,9 @@ function addRecord(result) {
     const recordElement = document.createElement('div');
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
     recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
-    recordGrid.push(recordElement);
-    if (recordGrid.length > 16) {
-        recordGrid.shift();
+    recordGridElement.appendChild(recordElement);
+
+    if (recordGridElement.children.length > 16) {
+        recordGridElement.removeChild(recordGridElement.children[0]);
     }
-    recordGridElement.innerHTML = "";
-    recordGrid.forEach(record => recordGridElement.appendChild(record));
 }

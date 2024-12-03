@@ -3,42 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat Game</title>
     <link rel="stylesheet" href="style.css">
+    <title>Baccarat Game</title>
 </head>
 <body>
-    <div class="container">
+    <div class="game-container">
         <h1>Baccarat Game</h1>
-        <div class="card-section">
+        <div class="card-display">
             <div>
                 <h2>Player Cards</h2>
-                <div class="cards" id="player-cards"></div>
+                <div id="player-cards" class="cards"></div>
             </div>
             <div>
                 <h2>Banker Cards</h2>
-                <div class="cards" id="banker-cards"></div>
+                <div id="banker-cards" class="cards"></div>
             </div>
         </div>
-        <div class="info-section">
-            <p class="info">Current Balance: <span id="balance">1000</span></p>
-            <p class="info">Current Bet Amount: <span id="current-bet">Not Selected</span></p>
-            <p class="info">Current Target: <span id="current-target">Not Selected</span></p>
+        <p id="balance">Current Balance: 1000</p>
+        <p id="current-bet">Current Bet Amount: Not Selected</p>
+        <p id="current-target">Current Target: Not Selected</p>
+        <div class="bet-options">
             <h3>Select Bet Amount:</h3>
             <div class="bet-buttons">
-                <button onclick="selectBet(100)">100</button>
-                <button onclick="selectBet(200)">200</button>
-                <button onclick="selectBet(500)">500</button>
+                <button class="bet-btn" onclick="selectBet(100)">100</button>
+                <button class="bet-btn" onclick="selectBet(200)">200</button>
+                <button class="bet-btn" onclick="selectBet(500)">500</button>
             </div>
             <h3>Select Target:</h3>
             <div class="target-buttons">
-                <button onclick="selectTarget('Player')">Player</button>
-                <button onclick="selectTarget('Banker')">Banker</button>
-                <button onclick="selectTarget('Tie')">Tie</button>
+                <button class="target-btn" onclick="selectTarget('Player')">Player</button>
+                <button class="target-btn" onclick="selectTarget('Banker')">Banker</button>
+                <button class="target-btn" onclick="selectTarget('Tie')">Tie</button>
             </div>
-            <button id="start-game" onclick="startGame()">Start Game</button>
         </div>
+        <button id="start-game" class="start-btn" onclick="startGame()">Start Game</button>
         <h3>Game Records</h3>
-        <div class="record-grid" id="record-grid"></div>
+        <div id="record-grid" class="records-grid"></div>
     </div>
     <script src="script.js"></script>
 </body>
