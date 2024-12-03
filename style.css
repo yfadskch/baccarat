@@ -1,10 +1,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: url('static/background.gif') no-repeat center center fixed;
+    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXh2cndpMmMwYTRleGlvdTkzMThuYWJtaTNzNnJvZnYyejh5cGtwMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 .container {
@@ -13,7 +14,6 @@ body {
     background: rgba(0, 0, 0, 0.8);
     padding: 20px;
     border-radius: 8px;
-    color: white;
 }
 
 h1 {
@@ -100,4 +100,37 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     text-align: center;
+}
+
+.record-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 40px;
+    gap: 5px;
+    margin: 20px auto;
+    max-width: 100%;
+}
+
+.record-grid .record {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    height: 40px;
+    width: 40px;
+}
+
+.record.player {
+    background-color: #007bff;
+}
+
+.record.banker {
+    background-color: #dc3545;
+}
+
+.record.tie {
+    background-color: #28a745;
 }
