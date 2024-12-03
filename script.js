@@ -45,4 +45,39 @@ function getRandomCard() {
     return Math.floor(Math.random() * 9) + 1;
 }
 
-function calculateScore(cards
+function calculateScore(cards) {
+    return cards.reduce((sum, card) => sum + card, 0) % 10;
+}
+
+function updateCards(elementId, cards) {
+    const cardContainer = document.getElementById(elementId);
+    cardContainer.innerHTML = "";
+    cards.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.textContent = card;
+        cardContainer.appendChild(cardElement);
+    });
+}
+
+function updateBalance(result) {
+    if (result === currentTarget) {
+        balance += currentBet;
+    } else {
+        balance -= currentBet;
+    }
+    document.getElementById('balance').textContent = balance;
+}
+
+function addRecord(result) {
+    const recordGridElement = document.getElementById('record-grid');
+    const recordElement = document.createElement('div');
+    recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
+    recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
+    recordGrid.push(recordElement);
+    if (recordGrid.length > 16) {
+        recordGrid.shift();
+    }
+    recordGridElement.innerHTML = "";
+    recordGrid.forEach(record => recordGridElement.appendChild(record));
+}
