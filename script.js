@@ -1,6 +1,8 @@
 let balance = 1000;
+let points = 0;
 let currentBet = null;
 let currentTarget = null;
+let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
@@ -37,6 +39,7 @@ function startGame() {
     }
 
     updateBalance(result);
+    updatePoints(currentBet);
     addRecord(result);
 }
 
@@ -68,44 +71,28 @@ function updateBalance(result) {
     document.getElementById('balance').textContent = balance;
 }
 
+function updatePoints(bet) {
+    points += bet / 2;
+    document.getElementById('points').textContent = points;
+}
+
 function addRecord(result) {
     const recordGridElement = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
     recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
-    recordGridElement.appendChild(recordElement);
-    if (recordGridElement.childNodes.length > 16) {
-        recordGridElement.removeChild(recordGridElement.firstChild);
+    recordGrid.push(recordElement);
+    if (recordGrid.length > 16) {
+        recordGrid.shift();
     }
+    recordGridElement.innerHTML = "";
+    recordGrid.forEach(record => recordGridElement.appendChild(record));
 }
 
-function redirectToFreeCredit() {
-    window.location.href = "https://klking88.com";
-}
-
-function showRedeemOptions() {
+function redeemRewards() {
     if (balance <= 0) {
-        alert("Insufficient Balance! Cannot redeem rewards.");
+        alert("Insufficient balance to redeem rewards!");
         return;
     }
-    document.getElementById('redeem-modal').style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById('redeem-modal').style.display = "none";
-}
-
-function redeemReward(points, reward) {
-    if (balance < points) {
-        alert("Not enough balance to redeem this reward.");
-    } else {
-        if (typeof reward === "number") {
-            balance += reward;
-        } else {
-            alert(`You have earned: ${reward}`);
-        }
-        document.getElementById('balance').textContent = balance;
-        alert("Congratulations! Reward successfully redeemed!");
-        closeModal();
-    }
+    alert("Congratulations! Reward redeemed successfully.");
 }
