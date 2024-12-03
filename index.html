@@ -12,23 +12,17 @@
         <div class="card-section">
             <div>
                 <h2>玩家卡牌</h2>
-                <div class="cards" id="player-cards">
-                    <img src="static/card-back.jpg" alt="Card">
-                    <img src="static/card-back.jpg" alt="Card">
-                </div>
+                <div class="cards" id="player-cards"></div>
             </div>
             <div>
                 <h2>庄家卡牌</h2>
-                <div class="cards" id="banker-cards">
-                    <img src="static/card-back.jpg" alt="Card">
-                    <img src="static/card-back.jpg" alt="Card">
-                </div>
+                <div class="cards" id="banker-cards"></div>
             </div>
         </div>
         <div class="info-section">
-            <p>当前余额：<span id="balance">1000</span></p>
-            <p>当前下注金额：<span id="current-bet">未选择</span></p>
-            <p>当前投注对象：<span id="current-target">未选择</span></p>
+            <p class="info">当前余额：<span id="balance">1000</span></p>
+            <p class="info">当前下注金额：<span id="current-bet">未选择</span></p>
+            <p class="info">当前投注对象：<span id="current-target">未选择</span></p>
             <h3>请选择下注金额:</h3>
             <div class="bet-buttons">
                 <button onclick="selectBet(100)">100</button>
