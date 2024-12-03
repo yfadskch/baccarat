@@ -12,40 +12,26 @@
         <div class="balance">
             当前余额：<span id="balance">1000</span>
         </div>
-        <div class="betting">
-            <label for="bet-amount">请选择下注金额：</label>
-            <div class="chips">
-                <button class="chip" data-value="100">100</button>
-                <button class="chip" data-value="200">200</button>
-                <button class="chip" data-value="500">500</button>
-            </div>
+        <div class="bet-options">
+            <h2>请选择下注金额：</h2>
+            <button class="chip" data-amount="100">100</button>
+            <button class="chip" data-amount="200">200</button>
+            <button class="chip" data-amount="500">500</button>
         </div>
-        <div class="options">
-            <label for="bet-option">选择投注对象：</label>
-            <select id="bet-option">
-                <option value="player">玩家</option>
-                <option value="banker">庄家</option>
-                <option value="tie">平局</option>
-            </select>
+        <div class="bet-target">
+            <h2>选择投注对象：</h2>
+            <button class="target" data-target="player">玩家</button>
+            <button class="target" data-target="banker">庄家</button>
+            <button class="target" data-target="tie">和局</button>
         </div>
         <button id="start-game">开始游戏</button>
-        
-        <div class="cards-area">
+        <div id="game-result">
             <h2>卡牌展示</h2>
-            <div id="player-cards" class="card-group">
-                <h3>玩家卡牌</h3>
-            </div>
-            <div id="banker-cards" class="card-group">
-                <h3>庄家卡牌</h3>
-            </div>
-        </div>
-        
-        <div id="result">
+            <div id="cards-display"></div>
             <h2>游戏结果</h2>
-            <p id="game-result"></p>
+            <p id="result"></p>
         </div>
-        
-        <div id="history">
+        <div id="game-history">
             <h2>游戏记录</h2>
             <ul id="history-list"></ul>
         </div>
