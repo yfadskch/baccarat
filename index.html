@@ -9,7 +9,7 @@
 <body>
     <div class="game-container">
         <h1>Baccarat Game</h1>
-        <div class="card-section">
+        <div class="cards-container">
             <div>
                 <h2>Player Cards</h2>
                 <div id="player-cards" class="cards"></div>
@@ -19,22 +19,26 @@
                 <div id="banker-cards" class="cards"></div>
             </div>
         </div>
-        <p>当前余额: <span id="current-balance">1000</span></p>
-        <p>当前下注金额: <span id="current-bet">Not Selected</span></p>
-        <p>当前投注目标: <span id="current-target">Not Selected</span></p>
-        <h3>Select Bet Amount:</h3>
-        <div class="bet-buttons">
-            <button class="bet-btn" onclick="selectBet(100)">100</button>
-            <button class="bet-btn" onclick="selectBet(200)">200</button>
-            <button class="bet-btn" onclick="selectBet(500)">500</button>
+        <div class="info">
+            <p>Current Balance: <span id="balance">1000</span></p>
+            <p>Current Bet Amount: <span id="current-bet">Not Selected</span></p>
+            <p>Current Target: <span id="current-target">Not Selected</span></p>
         </div>
-        <h3>Select Target:</h3>
-        <div class="target-buttons">
-            <button class="target-btn" onclick="selectTarget('Player')">Player</button>
-            <button class="target-btn" onclick="selectTarget('Banker')">Banker</button>
-            <button class="target-btn" onclick="selectTarget('Tie')">Tie</button>
+        <div class="bet-section">
+            <h3>Select Bet Amount:</h3>
+            <div class="bet-buttons">
+                <button onclick="selectBet(100)">100</button>
+                <button onclick="selectBet(200)">200</button>
+                <button onclick="selectBet(500)">500</button>
+            </div>
+            <h3>Select Target:</h3>
+            <div class="target-buttons">
+                <button onclick="selectTarget('Player')">Player</button>
+                <button onclick="selectTarget('Banker')">Banker</button>
+                <button onclick="selectTarget('Tie')">Tie</button>
+            </div>
+            <button class="start-button" onclick="startGame()">Start Game</button>
         </div>
-        <button id="start-btn" onclick="startGame()">Start Game</button>
         <h3>Game Records</h3>
         <div id="game-records" class="records"></div>
     </div>
