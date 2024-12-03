@@ -1,7 +1,6 @@
 let balance = 1000;
 let currentBet = null;
 let currentTarget = null;
-let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
@@ -75,7 +74,7 @@ function addRecord(result) {
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
     recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
     recordGridElement.appendChild(recordElement);
-    if (recordGridElement.children.length > 16) {
+    if (recordGridElement.childNodes.length > 16) {
         recordGridElement.removeChild(recordGridElement.firstChild);
     }
 }
