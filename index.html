@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百家乐游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>百家乐游戏</h1>
+        <div class="balance">
+            当前余额：<span id="balance">1000</span>
+        </div>
+        <div class="betting">
+            <label for="bet-amount">请选择下注金额：</label>
+            <div class="chips">
+                <button class="chip" data-value="100">100</button>
+                <button class="chip" data-value="200">200</button>
+                <button class="chip" data-value="500">500</button>
+            </div>
+        </div>
+        <div class="options">
+            <label for="bet-option">选择投注对象：</label>
+            <select id="bet-option">
+                <option value="player">玩家</option>
+                <option value="banker">庄家</option>
+                <option value="tie">平局</option>
+            </select>
+        </div>
+        <button id="start-game">开始游戏</button>
+        <div id="result">
+            <h2>游戏结果</h2>
+            <p id="player-cards"></p>
+            <p id="banker-cards"></p>
+            <p id="game-result"></p>
+        </div>
+        <div id="history">
+            <h2>游戏记录</h2>
+            <ul id="history-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
