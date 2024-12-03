@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 90%;
     margin: 20px auto;
     background: white;
     padding: 20px;
@@ -17,10 +17,12 @@ body {
 
 h1 {
     color: #2c7d2b;
+    font-size: 24px;
 }
 
 .card-section {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
 }
@@ -29,13 +31,14 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .cards .card {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    width: 50px;
-    height: 70px;
+    width: 40px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,6 +64,7 @@ h1 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 30%;
 }
 
 .bet-buttons button {
@@ -82,15 +86,16 @@ h1 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 60%;
 }
 
 .record-grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 30px;
     gap: 5px;
     margin: 20px auto;
-    width: 100%;
-    max-width: 400px;
+    max-width: 100%;
 }
 
 .record-grid .record {

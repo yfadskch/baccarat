@@ -73,9 +73,9 @@ function addRecord(result) {
     const recordGridElement = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
-    recordElement.textContent = result;
+    recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
     recordGrid.push(recordElement);
-    if (recordGrid.length > 80) {
+    if (recordGrid.length > 24) {
         recordGrid.shift();
     }
     recordGridElement.innerHTML = "";
