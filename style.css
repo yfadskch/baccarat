@@ -1,20 +1,19 @@
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXh2cndpMmMwYTRleGlvdTkzMThuYWJtaTNzNnJvZnYyejh5cGtwMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
-    background-size: cover;
+    background-color: black;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 .container {
     max-width: 90%;
     margin: 20px auto;
-    background: rgba(0, 0, 0, 0.8);
+    background: #222;
     padding: 20px;
     border-radius: 8px;
-    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -45,8 +44,7 @@ h1 {
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f4f4f4;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
     color: black;
 }
 
@@ -55,13 +53,13 @@ h1 {
 }
 
 .info {
-    font-size: 12px;
+    font-size: 14px;
     margin: 5px 0;
 }
 
 .bet-buttons button, .target-buttons button {
     padding: 10px 20px;
-    margin: 5px;
+    margin: 5px 10px;
     font-size: 14px;
     border: none;
     border-radius: 4px;
@@ -88,14 +86,19 @@ h1 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 60%;
 }
 
-#free-credit-link {
-    display: block;
-    margin: 10px 0;
-    color: #ffc107;
-    text-decoration: none;
-    font-size: 14px;
+#redeem-rewards {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ffc107;
+    color: black;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 60%;
 }
 
 .record-grid {
