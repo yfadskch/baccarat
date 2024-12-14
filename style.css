@@ -7,6 +7,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: white;
+    text-align: center;
 }
 
 .container {
@@ -18,12 +19,13 @@ body {
 }
 
 h1 {
-    text-align: center;
+    font-size: 24px;
     color: green;
 }
 
 h2, h3 {
     color: white;
+    margin-bottom: 10px;
 }
 
 .cards {
@@ -50,7 +52,7 @@ h2, h3 {
 .bet-buttons button, .target-buttons button, #start-game, #redeem-rewards {
     padding: 10px 20px;
     margin: 5px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -97,10 +99,37 @@ h2, h3 {
 }
 
 .record-grid .record {
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
-    padding: 5px;
+    padding: 10px;
     border-radius: 50%;
     background-color: #007bff;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .bet-buttons button, .target-buttons button, #start-game, #redeem-rewards {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    .record-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .record-grid .record {
+        font-size: 12px;
+        height: 30px;
+        width: 30px;
+    }
 }
