@@ -20,29 +20,65 @@ function startGame() {
         return;
     }
 
-    const playerCard = Math.floor(Math.random() * 10) + 1;
-    const bankerCard = Math.floor(Math.random() * 10) + 1;
+    // 发牌逻辑：生成玩家和庄家两张牌
+    const playerCards = [drawCard(), drawCard()];
+    const bankerCards = [drawCard(), drawCard()];
 
-    const playerCardsDiv = document.getElementById("player-cards");
-    const bankerCardsDiv = document.getElementById("banker-cards");
+    // 计算点数
+    const playerScore = calculateScore(playerCards);
+    const bankerScore = calculateScore(bankerCards);
 
-    playerCardsDiv.innerHTML = `<div>${playerCard}</div>`;
-    bankerCardsDiv.innerHTML = `<div>${bankerCard}</div>`;
+    // 显示牌面
+    displayCards("player-cards", playerCards);
+    displayCards("banker-cards", bankerCards);
 
-    if ((playerCard > bankerCard && target === "Player") ||
-        (playerCard < bankerCard && target === "Banker") ||
-        (playerCard === bankerCard && target === "Tie")) {
-        balance += betAmount;
-        points += 50;
-        records.push(target.charAt(0));
-        alert("You won!");
+    // 判断胜负
+    let result = "";
+    if (playerScore > bankerScore) {
+        result = "Player";
+    } else if (bankerScore > playerScore) {
+        result = "Banker";
     } else {
-        balance -= betAmount;
-        alert("You lost!");
+        result = "Tie";
     }
 
+    // 判断下注是否正确
+    if (result === target) {
+        if (result === "Player") {
+            balance += betAmount; // 玩家赢，1:1赔率
+        } else if (result === "Banker") {
+            balance += Math.floor(betAmount * 0.95); // 庄家赢，0.95:1赔率
+        } else if (result === "Tie") {
+            balance += betAmount * 8; // 平局，8:1赔率
+        }
+        points += 50; // 每次赢增加50积分
+        alert(`You won! ${result} wins.`);
+    } else {
+        balance -= betAmount;
+        alert(`You lost! ${result} wins.`);
+    }
+
+    // 更新状态和记录
+    records.push(result.charAt(0));
     updateStatus();
     updateRecords();
+}
+
+function drawCard() {
+    // 随机生成1到13，分别对应A到K
+    return Math.floor(Math.random() * 13) + 1;
+}
+
+function calculateScore(cards) {
+    // A=1, 2-9按牌面，10及以上为0
+    const points = cards.map(card => (card > 10 ? 0 : card));
+    const total = points.reduce((sum, point) => sum + point, 0);
+    return total % 10; // 超过10点取个位数
+}
+
+function displayCards(elementId, cards) {
+    const container = document.getElementById(elementId);
+    container.innerHTML = cards.map(card => `<div class="card">${card}</div>`).join("");
 }
 
 function updateStatus() {
@@ -54,7 +90,7 @@ function updateRecords() {
     const recordsDiv = document.getElementById("records");
     recordsDiv.innerHTML = records
         .slice(-16)
-        .map((record) => `<div>${record}</div>`)
+        .map(record => `<div>${record}</div>`)
         .join("");
 }
 
