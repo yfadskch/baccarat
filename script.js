@@ -2,6 +2,7 @@ let balance = 1000;
 let points = 0;
 let currentBet = null;
 let currentTarget = null;
+let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
@@ -28,16 +29,16 @@ function startGame() {
     const playerScore = calculateScore(playerCards);
     const bankerScore = calculateScore(bankerCards);
 
-    let result = '';
+    let result = "";
     if (playerScore > bankerScore) {
-        result = 'Player';
+        result = "Player";
     } else if (bankerScore > playerScore) {
-        result = 'Banker';
+        result = "Banker";
     } else {
-        result = 'Tie';
+        result = "Tie";
     }
 
-    updateBalance(result);
+    updateBalanceAndPoints(result);
     addRecord(result);
 }
 
@@ -51,7 +52,7 @@ function calculateScore(cards) {
 
 function updateCards(elementId, cards) {
     const cardContainer = document.getElementById(elementId);
-    cardContainer.innerHTML = '';
+    cardContainer.innerHTML = "";
     cards.forEach(card => {
         const cardElement = document.createElement('div');
         cardElement.className = 'card';
@@ -60,41 +61,49 @@ function updateCards(elementId, cards) {
     });
 }
 
-function updateBalance(result) {
+function updateBalanceAndPoints(result) {
     if (result === currentTarget) {
         balance += currentBet;
-        points += currentBet / 2;
     } else {
         balance -= currentBet;
-        points += currentBet / 2;
     }
+    points += currentBet / 2;
     document.getElementById('balance').textContent = balance;
     document.getElementById('points').textContent = points;
 }
 
 function addRecord(result) {
-    const recordGrid = document.getElementById('record-grid');
+    const recordGridElement = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
-    recordElement.className = 'record ' + result.toLowerCase();
-    recordElement.textContent = result[0];
-    recordGrid.appendChild(recordElement);
-}
-
-/* Modal functions */
-function openRewardPopup() {
-    document.getElementById('reward-modal').style.display = 'block';
-}
-
-function closeRewardPopup() {
-    document.getElementById('reward-modal').style.display = 'none';
-}
-
-function redeemReward(pointsRequired) {
-    if (points >= pointsRequired) {
-        points -= pointsRequired;
-        document.getElementById('points').textContent = points;
-        alert("Reward redeemed successfully!");
-    } else {
-        alert("Not enough points to redeem this reward.");
+    recordElement.className =
+        'record ' +
+        (result === 'Player' ? 'player' : result === 'Banker' ? 'banker' : 'tie');
+    recordElement.textContent = result === 'Player' ? 'P' : result === 'Banker' ? 'B' : 'T';
+    recordGrid.push(recordElement);
+    if (recordGrid.length > 16) {
+        recordGrid.shift();
     }
+    recordGridElement.innerHTML = '';
+    recordGrid.forEach(record => recordGridElement.appendChild(record));
+}
+
+function openRewardPopup() {
+    const reward = prompt(
+        'Choose a reward:\n1. 200 Points: +200 Credit\n2. 1000 Points: Welcome Bonus 60%\n3. 3000 Points: Free 8.88'
+    );
+    if (reward === '1' && points >= 200) {
+        balance += 200;
+        points -= 200;
+        alert('You have redeemed +200 Credit!');
+    } else if (reward === '2' && points >= 1000) {
+        points -= 1000;
+        alert('You have redeemed Welcome Bonus');
+    } else if (reward === '3' && points >= 3000) {
+        points -= 3000;
+        alert('You have redeemed Free 8.88!');
+    } else {
+        alert('Not enough points to redeem!');
+    }
+    document.getElementById('balance').textContent = balance;
+    document.getElementById('points').textContent = points;
 }

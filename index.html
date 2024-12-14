@@ -1,58 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat Game</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Baccarat Game</h1>
-        <div class="card-section">
-            <div>
-                <h2>Player Cards</h2>
-                <div class="cards" id="player-cards"></div>
-            </div>
-            <div>
-                <h2>Banker Cards</h2>
-                <div class="cards" id="banker-cards"></div>
-            </div>
-        </div>
-        <div class="info-section">
-            <p class="info">Current Balance: <span id="balance">1000</span></p>
-            <p class="info">Current Points: <span id="points">0</span></p>
-            <p class="info">Current Bet Amount: <span id="current-bet">Not Selected</span></p>
-            <p class="info">Current Target: <span id="current-target">Not Selected</span></p>
-            <h3>Select Bet Amount:</h3>
-            <div class="bet-buttons">
-                <button onclick="selectBet(100)">100</button>
-                <button onclick="selectBet(200)">200</button>
-                <button onclick="selectBet(500)">500</button>
-            </div>
-            <h3>Select Target:</h3>
-            <div class="target-buttons">
-                <button onclick="selectTarget('Player')">Player</button>
-                <button onclick="selectTarget('Banker')">Banker</button>
-                <button onclick="selectTarget('Tie')">Tie</button>
-            </div>
-            <button id="start-game" onclick="startGame()">Start Game</button>
-            <button id="redeem-rewards" onclick="openRewardPopup()">Redeem Rewards</button>
-        </div>
-        <h3>Game Records</h3>
-        <div class="record-grid" id="record-grid"></div>
-    </div>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
 
-    <!-- Modal Popup -->
-    <div id="reward-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeRewardPopup()">&times;</span>
-            <h2>Choose a reward:</h2>
-            <button onclick="redeemReward(200)">200 Points: +200 Credit</button>
-            <button onclick="redeemReward(1000)">1000 Points: Welcome Bonus</button>
-            <button onclick="redeemReward(3000)">3000 Points: Free 8.88</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    color: green;
+}
+
+.card-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cards .card {
+    font-size: 20px;
+    font-weight: bold;
+    width: 40px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+}
+
+.bet-buttons button,
+.target-buttons button,
+#start-game,
+#redeem-rewards {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bet-buttons button {
+    background-color: #007bff;
+    color: white;
+}
+
+.target-buttons button {
+    background-color: #28a745;
+    color: white;
+}
+
+#start-game {
+    background-color: #dc3545;
+    color: white;
+}
+
+#redeem-rewards {
+    background-color: #ffc107;
+    color: black;
+}
+
+.record-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 30px;
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 100%;
+}
+
+.record-grid .record {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.record.player {
+    background-color: blue;
+}
+
+.record.banker {
+    background-color: red;
+}
+
+.record.tie {
+    background-color: green;
+}

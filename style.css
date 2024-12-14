@@ -1,24 +1,20 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #1e1e1e;
-    color: white;
+    background-color: #000;
+    color: #fff;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 90%;
-    margin: 20px auto;
-    background: black;
+    max-width: 800px;
+    margin: auto;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
-    color: #2c7d2b;
-    font-size: 24px;
+    color: green;
 }
 
 .card-section {
@@ -31,27 +27,32 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.info-section {
-    margin: 20px 0;
-}
-
-.info {
-    font-size: 14px;
-    margin: 5px 0;
+.cards .card {
+    font-size: 20px;
+    font-weight: bold;
+    width: 40px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
 }
 
 .bet-buttons button,
 .target-buttons button,
 #start-game,
 #redeem-rewards {
+    margin: 10px;
     padding: 10px 20px;
-    margin: 5px;
     font-size: 14px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -75,44 +76,35 @@ h1 {
     color: black;
 }
 
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+.record-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 30px;
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 100%;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    text-align: center;
-}
-
-.modal-content button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007bff;
+.record-grid .record {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    font-weight: bold;
 }
 
-.close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+.record.player {
+    background-color: blue;
+}
+
+.record.banker {
+    background-color: red;
+}
+
+.record.tie {
+    background-color: green;
 }
