@@ -1,159 +1,113 @@
-/* General Reset */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #000; /* 背景为黑色 */
+    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29ucjJ5Y3JxcndmdTdnOHFmeTA2dXI4b3hyYjAycDJmajZzenNtMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
     color: white;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-/* Container */
-.container {
-    margin: 20px auto;
-    max-width: 90%;
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
 }
 
-/* Game Title */
-h1 {
-    color: #28a745;
-    font-size: 2rem;
+h1, h2, h3 {
+    color: #00ff00;
 }
 
-/* Player Cards and Banker Cards Section */
-.card-section {
+.cards-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.card-display {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.card-display div {
+    width: 50px;
+    height: 75px;
+    background: white;
+    color: black;
     display: flex;
     justify-content: center;
-    gap: 20px; /* 卡片之间的间距 */
-    margin: 20px 0;
-}
-
-.card-container {
-    flex: 1;
-    max-width: 200px;
-    text-align: center;
-}
-
-.card-container h2 {
-    margin-bottom: 10px;
-}
-
-.card {
-    display: inline-flex;
-    justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 70px;
-    margin: 5px;
-    border: 1px solid #fff;
-    background-color: #444;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    border-radius: 5px;
 }
 
-/* Information Section */
-.info-section {
-    margin: 20px 0;
+.bet-buttons, .target-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 10px 0;
 }
 
-.info-section p {
-    margin: 5px 0;
-    font-size: 1rem;
-}
-
-/* Buttons */
-button {
+.bet-btn, .target-btn {
     padding: 10px 20px;
-    margin: 5px;
-    font-size: 1rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
-    opacity: 0.9;
-}
-
-.bet-button {
+.bet-btn {
     background-color: #007bff;
     color: white;
 }
 
-.bet-button:active {
-    background-color: #0056b3;
-}
-
-.target-button {
+.target-btn {
     background-color: #28a745;
     color: white;
 }
 
-.target-button:active {
-    background-color: #1c7430;
-}
-
-#start-game {
-    background-color: #dc3545; /* 红色按钮 */
+.start-btn {
+    background-color: #dc3545;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
-#start-game:active {
-    background-color: #b02a37;
-}
-
-#redeem-rewards {
-    background-color: #ffc107; /* 黄色按钮 */
+.reward-btn {
+    background-color: #ffc107;
     color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#redeem-rewards:active {
-    background-color: #e0a800;
+.free-credit {
+    display: block;
+    margin: 20px 0;
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-/* Game Records Section */
-.record-grid {
+.records-container {
     display: grid;
-    grid-template-columns: repeat(8, 1fr); /* 竖2 x 横8 的布局 */
-    grid-auto-rows: 30px;
+    grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     justify-content: center;
-    margin: 20px 0;
 }
 
-.record {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 30px;
-    border-radius: 15px;
+.records-container div {
+    width: 40px;
+    height: 40px;
+    background-color: blue;
     color: white;
-    font-weight: bold;
-    font-size: 0.9rem;
-    background-color: #007bff; /* 蓝色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
-
-/* Link Section */
-a {
-    text-decoration: none;
-    color: #ffc107; /* 黄色超链接 */
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .card-section {
-        flex-direction: column; /* 卡片垂直排列 */
-        gap: 10px;
-    }
-
-    .record-grid {
-        grid-template-columns: repeat(4, 1fr); /* 小屏幕调整为竖4 x 横4 */
-    }
-}
-
