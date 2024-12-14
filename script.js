@@ -1,4 +1,3 @@
-
 let balance = 1000;
 let points = 0;
 let currentBet = null;
@@ -20,11 +19,6 @@ function startGame() {
         return;
     }
 
-    if (balance <= 0) {
-        alert("Balance is insufficient! Redeem rewards to continue playing.");
-        return;
-    }
-
     const playerCards = [getRandomCard(), getRandomCard()];
     const bankerCards = [getRandomCard(), getRandomCard()];
 
@@ -34,17 +28,16 @@ function startGame() {
     const playerScore = calculateScore(playerCards);
     const bankerScore = calculateScore(bankerCards);
 
-    let result = "";
+    let result = '';
     if (playerScore > bankerScore) {
-        result = "Player";
+        result = 'Player';
     } else if (bankerScore > playerScore) {
-        result = "Banker";
+        result = 'Banker';
     } else {
-        result = "Tie";
+        result = 'Tie';
     }
 
     updateBalance(result);
-    updatePoints();
     addRecord(result);
 }
 
@@ -58,7 +51,7 @@ function calculateScore(cards) {
 
 function updateCards(elementId, cards) {
     const cardContainer = document.getElementById(elementId);
-    cardContainer.innerHTML = "";
+    cardContainer.innerHTML = '';
     cards.forEach(card => {
         const cardElement = document.createElement('div');
         cardElement.className = 'card';
@@ -70,24 +63,38 @@ function updateCards(elementId, cards) {
 function updateBalance(result) {
     if (result === currentTarget) {
         balance += currentBet;
+        points += currentBet / 2;
     } else {
         balance -= currentBet;
+        points += currentBet / 2;
     }
     document.getElementById('balance').textContent = balance;
-}
-
-function updatePoints() {
-    points += (currentBet / 2);
     document.getElementById('points').textContent = points;
 }
 
 function addRecord(result) {
-    const recordGridElement = document.getElementById('record-grid');
+    const recordGrid = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
-    recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
-    recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
-    recordGridElement.appendChild(recordElement);
-    if (recordGridElement.children.length > 16) {
-        recordGridElement.removeChild(recordGridElement.children[0]);
+    recordElement.className = 'record ' + result.toLowerCase();
+    recordElement.textContent = result[0];
+    recordGrid.appendChild(recordElement);
+}
+
+/* Modal functions */
+function openRewardPopup() {
+    document.getElementById('reward-modal').style.display = 'block';
+}
+
+function closeRewardPopup() {
+    document.getElementById('reward-modal').style.display = 'none';
+}
+
+function redeemReward(pointsRequired) {
+    if (points >= pointsRequired) {
+        points -= pointsRequired;
+        document.getElementById('points').textContent = points;
+        alert("Reward redeemed successfully!");
+    } else {
+        alert("Not enough points to redeem this reward.");
     }
 }
