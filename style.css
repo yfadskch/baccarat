@@ -1,19 +1,19 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #121212;
+    background-color: #1c1c1c;
+    color: white;
     margin: 0;
     padding: 0;
-    color: #fff;
 }
 
 .container {
     max-width: 90%;
     margin: 20px auto;
-    background: #1e1e1e;
+    background: #333;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
@@ -23,31 +23,29 @@ h1 {
 
 .card-section {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
 .cards {
     display: flex;
-    justify-content: center;
     gap: 10px;
-    margin-bottom: 10px;
+    justify-content: center;
 }
 
 .cards .card {
     font-size: 20px;
     font-weight: bold;
-    width: 50px;
-    height: 70px;
+    width: 40px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f4f4f4;
+    background-color: white;
     color: black;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .info-section {
@@ -59,10 +57,10 @@ h1 {
     margin: 5px 0;
 }
 
-.bet-buttons button, .target-buttons button {
+.bet-buttons button, .target-buttons button, #start-game, #redeem-rewards {
     padding: 10px 20px;
     margin: 5px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -80,27 +78,15 @@ h1 {
 }
 
 #start-game {
-    margin-top: 10px;
-    padding: 10px 20px;
     background-color: #dc3545;
     color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 60%;
+    width: 200px;
 }
 
 #redeem-rewards {
-    margin-top: 10px;
-    padding: 10px 20px;
     background-color: #ffc107;
     color: black;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 60%;
+    width: 200px;
 }
 
 .record-grid {
@@ -108,8 +94,7 @@ h1 {
     grid-template-columns: repeat(8, 1fr);
     grid-auto-rows: 30px;
     gap: 5px;
-    margin: 20px auto;
-    max-width: 100%;
+    margin-top: 20px;
 }
 
 .record-grid .record {
@@ -117,10 +102,10 @@ h1 {
     height: 30px;
     border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: white;
+    align-items: center;
     font-weight: bold;
+    color: white;
 }
 
 .record.player {
