@@ -1,142 +1,92 @@
 body {
-  font-family: Arial, sans-serif;
-  color: white;
-  margin: 0;
-  padding: 0;
   background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29ucjJ5Y3JxcndmdTdnOHFmeTA2dXI4b3hyYjAycDJmajZzenNtMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
   background-size: cover;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .game-container {
-  text-align: center;
+  max-width: 600px;
+  margin: auto;
   padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-.game-title {
-  font-size: 36px;
-  color: #00ff00;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 10px #000;
-}
-
-.card-container {
+.cards {
   display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
-}
-
-.card-section {
-  width: 45%;
-}
-
-.card-section h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.card-section div {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.status-container p {
-  margin: 5px 0;
-}
-
-.bet-container, .target-container {
+  justify-content: space-between;
   margin: 20px 0;
 }
 
-.bet-button, .target-button {
-  background-color: #0066ff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px #0044cc;
+.card-display {
+  font-size: 20px;
+  color: #fff;
 }
 
-.bet-button:hover, .target-button:hover {
-  background-color: #0055cc;
+.bet-buttons button, .target-buttons button, .start-button, .reward-button {
+  font-size: 16px;
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.bet-buttons button {
+  background-color: blue;
+  color: white;
+}
+
+.target-buttons button {
+  background-color: green;
+  color: white;
 }
 
 .start-button {
-  background-color: #ff3333;
+  background-color: red;
   color: white;
-  padding: 15px 30px;
-  font-size: 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px #cc0000;
-}
-
-.start-button:hover {
-  background-color: #cc0000;
 }
 
 .reward-button {
-  background-color: #ffcc00;
+  background-color: yellow;
   color: black;
-  padding: 15px 30px;
-  font-size: 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px #cc9900;
 }
 
-.reward-button:hover {
-  background-color: #e6b800;
-}
-
-.credit-link a {
-  color: #ffff00;
-  font-size: 18px;
-  text-decoration: none;
-}
-
-.credit-link a:hover {
-  text-decoration: underline;
-}
-
-.records-title {
-  font-size: 24px;
+#game-records {
   margin-top: 20px;
-}
-
-.records-container {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-auto-rows: 50px;
-  gap: 10px;
-  justify-items: center;
+  grid-template-rows: repeat(2, 50px);
+  gap: 5px;
 }
 
 .record {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50px;
   height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
   border-radius: 50%;
-  color: white;
-  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .record.p {
   background-color: blue;
+  color: white;
 }
 
 .record.b {
   background-color: red;
+  color: white;
 }
 
 .record.t {
   background-color: green;
+  color: white;
 }
