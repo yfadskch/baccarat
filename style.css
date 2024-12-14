@@ -1,103 +1,107 @@
 body {
-    font-family: Arial, sans-serif;
-    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29ucjJ5Y3JxcndmdTdnOHFmeTA2dXI4b3hyYjAycDJmajZzenNtMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
-    background-size: cover;
+    background-color: black;
     color: white;
+    font-family: Arial, sans-serif;
     text-align: center;
-    margin: 0;
-    padding: 0;
 }
 
-.game-container {
-    width: 90%;
+.container {
+    margin: 20px auto;
     max-width: 800px;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
 }
 
-h1 {
-    color: green;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.cards-container {
+.cards-section {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
-.player-cards, .banker-cards {
+#player-cards, #banker-cards {
     text-align: center;
 }
 
-.status p {
-    font-size: 1rem;
-    margin: 5px 0;
+.card {
+    display: inline-block;
+    width: 50px;
+    height: 70px;
+    background-color: gray;
+    color: white;
+    line-height: 70px;
+    margin: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    text-align: center;
 }
 
-.bet-options, .target-options, .game-actions {
+.status-section, .bet-section, .target-section, .action-section {
     margin: 15px 0;
 }
 
-button {
-    padding: 10px 20px;
+.bet-button, .target-button, .start-button, .reward-button {
     margin: 5px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
     cursor: pointer;
+    font-size: 16px;
 }
 
-button:hover {
-    opacity: 0.9;
+.bet-button {
+    background-color: #007bff;
+    color: white;
 }
 
-.start-game {
+.target-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.start-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.reward-button {
+    background-color: #ffc107;
+    color: black;
+}
+
+.link-section a {
+    color: #ffc107;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.records-section {
+    margin-top: 20px;
+}
+
+.game-records {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+}
+
+.record {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 16px;
+}
+
+.record.player {
+    background-color: blue;
+    color: white;
+}
+
+.record.banker {
     background-color: red;
     color: white;
 }
 
-.redeem-rewards {
-    background-color: yellow;
-    color: black;
-}
-
-.free-credit {
-    margin: 20px 0;
-}
-
-.free-credit a {
-    color: yellow;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.free-credit a:hover {
-    text-decoration: underline;
-}
-
-.game-records {
-    margin-top: 20px;
-}
-
-#records {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 10px;
-    justify-items: center;
-}
-
-#records div {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: blue;
+.record.tie {
+    background-color: green;
     color: white;
-    font-size: 0.8rem;
 }
