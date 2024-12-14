@@ -13,7 +13,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .card {
@@ -37,11 +37,6 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.bet-section button:hover,
-.target-section button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .start-game {
@@ -73,8 +68,8 @@ h1 {
 
 .game-records {
     display: grid;
-    grid-template-columns: repeat(8, 1fr); /* 横向8格 */
-    grid-template-rows: repeat(2, 1fr); /* 纵向2格 */
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 10px;
     justify-content: center;
     align-items: center;
