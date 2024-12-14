@@ -1,8 +1,8 @@
+
 let balance = 1000;
 let points = 0;
 let currentBet = null;
 let currentTarget = null;
-let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
@@ -86,55 +86,8 @@ function addRecord(result) {
     const recordElement = document.createElement('div');
     recordElement.className = 'record ' + (result === "Player" ? "player" : result === "Banker" ? "banker" : "tie");
     recordElement.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
-    recordGrid.push(recordElement);
-    if (recordGrid.length > 16) {
-        recordGrid.shift();
+    recordGridElement.appendChild(recordElement);
+    if (recordGridElement.children.length > 16) {
+        recordGridElement.removeChild(recordGridElement.children[0]);
     }
-    recordGridElement.innerHTML = "";
-    recordGrid.forEach(record => recordGridElement.appendChild(record));
-}
-
-function showRedeemOptions() {
-    if (points < 200) {
-        alert("Not enough points to redeem rewards!");
-        return;
-    }
-
-    const redeemChoice = prompt(
-        "Choose a reward:\n1. 200 Points: +200 Balance\n2. 1000 Points: Welcome Bonus 60%\n3. 3000 Points: Free 8.88",
-        "Enter 1, 2, or 3"
-    );
-
-    switch (redeemChoice) {
-        case "1":
-            if (points >= 200) {
-                points -= 200;
-                balance += 200;
-                alert("Congratulations! You redeemed 200 points for +200 Balance.");
-            } else {
-                alert("Not enough points!");
-            }
-            break;
-        case "2":
-            if (points >= 1000) {
-                points -= 1000;
-                alert("Congratulations! You redeemed 1000 points for Welcome Bonus 60%.");
-            } else {
-                alert("Not enough points!");
-            }
-            break;
-        case "3":
-            if (points >= 3000) {
-                points -= 3000;
-                alert("Congratulations! You redeemed 3000 points for Free 8.88.");
-            } else {
-                alert("Not enough points!");
-            }
-            break;
-        default:
-            alert("Invalid choice.");
-    }
-
-    document.getElementById('balance').textContent = balance;
-    document.getElementById('points').textContent = points;
 }
