@@ -1,88 +1,142 @@
+// Initialize game variables
 let currentBalance = 1000;
 let currentPoints = 0;
-let currentBet = 0;
+let currentBetAmount = 0;
 let currentTarget = "";
+let gameRecords = [];
 
-function selectBet(amount) {
-    currentBet = amount;
-    document.getElementById("current-bet").innerText = amount;
+// Update display function
+function updateDisplay() {
+    document.getElementById("balance").textContent = currentBalance;
+    document.getElementById("points").textContent = currentPoints;
+    document.getElementById("bet-amount").textContent = currentBetAmount || "Not Selected";
+    document.getElementById("target").textContent = currentTarget || "Not Selected";
 }
 
-function selectTarget(target) {
-    currentTarget = target;
-    document.getElementById("current-target").innerText = target;
-}
-
+// Function to start the game
 function startGame() {
-    if (currentBet === 0 || !currentTarget) {
-        alert("Please select a bet amount and target before starting the game.");
+    if (currentBetAmount === 0 || !currentTarget) {
+        alert("Please select a bet amount and a target to start the game.");
         return;
     }
 
-    // Generate two random cards for Player and Banker
-    let playerCard1 = Math.floor(Math.random() * 10) + 1;
-    let playerCard2 = Math.floor(Math.random() * 10) + 1;
-    let bankerCard1 = Math.floor(Math.random() * 10) + 1;
-    let bankerCard2 = Math.floor(Math.random() * 10) + 1;
+    if (currentBalance < currentBetAmount) {
+        alert("Not enough balance to place the bet. Please redeem rewards or add balance.");
+        return;
+    }
 
-    let playerTotal = (playerCard1 + playerCard2) % 10;
-    let bankerTotal = (bankerCard1 + bankerCard2) % 10;
+    // Deduct the bet amount
+    currentBalance -= currentBetAmount;
 
-    document.getElementById("player-cards").innerHTML = `
-        <div class="card">${playerCard1}</div>
-        <div class="card">${playerCard2}</div>
-    `;
-    document.getElementById("banker-cards").innerHTML = `
-        <div class="card">${bankerCard1}</div>
-        <div class="card">${bankerCard2}</div>
-    `;
-    document.getElementById("player-total").innerText = playerTotal;
-    document.getElementById("banker-total").innerText = bankerTotal;
+    // Simulate the game
+    const playerCards = [getRandomCard(), getRandomCard()];
+    const bankerCards = [getRandomCard(), getRandomCard()];
+    const playerTotal = getCardTotal(playerCards);
+    const bankerTotal = getCardTotal(bankerCards);
 
-    let result;
+    renderCards("player-cards", playerCards);
+    renderCards("banker-cards", bankerCards);
+
+    // Determine the winner
+    let result = "";
     if (playerTotal > bankerTotal) {
         result = "Player";
-        addRecord("player");
-        currentBalance += currentBet;
-        currentPoints += currentBet / 2;
-    } else if (playerTotal < bankerTotal) {
+        if (currentTarget === "Player") {
+            currentBalance += currentBetAmount * 2;
+            currentPoints += currentBetAmount;
+        }
+    } else if (bankerTotal > playerTotal) {
         result = "Banker";
-        addRecord("banker");
-        currentBalance -= currentBet;
+        if (currentTarget === "Banker") {
+            currentBalance += currentBetAmount * 2;
+            currentPoints += currentBetAmount;
+        }
     } else {
         result = "Tie";
-        addRecord("tie");
+        if (currentTarget === "Tie") {
+            currentBalance += currentBetAmount * 8;
+            currentPoints += currentBetAmount;
+        }
     }
 
-    document.getElementById("current-balance").innerText = currentBalance;
-    document.getElementById("current-points").innerText = currentPoints;
+    // Add game record
+    addGameRecord(result);
+
+    // Update display
+    updateDisplay();
 }
 
-function addRecord(type) {
-    const record = document.createElement("div");
-    record.classList.add("record", type);
-    record.innerText = type.charAt(0).toUpperCase();
-    const records = document.querySelector(".game-records");
-    if (records.children.length >= 16) {
-        records.removeChild(records.firstChild);
+// Generate a random card between 1 and 9
+function getRandomCard() {
+    return Math.floor(Math.random() * 9) + 1;
+}
+
+// Calculate the total of two cards
+function getCardTotal(cards) {
+    return (cards[0] + cards[1]) % 10;
+}
+
+// Render cards on the screen
+function renderCards(elementId, cards) {
+    const container = document.getElementById(elementId);
+    container.innerHTML = "";
+    cards.forEach((card) => {
+        const cardDiv = document.createElement("div");
+        cardDiv.classList.add("card");
+        cardDiv.textContent = card;
+        container.appendChild(cardDiv);
+    });
+}
+
+// Add game record to the display
+function addGameRecord(result) {
+    const recordDiv = document.createElement("div");
+    recordDiv.classList.add("record", result.toLowerCase());
+    recordDiv.textContent = result === "Player" ? "P" : result === "Banker" ? "B" : "T";
+    const recordsContainer = document.getElementById("game-records");
+    if (recordsContainer.children.length >= 16) {
+        recordsContainer.removeChild(recordsContainer.firstChild);
     }
-    records.appendChild(record);
+    recordsContainer.appendChild(recordDiv);
 }
 
+// Open the reward popup
 function openRewardPopup() {
-    let reward = prompt("Choose a reward:\n1. 200 Points: +200 Credit\n2. 1000 Points: Welcome Bonus\n3. 3000 Points: Free 8.88");
+    let reward = prompt(
+        "Choose a reward:\n" +
+        "1. 200 Points: +200 Credit\n" +
+        "2. 1000 Points: Welcome Bonus\n" +
+        "3. 3000 Points: Free 8.88"
+    );
+
     if (reward === "1" && currentPoints >= 200) {
         currentBalance += 200;
         currentPoints -= 200;
         alert("You redeemed 200 Points for +200 Credit!");
     } else if (reward === "2" && currentPoints >= 1000) {
+        currentPoints -= 1000;
         alert("You redeemed 1000 Points for Welcome Bonus!");
     } else if (reward === "3" && currentPoints >= 3000) {
+        currentPoints -= 3000;
         alert("You redeemed 3000 Points for Free 8.88!");
     } else {
         alert("Not enough points to redeem this reward!");
     }
 
-    document.getElementById("current-balance").innerText = currentBalance;
-    document.getElementById("current-points").innerText = currentPoints;
+    updateDisplay();
 }
+
+// Set bet amount
+function setBetAmount(amount) {
+    currentBetAmount = amount;
+    updateDisplay();
+}
+
+// Set target
+function setTarget(target) {
+    currentTarget = target;
+    updateDisplay();
+}
+
+// Initial render
+updateDisplay();
