@@ -7,46 +7,52 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Baccarat Game</h1>
-        <div class="cards-container">
-            <div class="player-cards">
-                <h2>Player Cards</h2>
-                <div id="player-cards"></div>
-            </div>
-            <div class="banker-cards">
-                <h2>Banker Cards</h2>
-                <div id="banker-cards"></div>
-            </div>
+    <h1>Baccarat Game</h1>
+
+    <div class="cards-container">
+        <div>
+            <h2>Player Cards</h2>
+            <div id="player-cards" class="cards"></div>
         </div>
-        <div class="info-container">
-            <p>Current Balance: <span id="balance">1000</span></p>
-            <p>Current Points: <span id="points">0</span></p>
-            <p>Current Bet Amount: <span id="bet-amount">Not Selected</span></p>
-            <p>Current Target: <span id="target">Not Selected</span></p>
-        </div>
-        <div class="bet-container">
-            <h3>Select Bet Amount:</h3>
-            <button class="bet-button" onclick="setBet(100)">100</button>
-            <button class="bet-button" onclick="setBet(200)">200</button>
-            <button class="bet-button" onclick="setBet(500)">500</button>
-        </div>
-        <div class="target-container">
-            <h3>Select Target:</h3>
-            <button class="target-button" onclick="setTarget('Player')">Player</button>
-            <button class="target-button" onclick="setTarget('Banker')">Banker</button>
-            <button class="target-button" onclick="setTarget('Tie')">Tie</button>
-        </div>
-        <div class="action-container">
-            <button class="start-button" onclick="startGame()">Start Game</button>
-            <button class="reward-button" onclick="redeemRewards()">Redeem Rewards</button>
-        </div>
-        <a class="free-credit-link" href="https://heylink.me/klking88/" target="_blank">Free Credit Tanpa Deposit</a>
-        <div class="records-container">
-            <h3>Game Records</h3>
-            <div id="game-records" class="game-records-grid"></div>
+        <div>
+            <h2>Banker Cards</h2>
+            <div id="banker-cards" class="cards"></div>
         </div>
     </div>
+
+    <div class="info-container">
+        <p>Current Balance: <span id="balance">1000</span></p>
+        <p>Current Points: <span id="points">0</span></p>
+        <p>Current Bet Amount: <span id="bet-amount">Not Selected</span></p>
+        <p>Current Target: <span id="target">Not Selected</span></p>
+    </div>
+
+    <h3>Select Bet Amount:</h3>
+    <div class="bet-options">
+        <button onclick="setBetAmount(100)">100</button>
+        <button onclick="setBetAmount(200)">200</button>
+        <button onclick="setBetAmount(500)">500</button>
+    </div>
+
+    <h3>Select Target:</h3>
+    <div class="target-options">
+        <button onclick="setTarget('Player')">Player</button>
+        <button onclick="setTarget('Banker')">Banker</button>
+        <button onclick="setTarget('Tie')">Tie</button>
+    </div>
+
+    <div class="actions">
+        <button class="start-button" onclick="startGame()">Start Game</button>
+        <button class="reward-button" onclick="openRewardPopup()">Redeem Rewards</button>
+    </div>
+
+    <p class="free-credit">
+        <a href="https://heylink.me/klking88/" target="_blank">Free Credit Tanpa Deposit</a>
+    </p>
+
+    <h3>Game Records</h3>
+    <div id="game-records" class="game-records"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
