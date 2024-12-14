@@ -85,7 +85,7 @@ function addRecord(result) {
 
 function openRewardPopup() {
     const reward = prompt(
-        'Choose a reward:\n1. 200 Points: +200 Credit\n2. 1000 Points: Welcome Bonus 60%\n3. 3000 Points: Free 8.88'
+        'Choose a reward:\n1. 200 Points: +200 Credit\n2. 1000 Points: Welcome Bonus\n3. 3000 Points: Free 8.88'
     );
     if (reward === '1' && points >= 200) {
         balance += 200;
