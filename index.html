@@ -42,6 +42,19 @@
         <h3>Game Records</h3>
         <div class="record-grid" id="record-grid"></div>
     </div>
+
+    <!-- Reward Modal -->
+    <div id="reward-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRewardPopup()">&times;</span>
+            <h2>Choose a reward:</h2>
+            <button onclick="redeemReward(200)">200 Points: +200 Credit</button>
+            <button onclick="redeemReward(1000)">1000 Points: Welcome Bonus</button>
+            <button onclick="redeemReward(3000)">3000 Points: Free 8.88</button>
+            <p id="reward-message"></p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
