@@ -1,102 +1,125 @@
+/* General styles */
 body {
+    background-color: #000;
+    color: #fff;
     font-family: Arial, sans-serif;
-    background-color: black;
-    color: white;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-    color: green;
+.game-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
 }
 
-.cards {
+/* Cards section */
+.cards-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.player-cards, .banker-cards {
+    width: 45%;
+}
+
+#player-cards, #banker-cards {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 10px;
 }
 
 .card {
     width: 60px;
     height: 90px;
     background-color: gray;
-    border-radius: 5px;
+    border-radius: 8px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    font-size: 24px;
     color: white;
-    font-size: 20px;
-    font-weight: bold;
 }
 
-.bet-section button,
-.target-section button {
-    padding: 10px 20px;
+/* Buttons and interactions */
+.bet-container, .target-container, .action-container {
+    margin: 15px 0;
+}
+
+.bet-button, .target-button, .start-button, .reward-button {
+    padding: 10px 15px;
     margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-.start-game {
-    background-color: red;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.redeem-rewards {
-    background-color: yellow;
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.free-credit {
-    margin: 20px 0;
-}
-
-.free-credit a {
-    color: yellow;
-    text-decoration: none;
-}
-
-.game-records {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-}
-
-.record {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.record.player {
+.bet-button {
     background-color: blue;
     color: white;
 }
 
-.record.banker {
+.target-button {
+    background-color: green;
+    color: white;
+}
+
+.start-button {
     background-color: red;
     color: white;
 }
 
+.reward-button {
+    background-color: yellow;
+    color: black;
+}
+
+.free-credit-link {
+    display: block;
+    color: yellow;
+    margin: 15px 0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.free-credit-link:hover {
+    text-decoration: underline;
+}
+
+/* Game Records */
+.records-container {
+    margin-top: 20px;
+}
+
+.game-records-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 40px;
+    gap: 10px;
+}
+
+.record {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #fff;
+}
+
+.record.player {
+    background-color: blue;
+}
+
+.record.banker {
+    background-color: red;
+}
+
 .record.tie {
     background-color: green;
-    color: white;
 }
