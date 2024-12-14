@@ -1,76 +1,81 @@
 let balance = 1000;
 let points = 0;
 let betAmount = null;
-let betTarget = null;
+let target = null;
+let records = [];
 
 function selectBet(amount) {
     betAmount = amount;
-    document.getElementById("bet-amount").textContent = amount;
+    document.getElementById("bet-amount").innerText = betAmount;
 }
 
-function selectTarget(target) {
-    betTarget = target;
-    document.getElementById("bet-target").textContent = target;
+function selectTarget(selectedTarget) {
+    target = selectedTarget;
+    document.getElementById("target").innerText = target;
 }
 
 function startGame() {
-    if (!betAmount || !betTarget) {
-        alert("Please select both bet amount and target!");
+    if (!betAmount || !target) {
+        alert("Please select a bet amount and target!");
         return;
     }
 
     const playerCard = Math.floor(Math.random() * 10) + 1;
     const bankerCard = Math.floor(Math.random() * 10) + 1;
 
-    document.getElementById("player-cards").innerHTML = `<div>${playerCard}</div>`;
-    document.getElementById("banker-cards").innerHTML = `<div>${bankerCard}</div>`;
+    const playerCardsDiv = document.getElementById("player-cards");
+    const bankerCardsDiv = document.getElementById("banker-cards");
 
-    let result = "";
-    if (playerCard > bankerCard) result = "Player";
-    else if (bankerCard > playerCard) result = "Banker";
-    else result = "Tie";
+    playerCardsDiv.innerHTML = `<div>${playerCard}</div>`;
+    bankerCardsDiv.innerHTML = `<div>${bankerCard}</div>`;
 
-    if (result === betTarget) {
+    if ((playerCard > bankerCard && target === "Player") ||
+        (playerCard < bankerCard && target === "Banker") ||
+        (playerCard === bankerCard && target === "Tie")) {
         balance += betAmount;
-        points += betAmount / 2;
-        alert(`You won! Target: ${betTarget}`);
+        points += 50;
+        records.push(target.charAt(0));
+        alert("You won!");
     } else {
         balance -= betAmount;
-        alert(`You lost! Target: ${betTarget}`);
+        alert("You lost!");
     }
 
-    document.getElementById("balance").textContent = balance;
-    document.getElementById("points").textContent = points;
+    updateStatus();
+    updateRecords();
+}
 
-    const gameRecords = document.getElementById("game-records");
-    const record = document.createElement("div");
-    record.textContent = result.charAt(0);
-    gameRecords.appendChild(record);
+function updateStatus() {
+    document.getElementById("balance").innerText = balance;
+    document.getElementById("points").innerText = points;
+}
 
-    if (gameRecords.children.length > 16) {
-        gameRecords.removeChild(gameRecords.firstChild);
-    }
+function updateRecords() {
+    const recordsDiv = document.getElementById("records");
+    recordsDiv.innerHTML = records
+        .slice(-16)
+        .map((record) => `<div>${record}</div>`)
+        .join("");
 }
 
 function openRewardPopup() {
-    let choice = prompt("Choose a reward:\n1. 200 Points: +200 Credit\n2. 1000 Points: Welcome Bonus 60%\n3. 3000 Points: Free 8.88");
-    if (!choice) return;
+    const reward = prompt(
+        "Choose a reward:\n1. 200 Points: +200 Credit\n2. 1000 Points: Welcome Bonus\n3. 3000 Points: Free 8.88"
+    );
 
-    choice = parseInt(choice);
-    if (choice === 1 && points >= 200) {
-        points -= 200;
+    if (reward === "1" && points >= 200) {
         balance += 200;
-        alert("You redeemed +200 Credit!");
-    } else if (choice === 2 && points >= 1000) {
+        points -= 200;
+        alert("You redeemed 200 Points for +200 Credit!");
+    } else if (reward === "2" && points >= 1000) {
         points -= 1000;
-        alert("You redeemed Welcome Bonus！");
-    } else if (choice === 3 && points >= 3000) {
+        alert("You redeemed 1000 Points for Welcome Bonus!");
+    } else if (reward === "3" && points >= 3000) {
         points -= 3000;
-        alert("You redeemed Free 8.88!");
+        alert("You redeemed 3000 Points for Free 8.88!");
     } else {
-        alert("Not enough points for this reward.");
+        alert("Not enough points to redeem this reward.");
     }
 
-    document.getElementById("balance").textContent = balance;
-    document.getElementById("points").textContent = points;
+    updateStatus();
 }

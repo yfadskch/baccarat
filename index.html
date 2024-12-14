@@ -9,51 +9,58 @@
 <body>
     <div class="game-container">
         <h1>Baccarat Game</h1>
+
         <div class="cards-container">
             <div class="player-cards">
                 <h2>Player Cards</h2>
-                <div id="player-cards" class="card-display"></div>
+                <div id="player-cards">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
             </div>
             <div class="banker-cards">
                 <h2>Banker Cards</h2>
-                <div id="banker-cards" class="card-display"></div>
+                <div id="banker-cards">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
             </div>
         </div>
 
-        <div class="info-container">
+        <div class="status">
             <p>Current Balance: <span id="balance">1000</span></p>
             <p>Current Points: <span id="points">0</span></p>
             <p>Current Bet Amount: <span id="bet-amount">Not Selected</span></p>
-            <p>Current Target: <span id="bet-target">Not Selected</span></p>
+            <p>Current Target: <span id="target">Not Selected</span></p>
         </div>
 
-        <div class="bet-container">
+        <div class="bet-options">
             <h3>Select Bet Amount:</h3>
-            <div class="bet-buttons">
-                <button class="bet-btn" onclick="selectBet(100)">100</button>
-                <button class="bet-btn" onclick="selectBet(200)">200</button>
-                <button class="bet-btn" onclick="selectBet(500)">500</button>
-            </div>
+            <button onclick="selectBet(100)">100</button>
+            <button onclick="selectBet(200)">200</button>
+            <button onclick="selectBet(500)">500</button>
         </div>
 
-        <div class="target-container">
+        <div class="target-options">
             <h3>Select Target:</h3>
-            <div class="target-buttons">
-                <button class="target-btn" onclick="selectTarget('Player')">Player</button>
-                <button class="target-btn" onclick="selectTarget('Banker')">Banker</button>
-                <button class="target-btn" onclick="selectTarget('Tie')">Tie</button>
+            <button onclick="selectTarget('Player')">Player</button>
+            <button onclick="selectTarget('Banker')">Banker</button>
+            <button onclick="selectTarget('Tie')">Tie</button>
+        </div>
+
+        <div class="game-actions">
+            <button class="start-game" onclick="startGame()">Start Game</button>
+            <button class="redeem-rewards" onclick="openRewardPopup()">Redeem Rewards</button>
+        </div>
+
+        <div class="free-credit">
+            <a href="https://heylink.me/klking88/" target="_blank">Free Credit Tanpa Deposit</a>
+        </div>
+
+        <div class="game-records">
+            <h3>Game Records</h3>
+            <div id="records">
+                <!-- Game records will be dynamically inserted here -->
             </div>
         </div>
-
-        <div class="action-buttons">
-            <button class="start-btn" onclick="startGame()">Start Game</button>
-            <button class="reward-btn" onclick="openRewardPopup()">Redeem Rewards</button>
-        </div>
-
-        <a href="https://heylink.me/klking88/" target="_blank" class="free-credit">Free Credit Tanpa Deposit</a>
-
-        <h3>Game Records</h3>
-        <div id="game-records" class="records-container"></div>
     </div>
 
     <script src="script.js"></script>

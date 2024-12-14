@@ -9,105 +9,95 @@ body {
 }
 
 .game-container {
+    width: 90%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
     background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
     border-radius: 10px;
 }
 
-h1, h2, h3 {
-    color: #00ff00;
+h1 {
+    color: green;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
 .cards-container {
     display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }
 
-.card-display {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
+.player-cards, .banker-cards {
+    text-align: center;
 }
 
-.card-display div {
-    width: 50px;
-    height: 75px;
-    background: white;
+.status p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.bet-options, .target-options, .game-actions {
+    margin: 15px 0;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.start-game {
+    background-color: red;
+    color: white;
+}
+
+.redeem-rewards {
+    background-color: yellow;
     color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-.bet-buttons, .target-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.bet-btn, .target-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.bet-btn {
-    background-color: #007bff;
-    color: white;
-}
-
-.target-btn {
-    background-color: #28a745;
-    color: white;
-}
-
-.start-btn {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.reward-btn {
-    background-color: #ffc107;
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 .free-credit {
-    display: block;
     margin: 20px 0;
-    color: #ffc107;
-    text-decoration: none;
-    font-weight: bold;
 }
 
-.records-container {
+.free-credit a {
+    color: yellow;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.free-credit a:hover {
+    text-decoration: underline;
+}
+
+.game-records {
+    margin-top: 20px;
+}
+
+#records {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 10px;
-    justify-content: center;
+    justify-items: center;
 }
 
-.records-container div {
-    width: 40px;
-    height: 40px;
+#records div {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     background-color: blue;
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+    font-size: 0.8rem;
 }
