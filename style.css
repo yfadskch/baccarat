@@ -1,100 +1,118 @@
-let balance = 1000;
-let points = 0;
-let currentBet = null;
-let currentTarget = null;
-
-function selectBet(amount) {
-    currentBet = amount;
-    document.getElementById('current-bet').textContent = amount;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #1e1e1e;
+    color: white;
+    margin: 0;
+    padding: 0;
 }
 
-function selectTarget(target) {
-    currentTarget = target;
-    document.getElementById('current-target').textContent = target;
+.container {
+    max-width: 90%;
+    margin: 20px auto;
+    background: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-function startGame() {
-    if (!currentBet || !currentTarget) {
-        alert("Please select both a bet amount and a target!");
-        return;
-    }
-
-    const playerCards = [getRandomCard(), getRandomCard()];
-    const bankerCards = [getRandomCard(), getRandomCard()];
-
-    updateCards('player-cards', playerCards);
-    updateCards('banker-cards', bankerCards);
-
-    const playerScore = calculateScore(playerCards);
-    const bankerScore = calculateScore(bankerCards);
-
-    let result = '';
-    if (playerScore > bankerScore) {
-        result = 'Player';
-    } else if (bankerScore > playerScore) {
-        result = 'Banker';
-    } else {
-        result = 'Tie';
-    }
-
-    updateBalance(result);
-    addRecord(result);
+h1 {
+    color: #2c7d2b;
+    font-size: 24px;
 }
 
-function getRandomCard() {
-    return Math.floor(Math.random() * 9) + 1;
+.card-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-function calculateScore(cards) {
-    return cards.reduce((sum, card) => sum + card, 0) % 10;
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-function updateCards(elementId, cards) {
-    const cardContainer = document.getElementById(elementId);
-    cardContainer.innerHTML = '';
-    cards.forEach(card => {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'card';
-        cardElement.textContent = card;
-        cardContainer.appendChild(cardElement);
-    });
+.info-section {
+    margin: 20px 0;
 }
 
-function updateBalance(result) {
-    if (result === currentTarget) {
-        balance += currentBet;
-        points += currentBet / 2;
-    } else {
-        balance -= currentBet;
-        points += currentBet / 2;
-    }
-    document.getElementById('balance').textContent = balance;
-    document.getElementById('points').textContent = points;
+.info {
+    font-size: 14px;
+    margin: 5px 0;
 }
 
-function addRecord(result) {
-    const recordGrid = document.getElementById('record-grid');
-    const recordElement = document.createElement('div');
-    recordElement.className = 'record ' + result.toLowerCase();
-    recordElement.textContent = result[0];
-    recordGrid.appendChild(recordElement);
+.bet-buttons button,
+.target-buttons button,
+#start-game,
+#redeem-rewards {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* Modal functions */
-function openRewardPopup() {
-    document.getElementById('reward-modal').style.display = 'block';
+.bet-buttons button {
+    background-color: #007bff;
+    color: white;
 }
 
-function closeRewardPopup() {
-    document.getElementById('reward-modal').style.display = 'none';
+.target-buttons button {
+    background-color: #28a745;
+    color: white;
 }
 
-function redeemReward(pointsRequired) {
-    if (points >= pointsRequired) {
-        points -= pointsRequired;
-        document.getElementById('points').textContent = points;
-        alert("Reward redeemed successfully!");
-    } else {
-        alert("Not enough points to redeem this reward.");
-    }
+#start-game {
+    background-color: #dc3545;
+    color: white;
+}
+
+#redeem-rewards {
+    background-color: #ffc107;
+    color: black;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+.modal-content button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
