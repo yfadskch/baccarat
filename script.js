@@ -2,7 +2,6 @@ let balance = 1000;
 let points = 0;
 let currentBet = null;
 let currentTarget = null;
-let recordGrid = [];
 
 function selectBet(amount) {
     currentBet = amount;
@@ -38,7 +37,8 @@ function startGame() {
         result = "Tie";
     }
 
-    updateBalanceAndPoints(result);
+    updateBalance(result);
+    updatePoints();
     addRecord(result);
 }
 
@@ -61,30 +61,26 @@ function updateCards(elementId, cards) {
     });
 }
 
-function updateBalanceAndPoints(result) {
+function updateBalance(result) {
     if (result === currentTarget) {
         balance += currentBet;
     } else {
         balance -= currentBet;
     }
-    points += currentBet / 2;
     document.getElementById('balance').textContent = balance;
+}
+
+function updatePoints() {
+    points += currentBet / 2;
     document.getElementById('points').textContent = points;
 }
 
 function addRecord(result) {
     const recordGridElement = document.getElementById('record-grid');
     const recordElement = document.createElement('div');
-    recordElement.className =
-        'record ' +
-        (result === 'Player' ? 'player' : result === 'Banker' ? 'banker' : 'tie');
-    recordElement.textContent = result === 'Player' ? 'P' : result === 'Banker' ? 'B' : 'T';
-    recordGrid.push(recordElement);
-    if (recordGrid.length > 16) {
-        recordGrid.shift();
-    }
-    recordGridElement.innerHTML = '';
-    recordGrid.forEach(record => recordGridElement.appendChild(record));
+    recordElement.className = 'record';
+    recordElement.textContent = result[0];
+    recordGridElement.appendChild(recordElement);
 }
 
 function openRewardPopup() {
