@@ -1,86 +1,59 @@
 body {
+    font-family: Arial, sans-serif;
+    text-align: center;
     background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29ucjJ5Y3JxcndmdTdnOHFmeTA2dXI4b3hyYjAycDJmajZzenNtMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
-
-h1 {
-    color: #FFD700;
-}
-
-.game-container, .records {
-    margin: 20px auto;
-    max-width: 600px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.card-section {
-    display: flex;
-    justify-content: space-around;
-}
-
-.cards {
-    display: flex;
-    gap: 10px;
-}
-
-.card {
-    width: 50px;
-    height: 80px;
-    background: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
 }
 
 button {
-    padding: 10px 15px;
     margin: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-.start-btn {
-    background: red;
+.start-game {
+    background-color: red;
     color: white;
 }
 
-.reward-btn {
-    background: yellow;
+.redeem-rewards {
+    background-color: yellow;
     color: black;
 }
 
 .credit-link {
-    display: block;
-    margin-top: 10px;
-    color: #FFD700;
+    color: orange;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .game-records {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
     gap: 5px;
 }
 
 .record {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
     color: white;
-    font-weight: bold;
 }
 
-.record.player { background: blue; }
-.record.banker { background: red; }
-.record.tie { background: green; }
+.record.player { background-color: blue; }
+.record.banker { background-color: red; }
+.record.tie { background-color: green; }
+
+.card {
+    font-size: 2rem;
+    margin: 10px;
+}
