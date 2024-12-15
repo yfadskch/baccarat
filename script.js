@@ -72,7 +72,19 @@ function renderCards(elementId, cards) {
 function addGameRecord(result) {
   const recordDiv = document.createElement('div');
   recordDiv.classList.add('record', result.toLowerCase());
-  recordDiv.textContent = result === 'Player' ? 'P' : result === 'Banker' ? 'B' : 'T';
+  if (result === 'Player') {
+    recordDiv.textContent = 'P';
+    recordDiv.style.backgroundColor = 'blue';
+    recordDiv.style.color = 'white';
+  } else if (result === 'Banker') {
+    recordDiv.textContent = 'B';
+    recordDiv.style.backgroundColor = 'red';
+    recordDiv.style.color = 'white';
+  } else if (result === 'Tie') {
+    recordDiv.textContent = 'T';
+    recordDiv.style.backgroundColor = 'green';
+    recordDiv.style.color = 'white';
+  }
 
   const recordsContainer = document.getElementById('game-records');
   if (recordsContainer.children.length >= 16) {
