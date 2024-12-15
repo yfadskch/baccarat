@@ -1,92 +1,86 @@
 body {
-  background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29ucjJ5Y3JxcndmdTdnOHFmeTA2dXI4b3hyYjAycDJmajZzenNtMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
-  background-size: cover;
-  font-family: Arial, sans-serif;
-  color: white;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+    background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29ucjJ5Y3JxcndmdTdnOHFmeTA2dXI4b3hyYjAycDJmajZzenNtMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xytwrhaA1JSbBtgxew/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
-.game-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+h1 {
+    color: #FFD700;
+}
+
+.game-container, .records {
+    margin: 20px auto;
+    max-width: 600px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.card-section {
+    display: flex;
+    justify-content: space-around;
 }
 
 .cards {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
+    display: flex;
+    gap: 10px;
 }
 
-.card-display {
-  font-size: 20px;
-  color: #fff;
+.card {
+    width: 50px;
+    height: 80px;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
 }
 
-.bet-buttons button, .target-buttons button, .start-button, .reward-button {
-  font-size: 16px;
-  margin: 5px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.bet-buttons button {
-  background-color: blue;
-  color: white;
+.start-btn {
+    background: red;
+    color: white;
 }
 
-.target-buttons button {
-  background-color: green;
-  color: white;
+.reward-btn {
+    background: yellow;
+    color: black;
 }
 
-.start-button {
-  background-color: red;
-  color: white;
+.credit-link {
+    display: block;
+    margin-top: 10px;
+    color: #FFD700;
 }
 
-.reward-button {
-  background-color: yellow;
-  color: black;
-}
-
-#game-records {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(2, 50px);
-  gap: 5px;
+.game-records {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
 }
 
 .record {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
 }
 
-.record.p {
-  background-color: blue;
-  color: white;
-}
-
-.record.b {
-  background-color: red;
-  color: white;
-}
-
-.record.t {
-  background-color: green;
-  color: white;
-}
+.record.player { background: blue; }
+.record.banker { background: red; }
+.record.tie { background: green; }
