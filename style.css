@@ -24,8 +24,22 @@ body {
 }
 
 .card-display {
-  font-size: 20px;
-  color: #fff;
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  width: 60px;
+  height: 90px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .bet-buttons button, .target-buttons button, .start-button, .reward-button {
@@ -76,17 +90,17 @@ body {
   font-weight: bold;
 }
 
-.record.player {
+.record.p {
   background-color: blue;
   color: white;
 }
 
-.record.banker {
+.record.b {
   background-color: red;
   color: white;
 }
 
-.record.tie {
+.record.t {
   background-color: green;
   color: white;
 }

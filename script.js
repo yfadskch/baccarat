@@ -26,8 +26,8 @@ function startGame() {
     return;
   }
 
-  const playerCards = [Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1];
-  const bankerCards = [Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1];
+  const playerCards = [generateCard(), generateCard()];
+  const bankerCards = [generateCard(), generateCard()];
 
   const playerTotal = playerCards.reduce((a, b) => a + b, 0) % 10;
   const bankerTotal = bankerCards.reduce((a, b) => a + b, 0) % 10;
@@ -54,6 +54,10 @@ function startGame() {
   updateDisplay();
 }
 
+function generateCard() {
+  return Math.floor(Math.random() * 13) + 1; // Generate card values from 1 to 13
+}
+
 function renderCards(elementId, cards) {
   const container = document.getElementById(elementId);
   container.innerHTML = '';
@@ -68,7 +72,7 @@ function renderCards(elementId, cards) {
 function addGameRecord(result) {
   const recordDiv = document.createElement('div');
   recordDiv.classList.add('record', result.toLowerCase());
-  recordDiv.textContent = result === 'Player' ? '闲' : result === 'Banker' ? '庄' : '和';
+  recordDiv.textContent = result === 'Player' ? 'P' : result === 'Banker' ? 'B' : 'T';
 
   const recordsContainer = document.getElementById('game-records');
   if (recordsContainer.children.length >= 16) {
