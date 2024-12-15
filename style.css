@@ -76,17 +76,17 @@ body {
   font-weight: bold;
 }
 
-.record.p {
+.record.player {
   background-color: blue;
   color: white;
 }
 
-.record.b {
+.record.banker {
   background-color: red;
   color: white;
 }
 
-.record.t {
+.record.tie {
   background-color: green;
   color: white;
 }

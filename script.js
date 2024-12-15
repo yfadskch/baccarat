@@ -68,7 +68,7 @@ function renderCards(elementId, cards) {
 function addGameRecord(result) {
   const recordDiv = document.createElement('div');
   recordDiv.classList.add('record', result.toLowerCase());
-  recordDiv.textContent = result === 'Player' ? 'P' : result === 'Banker' ? 'B' : 'T';
+  recordDiv.textContent = result === 'Player' ? '闲' : result === 'Banker' ? '庄' : '和';
 
   const recordsContainer = document.getElementById('game-records');
   if (recordsContainer.children.length >= 16) {
